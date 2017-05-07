@@ -1,5 +1,6 @@
 package userInterface;
 
+import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.BufferedReader;
@@ -7,6 +8,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -15,9 +18,14 @@ import java.io.Writer;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JEditorPane;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -31,6 +39,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -48,49 +57,61 @@ import javafx.stage.Stage;
 public class view {
 	final private model model;
 	final private Stage stage;
-
+	
 	// Define the fields in the GUI
 	protected TextField txtCalc; 
-	protected TableView<Member> tableView;
-	protected Button button = new Button("Refresh list");
+	protected TableView<Person> tableView;
+	protected Button buttonSortName = new Button("Sort By: Name");
+	protected Button buttonSortAge = new Button("Sort By: Age");
+	protected Button buttonSortRank = new Button("Sort By: Rank");
+	
+	protected Button btnSearch = new Button("Search");
+	protected Button btnClean = new Button("Clean");
+	TextField searchBoxByName = new TextField();
+	TextField searchBoxByFamilyName = new TextField();
+	TextField firstName = new TextField();
+	TextField familyName = new TextField();
+	TextField age = new TextField();
+	TextField address = new TextField();
+	TextField rank = new TextField();
+	TextField payment = new TextField();
 
 	protected view(Stage stage, model model) throws IOException, URISyntaxException {
 		this.stage = stage;
 		this.model = model;
-
+		
+		
 		// Initialize TableView
-		TableView<Member> tableView = createTableView();
+		TableView<Person> tableView = createTableView();
 		BorderPane Border = new BorderPane();
 		HBox root = new HBox();
 
 		GridPane basicInfo = new GridPane();
 		GridPane personalData = new GridPane();
-
 		
 		personalData.add( new Label("First Name:"), 0,0);
-		TextField firstName = new TextField();
 		personalData.add(firstName, 1, 0);
 		
 		personalData.add( new Label ("Family Name:"), 0, 1);
-		TextField familyName = new TextField();
+
 		personalData.add(familyName, 1, 1);
 		
 		personalData.add( new Label("Age:"), 0, 2);
-		TextField age = new TextField();
+
 		personalData.add(age, 1, 2);
 		
 		personalData.add( new Label("Address:"), 0, 3);
-		TextField address = new TextField();
+		
 		personalData.add(address, 1, 3);
 		
 		personalData.add( new Label("Rank:"), 0, 4);
-		TextField rank = new TextField();
+		
 		personalData.add(rank, 1, 4);
 		
 		personalData.add(new Label(), 0, 5);
 		
 		personalData.add( new Label("Payment:"), 0, 5);
-		TextField payment = new TextField();
+		
 		personalData.add(payment, 1, 6);
 		
 		personalData.add(new Label(), 0, 7);
@@ -98,33 +119,61 @@ public class view {
         Button aButton = new Button("Add Member");
         personalData.add(aButton, 1, 8);
         GridPane.setHalignment(aButton, HPos.LEFT);
-       
-        //Data of Members
-        PrintWriter writer = new PrintWriter("file.txt", "UTF-8");
-       
-        // write info into file
-        aButton.setOnAction(e -> {	
-            writer.write(firstName.getText()); writer.println();
-            writer.write(familyName.getText()); writer.println();
-            writer.write(age.getText()); writer.println();
-            writer.write(address.getText()); writer.println();
-            writer.write(rank.getText()); writer.println();
-            writer.write(payment.getText()); writer.println();
-			writer.close();
-            
-        });
-		
-		// personalData.add(space, 2, 2);
 
+        personalData.add(new Label(), 1, 9);
+        
+        personalData.add(searchBoxByName, 1, 10);
+        
+        personalData.add(searchBoxByFamilyName, 2, 10);
+        personalData.add(btnClean, 0, 8);
+
+        personalData.add(btnSearch, 0, 10);
+        GridPane.setHalignment(btnSearch, HPos.LEFT);
+		
+        
+        btnClean.setOnAction(e -> {
+        	firstName.setText("");
+        	familyName.setText("");
+        	age.setText("");
+        	address.setText("");
+        	rank.setText("");
+        	payment.setText("");
+        });
+        
+        //Data of Members
+        // write info into file
+        aButton.setOnAction(e -> {        	
+            try (FileWriter writer = new FileWriter(new File("file.txt"), true);){
+				writer.write(firstName.getText()); writer.write(System.getProperty( "line.separator" ));
+				 writer.write(familyName.getText()); writer.write(System.getProperty( "line.separator" ));
+		            writer.write(age.getText()); writer.write(System.getProperty( "line.separator" ));
+		            writer.write(address.getText()); writer.write(System.getProperty( "line.separator" ));
+		            writer.write(rank.getText()); writer.write(System.getProperty( "line.separator" ));
+		            writer.write(payment.getText()); writer.write(System.getProperty( "line.separator" ));
+		            writer.close();
+			} catch (Exception e1) {
+				
+				e1.printStackTrace();
+			} 
+        });
+        
 		// Layout root pane
 		VBox Vtable = new VBox();
 		Vtable.setPadding(new Insets(10)); // around edge of VBox
 		Vtable.setSpacing(10); // between elements
 		VBox.setVgrow(tableView, Priority.ALWAYS); // Vertical resize goes to the table
-		Vtable.getChildren().addAll(tableView, button);
+		Vtable.getChildren().addAll(tableView, buttonSortName,buttonSortAge,
+				buttonSortRank);
+		
+		copyFiles copy = new copyFiles();
+		copy.sortByAge();
+		copy.sortByRank();
+
 		
 		// Size constraints
-		button.setMaxWidth(Double.MAX_VALUE); // button can grow horizontally
+		buttonSortName.setMaxWidth(Double.MAX_VALUE); // button can grow horizontally
+		buttonSortAge.setMaxWidth(Double.MAX_VALUE); // button can grow horizontally
+		buttonSortRank.setMaxWidth(Double.MAX_VALUE); // button can grow horizontally
 
 		root.getChildren().addAll(Vtable, personalData);
 		
@@ -144,23 +193,23 @@ public class view {
 		// Scene scene = new Scene(table.func());
 		scene.getStylesheets().add(getClass().getResource("Calculator.css").toExternalForm());
 		stage.setScene(scene);
-		stage.setTitle("Calculator");		
+		stage.setTitle("Table Soccer");		
 		
 	}
 	
 	
-	private TableView<Member> createTableView() {
+	private TableView<Person> createTableView() {
 		tableView = new TableView<>();
 
 		// Each column needs a title, and a source of data.
 
-		TableColumn<Member, String> colDecimal = new TableColumn<>("Name");
-		colDecimal.setCellValueFactory(c -> c.getValue().asNameProperty());
-		tableView.getColumns().add(colDecimal);
+		TableColumn<Person, String> colName = new TableColumn<>("Name");
+		colName.setCellValueFactory(c -> c.getValue().asNameProperty());
+		tableView.getColumns().add(colName);
 
-		TableColumn<Member, String> colBinary = new TableColumn<>("Family Name");
-		colBinary.setCellValueFactory(c -> c.getValue().asFamilyNameProperty());
-		tableView.getColumns().add(colBinary);
+		TableColumn<Person, String> colFamilyName = new TableColumn<>("Family Name");
+		colFamilyName.setCellValueFactory(c -> c.getValue().asFamilyNameProperty());
+		tableView.getColumns().add(colFamilyName);
 
 		// Finally, attach the tab
 		tableView.setItems(model.getElements());
