@@ -2,6 +2,7 @@ package login;
 
 
 import java.io.Console;
+import java.io.IOException;
 import java.util.Scanner;
 
 import javax.swing.plaf.synth.SynthSpinnerUI;
@@ -19,13 +20,14 @@ public class Validator extends Application {
         model = new Validator_Model();
         view = new Validator_View(primaryStage, model);
         controller = new Validator_Controller(model, view);
-
+        boolean flag;
         // Display the GUI after all initialization is complete
         
-        
-        view.start();
-        view.passOrFail();
+        view.start();      
+       
     }
+    
+   
 
     public static void main(String[] args) {
         launch(args);

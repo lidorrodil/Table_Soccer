@@ -1,10 +1,13 @@
 package userInterface;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.Console;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -20,9 +23,11 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
@@ -31,6 +36,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 import javax.swing.text.html.HTML;
 
 import javafx.application.Application;
@@ -53,20 +59,22 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import login.Validator;
 
 public class view {
 	final private model model;
 	final private Stage stage;
-	
+
 	// Define the fields in the GUI
-	protected TextField txtCalc; 
+	protected TextField txtCalc;
 	protected TableView<Person> tableView;
 	protected Button buttonSortName = new Button("Sort By: Name");
 	protected Button buttonSortAge = new Button("Sort By: Age");
 	protected Button buttonSortRank = new Button("Sort By: Rank");
-	
+	Button aButton = new Button("Add Member");
+
 	protected Button btnSearch = new Button("Search");
-	protected Button btnClean = new Button("Clean");
+	protected Button btnClean = new Button("Clean Fields");
 	TextField searchBoxByName = new TextField();
 	TextField searchBoxByFamilyName = new TextField();
 	TextField firstName = new TextField();
@@ -75,12 +83,22 @@ public class view {
 	TextField address = new TextField();
 	TextField rank = new TextField();
 	TextField payment = new TextField();
+	copyFiles copy = new copyFiles();
+
+	String username = "admin";
+	String password = "admin";
+	protected TextField name;
+	protected TextField pass;
+	Button login = new Button("Login");
+	boolean flag = false;
+	
+	protected Button btnEdit = new Button("Edit");
+	protected Button btnRemove = new Button("Remove");
 
 	protected view(Stage stage, model model) throws IOException, URISyntaxException {
 		this.stage = stage;
 		this.model = model;
-		
-		
+
 		// Initialize TableView
 		TableView<Person> tableView = createTableView();
 		BorderPane Border = new BorderPane();
@@ -89,95 +107,132 @@ public class view {
 		GridPane basicInfo = new GridPane();
 		GridPane personalData = new GridPane();
 		
-		personalData.add( new Label("First Name:"), 0,0);
-		personalData.add(firstName, 1, 0);
-		
-		personalData.add( new Label ("Family Name:"), 0, 1);
+		// final ImageView imv = new ImageView();
+	   //  final Image image2 = new Image(Main.class.getResourceAsStream("protips.png"));
+	   //   imv.setImage(image2);
+	      
+	     
+		personalData.add(new Label("First Name:"), 0, 2);
+		personalData.add(firstName, 1, 2);
 
-		personalData.add(familyName, 1, 1);
-		
-		personalData.add( new Label("Age:"), 0, 2);
+		personalData.add(new Label("Family Name:"), 0, 3);
 
-		personalData.add(age, 1, 2);
-		
-		personalData.add( new Label("Address:"), 0, 3);
-		
-		personalData.add(address, 1, 3);
-		
-		personalData.add( new Label("Rank:"), 0, 4);
-		
-		personalData.add(rank, 1, 4);
-		
-		personalData.add(new Label(), 0, 5);
-		
-		personalData.add( new Label("Payment:"), 0, 5);
-		
-		personalData.add(payment, 1, 6);
-		
-		personalData.add(new Label(), 0, 7);
-		
-        Button aButton = new Button("Add Member");
-        personalData.add(aButton, 1, 8);
-        GridPane.setHalignment(aButton, HPos.LEFT);
+		personalData.add(familyName, 1, 3);
 
-        personalData.add(new Label(), 1, 9);
-        
-        personalData.add(searchBoxByName, 1, 10);
-        
-        personalData.add(searchBoxByFamilyName, 2, 10);
-        personalData.add(btnClean, 0, 8);
+		personalData.add(new Label("Age:"), 0, 4);
 
-        personalData.add(btnSearch, 0, 10);
-        GridPane.setHalignment(btnSearch, HPos.LEFT);
+		personalData.add(age, 1, 4);
+
+		personalData.add(new Label("Address:"), 0, 5);
+
+		personalData.add(address, 1, 5);
+
+		personalData.add(new Label("Rank:"), 0, 6);
+
+		personalData.add(rank, 1, 6);
+
+		//personalData.add(new Label(), 0, 7);
+
+		personalData.add(new Label("Payment:"), 0, 7);
+
+		personalData.add(payment, 1, 7);
+
+		personalData.add(new Label(), 0, 9);
+
 		
+		personalData.add(aButton, 1, 9);
+		GridPane.setHalignment(aButton, HPos.LEFT);
+		personalData.add(btnEdit, 1, 10);
+		GridPane.setHalignment(btnEdit, HPos.LEFT);
+
+		personalData.add(new Label(), 1, 10);
+		
+		
+		/*ImageView imageView = new ImageView();
+		imageView.setImage(new Image("protips.png"));
+		Border.setRight(imageView);*/
+		
+
         
-        btnClean.setOnAction(e -> {
-        	firstName.setText("");
-        	familyName.setText("");
-        	age.setText("");
-        	address.setText("");
-        	rank.setText("");
-        	payment.setText("");
-        });
         
-        //Data of Members
-        // write info into file
-        aButton.setOnAction(e -> {        	
-            try (FileWriter writer = new FileWriter(new File("file.txt"), true);){
-				writer.write(firstName.getText()); writer.write(System.getProperty( "line.separator" ));
-				 writer.write(familyName.getText()); writer.write(System.getProperty( "line.separator" ));
-		            writer.write(age.getText()); writer.write(System.getProperty( "line.separator" ));
-		            writer.write(address.getText()); writer.write(System.getProperty( "line.separator" ));
-		            writer.write(rank.getText()); writer.write(System.getProperty( "line.separator" ));
-		            writer.write(payment.getText()); writer.write(System.getProperty( "line.separator" ));
-		            writer.close();
+        
+		VBox Vbox = new VBox();
+		Vbox.setPadding(new Insets(10)); // around edge of VBox
+		Vbox.setSpacing(10); // between elements
+		//VBox.setVgrow(tableView, Priority.ALWAYS); // Vertical resize goes to
+													// the table
+		Vbox.getChildren().addAll(btnSearch, btnRemove);
+
+		//personalData.add(btnSearch, 0, 0);
+		//GridPane.setHalignment(btnSearch, HPos.LEFT);
+		personalData.add(searchBoxByName, 1, 0);
+		personalData.add(searchBoxByFamilyName, 2, 0);
+		//personalData.add(btnRemove, 0, 1);
+	//	GridPane.setHalignment(btnRemove, HPos.LEFT);
+		personalData.add(Vbox, 0, 0);
+
+		//GridPane.setHalignment(btnSearch, HPos.LEFT);
+
+		personalData.add(btnClean, 0, 10);
+
+		
+
+		
+		btnClean.setOnAction(e -> {
+			firstName.setText("");
+			familyName.setText("");
+			age.setText("");
+			address.setText("");
+			rank.setText("");
+			payment.setText("");
+		});
+		
+		// Data of Members
+		// write info into file
+		/*aButton.setOnAction(e -> {
+			try (FileWriter writer = new FileWriter(new File("file.txt"), true);) {
+				writer.write(firstName.getText());
+				writer.write(System.getProperty("line.separator"));
+				writer.write(familyName.getText());
+				writer.write(System.getProperty("line.separator"));
+				writer.write(age.getText());
+				writer.write(System.getProperty("line.separator"));
+				writer.write(address.getText());
+				writer.write(System.getProperty("line.separator"));
+				writer.write(rank.getText());
+				writer.write(System.getProperty("line.separator"));
+				writer.write(payment.getText());
+				writer.write(System.getProperty("line.separator"));
+				writer.close();
 			} catch (Exception e1) {
-				
+
 				e1.printStackTrace();
-			} 
-        });
-        
+			}
+		});*/
+
 		// Layout root pane
 		VBox Vtable = new VBox();
 		Vtable.setPadding(new Insets(10)); // around edge of VBox
 		Vtable.setSpacing(10); // between elements
-		VBox.setVgrow(tableView, Priority.ALWAYS); // Vertical resize goes to the table
-		Vtable.getChildren().addAll(tableView, buttonSortName,buttonSortAge,
-				buttonSortRank);
-		
-		copyFiles copy = new copyFiles();
-		copy.sortByAge();
-		copy.sortByRank();
+		VBox.setVgrow(tableView, Priority.ALWAYS); // Vertical resize goes to
+													// the table
+		Vtable.getChildren().addAll(tableView, buttonSortName, buttonSortAge, buttonSortRank);
 
-		
+
 		// Size constraints
-		buttonSortName.setMaxWidth(Double.MAX_VALUE); // button can grow horizontally
-		buttonSortAge.setMaxWidth(Double.MAX_VALUE); // button can grow horizontally
-		buttonSortRank.setMaxWidth(Double.MAX_VALUE); // button can grow horizontally
-
+		buttonSortName.setMaxWidth(Double.MAX_VALUE); // button can grow
+														// horizontally
+		buttonSortAge.setMaxWidth(Double.MAX_VALUE); // button can grow
+														// horizontally
+		buttonSortRank.setMaxWidth(Double.MAX_VALUE); // button can grow
+														// horizontally
+	
+		//root.getChildren().addAll(Vtable, personalData,imv);
 		root.getChildren().addAll(Vtable, personalData);
 		
+
 		Border.setTop(root);
+	
 
 		ColumnConstraints cc = new ColumnConstraints();
 		cc.setPercentWidth(15);
@@ -193,11 +248,10 @@ public class view {
 		// Scene scene = new Scene(table.func());
 		scene.getStylesheets().add(getClass().getResource("Calculator.css").toExternalForm());
 		stage.setScene(scene);
-		stage.setTitle("Table Soccer");		
-		
+		stage.setTitle("Table Soccer");
+
 	}
-	
-	
+
 	private TableView<Person> createTableView() {
 		tableView = new TableView<>();
 
@@ -213,12 +267,39 @@ public class view {
 
 		// Finally, attach the tab
 		tableView.setItems(model.getElements());
-		
+
 		return tableView;
 	}
 
-	public void start() {
+	public void start()   {
+	
 		stage.show();
+		// System.out.println("Step 2");
+
+	}
+
+	public void login() throws IOException {
+		stage.setTitle("Access");
+
+		GridPane root2 = new GridPane();
+		name = new TextField();
+		pass = new TextField();
+		root2.add(name, 0, 0);
+		root2.add(pass, 0, 1);
+		root2.add(login, 0, 2); 
+		 
+		login.setOnAction(e -> {
+			if (name.getText().equals(username) && pass.getText().equals(password)) {
+				System.out.println("Succeed");
+				flag = true;
+				stop();
+			} else
+				System.out.println("Fail");
+		});
+		Scene scene = new Scene(root2);
+		stage.setScene(scene);
+		System.out.println("Step here");
+		
 	}
 
 	/**
@@ -227,4 +308,5 @@ public class view {
 	public void stop() {
 		stage.hide();
 	}
+
 }

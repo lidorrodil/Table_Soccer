@@ -24,7 +24,7 @@ public class model {
 	private final ObservableList<Person> elements = FXCollections.observableArrayList();
 	// private final ObservableList<SuperNumber> elements = FXCollections.obser
 	boolean flag = true;
-	
+
 	public void nameSort() {
 		elements.clear();
 
@@ -33,8 +33,8 @@ public class model {
 			try {
 				String line;
 				while ((line = br.readLine()) != null) {
-					elements.add(new Person(line, br.readLine(), br.readLine(),
-							br.readLine(), br.readLine(), br.readLine()));
+					elements.add(new Person(line, br.readLine(), br.readLine(), br.readLine(), br.readLine(),
+							br.readLine()));
 				}
 
 			} catch (IOException e) {
@@ -50,17 +50,16 @@ public class model {
 
 	public void ageSort() {
 		elements.clear();
-		try (BufferedReader br = new BufferedReader(new FileReader("sortAge.txt"));){
+		try (BufferedReader br = new BufferedReader(new FileReader("sortAge.txt"));) {
 
 			String line = br.readLine();
 			try {
-				while ((line ) != null) {
-					elements.add(new Person(line, br.readLine(), br.readLine(), 
-							br.readLine(), br.readLine(), br.readLine()));
+				while ((line) != null) {
+					elements.add(new Person(line, br.readLine(), br.readLine(), br.readLine(), br.readLine(),
+							br.readLine()));
 					line = br.readLine();
 				}
-			}
-			catch (IOException e) {
+			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -94,9 +93,19 @@ public class model {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+	}
+
+	public void remove() {
 		
 
+	}
+
+	public void edit() {
+
+	}
+	
+	public void search(){
+		
 	}
 
 	public String name() {

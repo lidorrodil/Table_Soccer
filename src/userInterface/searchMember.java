@@ -39,7 +39,7 @@ public class searchMember {
     	        lineNum++;
     	        if(fName.equals(value1) &&
     	        		familyName.equals(value2) ) { 
-    	            System.out.println("ho hum, i found it on line " +lineNum);
+    	            //System.out.println("ho hum, i found it on line " +lineNum);
     	            writer.write(fName); writer.write(System.getProperty( "line.separator" ));
     	            writer.write(familyName); writer.write(System.getProperty( "line.separator" ));
     	            writer.write(scanner.nextLine()); writer.write(System.getProperty( "line.separator" ));
@@ -50,7 +50,7 @@ public class searchMember {
     	        
     	       
     	    }
-    	    System.out.println("Step Critic2");
+    	 //   System.out.println("Step Critic2");
     	    
     	    writer.close();
     	} catch(FileNotFoundException e) { 

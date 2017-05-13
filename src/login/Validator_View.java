@@ -34,6 +34,7 @@ public class Validator_View {
         	if (name.getText().equals(username) && pass.getText().equals(password)){
         		System.out.println("Succeed");
         		flag = true;
+        		passOrFail();
         		stop();
         	}
         	else
@@ -51,6 +52,7 @@ public class Validator_View {
     
     public void start() {
         stage.show();
+        //passOrFail();
     }
     
     /**

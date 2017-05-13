@@ -15,24 +15,49 @@ import java.awt.*;
 
 public class Login  {
 	
-	public static void main(String[] args) throws FileNotFoundException {
 
-		    Scanner scan = new Scanner (new File("login.txt"));
-		    Scanner keyboard = new Scanner (System.in);
-		    String user = scan.nextLine();
-		    String pass = scan.nextLine(); // looks at selected file in scan
+	public class SOP {
+		public static void print(String s) {
+			System.out.println(s + "\n");
+		}
+	}
 
-		    String inpUser = keyboard.nextLine();
-		    String inpPass = keyboard.nextLine(); // gets input from user
+	public class Login extends Thread {
+		String name;
+		TheDemo theDemo;
 
-		    if (inpUser.equals(user) && inpPass.equals(pass)) {
-		        System.out.print("your login message");
-		    } else {
-		        System.out.print("your error message");
-		    }
-		}	
-		
-		
-		
+		public Login(String name, TheDemo theDemo) {
+			this.theDemo = theDemo;
+			this.name = name;
+			start();
+		}
+
+		@Override
+		public void run() {
+			theDemo.test(name);
+		}
+	}
+
+	public class TheDemo {
+		public synchronized void test(String name) {
+			for (int i = 0; i < 10; i++) {
+				SOP.print(name + " :: " + i);
+				try {
+					Thread.sleep(500);
+				} catch (Exception e) {
+					SOP.print(e.getMessage());
+				}
+			}
+		}
+
+		public static void main(String[] args) {
+			TheDemo theDemo = new TheDemo();
+			new Login("THREAD 1", theDemo);
+			new Login("THREAD 2", theDemo);
+			new Login("THREAD 3", theDemo);
+		}
+	}
+	
+	
 		
 }

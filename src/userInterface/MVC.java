@@ -31,6 +31,9 @@ public class MVC extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		//Validator vf = new Validator();
+		//vf.start(primaryStage);
+		
 		model = new model();
 		view = new view(primaryStage, model);
 		controller = new controller(model, view);
