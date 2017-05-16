@@ -29,7 +29,7 @@ public class model {
 		elements.clear();
 
 		try {
-			BufferedReader br = new BufferedReader(new FileReader("file.txt"));
+			BufferedReader br = new BufferedReader(new FileReader("./database/file.txt"));
 			try {
 				String line;
 				while ((line = br.readLine()) != null) {
@@ -50,7 +50,7 @@ public class model {
 
 	public void ageSort() {
 		elements.clear();
-		try (BufferedReader br = new BufferedReader(new FileReader("sortAge.txt"));) {
+		try (BufferedReader br = new BufferedReader(new FileReader("./database/sortAge.txt"));) {
 
 			String line = br.readLine();
 			try {
@@ -76,7 +76,7 @@ public class model {
 	public void rankSort() {
 		elements.clear();
 		try {
-			BufferedReader br = new BufferedReader(new FileReader("sortRank.txt"));
+			BufferedReader br = new BufferedReader(new FileReader("./database/sortRank.txt"));
 			try {
 				String line;
 				while ((line = br.readLine()) != null) {

@@ -30,7 +30,7 @@ public class copyFiles {
 
 	public void sortByAge() throws IOException {
 		Map<Integer, List> map=new HashMap<Integer, List>();
-	    BufferedReader reader = new BufferedReader(new FileReader("file.txt"));
+	    BufferedReader reader = new BufferedReader(new FileReader("./database/file.txt"));
 	      
 	    //reader.reset();
 	    //reader.
@@ -68,7 +68,7 @@ public class copyFiles {
 	//    System.out.println("Treee: "+treeMap);
 	    //Collections.sort(rows);
 	   // FileWriter writer = new FileWriter(new File("sortAge.txt"), true);
-	    FileWriter writer = new FileWriter(new File("sortAge.txt"));
+	    FileWriter writer = new FileWriter(new File("./database/sortAge.txt"));
 	    for(Integer val : treeMap.keySet()){
 	        writer.write((String)treeMap.get(val).get(0)); writer.write(System.getProperty( "line.separator" ));
 	        writer.write((String)treeMap.get(val).get(1)); writer.write(System.getProperty( "line.separator" ));
@@ -86,7 +86,7 @@ public class copyFiles {
 	
 	public void sortByRank() throws IOException {
 		Map<Integer, List> map=new HashMap<Integer, List>();
-	    BufferedReader reader = new BufferedReader(new FileReader("file.txt"));
+	    BufferedReader reader = new BufferedReader(new FileReader("./database/file.txt"));
 	      
 	    //reader.reset();
 	    //reader.
@@ -121,7 +121,7 @@ public class copyFiles {
 	    treeMap.putAll(map);
 	//    System.out.println("Treee: "+treeMap);
 	    //Collections.sort(rows);
-	    FileWriter writer = new FileWriter("sortRank.txt");
+	    FileWriter writer = new FileWriter("./database/sortRank.txt");
 	    for(Integer val : treeMap.keySet()){
 	        writer.write((String)treeMap.get(val).get(0)); writer.write(System.getProperty( "line.separator" ));
 	        writer.write((String)treeMap.get(val).get(1)); writer.write(System.getProperty( "line.separator" ));

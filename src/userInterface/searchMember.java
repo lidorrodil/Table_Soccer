@@ -26,9 +26,9 @@ public class searchMember {
 	public void searchMember2(String value1, String value2) throws Exception {
 
     	try {
-    		File file = new File("file.txt");
+    		File file = new File("./database/file.txt");
     		
-    		FileWriter writer = new FileWriter(new File("resultSearch.txt"));
+    		FileWriter writer = new FileWriter(new File("./database/resultSearch.txt"));
     	    Scanner scanner = new Scanner(file);
     	    
     	    //now read the file line by line...

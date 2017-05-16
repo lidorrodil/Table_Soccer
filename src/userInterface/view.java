@@ -3,6 +3,7 @@ package userInterface;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.BufferedReader;
@@ -23,6 +24,8 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -68,10 +71,11 @@ public class view {
 	// Define the fields in the GUI
 	protected TextField txtCalc;
 	protected TableView<Person> tableView;
-	protected Button buttonSortName = new Button("Sort By: Name");
+	protected Button buttonSortName = new Button("Show Members");
 	protected Button buttonSortAge = new Button("Sort By: Age");
 	protected Button buttonSortRank = new Button("Sort By: Rank");
 	Button aButton = new Button("Add Member");
+	
 
 	protected Button btnSearch = new Button("Search");
 	protected Button btnClean = new Button("Clean Fields");
@@ -107,10 +111,10 @@ public class view {
 		GridPane basicInfo = new GridPane();
 		GridPane personalData = new GridPane();
 		
-		// final ImageView imv = new ImageView();
-	   //  final Image image2 = new Image(Main.class.getResourceAsStream("protips.png"));
-	   //   imv.setImage(image2);
-	      
+		/*final ImageView imv = new ImageView();
+	     final Image image2 = new Image(Main.class.getResourceAsStream("protips.png"));
+	      imv.setImage(image2);*/
+
 	     
 		personalData.add(new Label("First Name:"), 0, 2);
 		personalData.add(firstName, 1, 2);
@@ -227,12 +231,13 @@ public class view {
 		buttonSortRank.setMaxWidth(Double.MAX_VALUE); // button can grow
 														// horizontally
 	
+		 
 		//root.getChildren().addAll(Vtable, personalData,imv);
 		root.getChildren().addAll(Vtable, personalData);
-		
+	
 
 		Border.setTop(root);
-	
+	 
 
 		ColumnConstraints cc = new ColumnConstraints();
 		cc.setPercentWidth(15);
@@ -271,8 +276,11 @@ public class view {
 		return tableView;
 	}
 
-	public void start()   {
-	
+	public void start() throws IOException   {
+
+	        // login();
+
+		//login();
 		stage.show();
 		// System.out.println("Step 2");
 

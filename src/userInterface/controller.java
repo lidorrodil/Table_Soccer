@@ -68,7 +68,7 @@ public class controller implements EventHandler<ActionEvent> {
 	public void addMember() {
 		System.out.println("STEP AddMember");
 		
-			try (FileWriter writer = new FileWriter(new File("file.txt"), true);) {
+			try (FileWriter writer = new FileWriter(new File("./database/file.txt"), true);) {
 				writer.write(view.firstName.getText());
 				writer.write(System.getProperty("line.separator"));
 				writer.write(view.familyName.getText());
@@ -106,7 +106,7 @@ public class controller implements EventHandler<ActionEvent> {
 
 	private void showUser() {
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader("resultSearch.txt"));
+			BufferedReader reader = new BufferedReader(new FileReader("./database/resultSearch.txt"));
 			try {
 				String tmp = reader.readLine();
 				// view.lblResultName.setText(tmp);
@@ -130,7 +130,7 @@ public class controller implements EventHandler<ActionEvent> {
 	}
 
 	public void search() {
-		try (BufferedReader reader = new BufferedReader(new FileReader("file.txt"));) {
+		try (BufferedReader reader = new BufferedReader(new FileReader("./database/file.txt"));) {
 			searchMember search = new searchMember();
 			search.searchMember2(view.searchBoxByName.getText(), view.searchBoxByFamilyName.getText());
 			showUser();
@@ -146,8 +146,8 @@ public class controller implements EventHandler<ActionEvent> {
 	public void delete(String fname, String familyName) {
 		try {
 			//BufferedReader resultSearch = new BufferedReader(new FileReader("resultSearch.txt"));
-			FileWriter write_src = new FileWriter("new_file_after_remove.txt");
-			BufferedReader read_src = new BufferedReader(new FileReader("file.txt"));
+			FileWriter write_src = new FileWriter("./database/new_file_after_remove.txt");
+			BufferedReader read_src = new BufferedReader(new FileReader("./database/file.txt"));
 
 			// String fName_to_remove = resultSearch.readLine();
 			// String familyName_to_remove = resultSearch.readLine();
@@ -197,8 +197,8 @@ public class controller implements EventHandler<ActionEvent> {
 			read_src.close();
 			//resultSearch.close();
 			System.out.println("STEP 2");
-			BufferedReader read = new BufferedReader(new FileReader("new_file_after_remove.txt"));
-			FileWriter write = new FileWriter("file.txt");
+			BufferedReader read = new BufferedReader(new FileReader("./database/new_file_after_remove.txt"));
+			FileWriter write = new FileWriter("./database/file.txt");
 			String line = "";
 			while ((line = read.readLine()) != null) {
 				write.write(line);
@@ -209,7 +209,7 @@ public class controller implements EventHandler<ActionEvent> {
 			System.out.println("STEP 4");
 			read.close();
 			write.close();
-			File file = new File("new_file_after_remove.txt");
+			File file = new File("./database/new_file_after_remove.txt");
 			// file.createNewFile();
 			file.deleteOnExit();
 			System.out.println("STEP 5");
@@ -256,7 +256,7 @@ public class controller implements EventHandler<ActionEvent> {
 	public void edit() {
 		System.out.println("STEP 1");
 		try{
-		BufferedReader resultSearch = new BufferedReader(new FileReader("resultSearch.txt"));
+		BufferedReader resultSearch = new BufferedReader(new FileReader("./database/resultSearch.txt"));
 		String name = resultSearch.readLine();
 		String family = resultSearch.readLine();
 		//delete(name, family);

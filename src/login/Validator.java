@@ -9,8 +9,9 @@ import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import userInterface.MVC;
 
-public class Validator extends Application {
+public class Validator extends Application   {
     private Validator_View view;
     private Validator_Controller controller;
     private Validator_Model model;
@@ -23,7 +24,8 @@ public class Validator extends Application {
         boolean flag;
         // Display the GUI after all initialization is complete
         
-        view.start();      
+        view.start(); 
+
        
     }
     
@@ -33,5 +35,7 @@ public class Validator extends Application {
         launch(args);
         
     }
+    
+  
 
 }
