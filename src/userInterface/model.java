@@ -33,7 +33,9 @@ public class model {
 			try {
 				String line;
 				while ((line = br.readLine()) != null) {
-					elements.add(new Person(line, br.readLine(), br.readLine(), br.readLine(), br.readLine(),
+					elements.add(new Person(line, br.readLine(),br.readLine(),
+							br.readLine(),br.readLine(),br.readLine(),
+							br.readLine(), br.readLine(), br.readLine(),
 							br.readLine()));
 				}
 
@@ -55,8 +57,9 @@ public class model {
 			String line = br.readLine();
 			try {
 				while ((line) != null) {
-					elements.add(new Person(line, br.readLine(), br.readLine(), br.readLine(), br.readLine(),
-							br.readLine()));
+					elements.add(new Person(line, br.readLine(),br.readLine(),
+							br.readLine(), br.readLine(), br.readLine(),
+							br.readLine(),br.readLine(),br.readLine(),br.readLine()));
 					line = br.readLine();
 				}
 			} catch (IOException e) {
@@ -80,8 +83,9 @@ public class model {
 			try {
 				String line;
 				while ((line = br.readLine()) != null) {
-					elements.add(new Person(line, br.readLine(), br.readLine(), br.readLine(), br.readLine(),
-							br.readLine()));
+					elements.add(new Person(line, br.readLine(), br.readLine(),
+							br.readLine(), br.readLine(), br.readLine(),
+							br.readLine(), br.readLine(), br.readLine(), br.readLine()));
 				}
 			}
 

@@ -25,18 +25,24 @@ public class Person {
 	List<String> values = new ArrayList<String>();
 	private final SimpleStringProperty name = new SimpleStringProperty();
 	private final SimpleStringProperty familyName = new SimpleStringProperty();
+	private final SimpleStringProperty birthday = new SimpleStringProperty();
 	private final SimpleStringProperty age = new SimpleStringProperty();
-	private final SimpleStringProperty address = new SimpleStringProperty();
+	private final SimpleStringProperty street = new SimpleStringProperty();
+	private final SimpleStringProperty streetNum = new SimpleStringProperty();
+	private final SimpleStringProperty city = new SimpleStringProperty();
+	private final SimpleStringProperty postzip = new SimpleStringProperty();
 	private final SimpleStringProperty rank = new SimpleStringProperty();
 	private final SimpleStringProperty payment = new SimpleStringProperty();
 	//private final SimpleStringProperty asHexadecimal = new SimpleStringProperty();
 	
-	public Person(String name, String familyName, String age, String address,
+	public Person(String name, String familyName,String birthday, String age,
+			String street, String streetNum, String city, String postzip,
 					String rank, String payment) {
 		//this.value1 = name;
 		//this.value2 = familyName;
 		//values.addAll(name,familyName,age,address,rank,payment);
-		values = Arrays.asList(name,familyName,age,address,rank,payment);
+		values = Arrays.asList(name,familyName,birthday,age,street,streetNum,
+				city,postzip,rank,payment);
 		updateRepresentations();
 	}
 	
@@ -47,10 +53,14 @@ public class Person {
 		
 		name.setValue(values.get(0).toString());
 		familyName.setValue(values.get(1).toString());
-		age.setValue(values.get(2).toString());
-		address.setValue(values.get(3).toString());
-		rank.setValue(values.get(4).toString());
-		payment.setValue(values.get(5).toString());
+		birthday.setValue(values.get(2).toString());
+		age.setValue(values.get(3).toString());
+		street.setValue(values.get(4).toString());
+		streetNum.setValue(values.get(5).toString());
+		city.setValue(values.get(6).toString());
+		postzip.setValue(values.get(7).toString());
+		rank.setValue(values.get(8).toString());
+		payment.setValue(values.get(9).toString());
 	}
 
 	//--- Getters and Setters ---

@@ -22,12 +22,15 @@ public class Login  {
 		GridPane root2 = new GridPane();
 		name = new TextField();
 		pass = new TextField();
+		String name = "admin";
+		String pass ="admin";
+		boolean flag = false;
 		root2.add(name, 0, 0);
 		root2.add(pass, 0, 1);
 		root2.add(login, 0, 2); 
 		 
 		login.setOnAction(e -> {
-			if (name.getText().equals(username) && pass.getText().equals(password)) {
+			if (name.equals("admin") && pass.equals("admin")) {
 				System.out.println("Succeed");
 				flag = true;
 				stop();
@@ -42,10 +45,9 @@ public class Login  {
 	}
 
 		public static void main(String[] args) {
-			login
+			access log = new access();
 		}
 	}
 	
 	
 		
-}

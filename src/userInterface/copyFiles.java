@@ -39,8 +39,9 @@ public class copyFiles {
 	    String line;
 	    String condition;
 	    while((line = reader.readLine())!=null){
-	    	values = Arrays.asList(line, reader.readLine(), (condition=reader.readLine()),
-        			reader.readLine(), reader.readLine(), reader.readLine());
+	    	values = Arrays.asList(line, reader.readLine(),reader.readLine() , (condition=reader.readLine()),
+        			reader.readLine(), reader.readLine(), reader.readLine(),reader.readLine(),
+        			reader.readLine(),reader.readLine());
 	    	//System.out.println(values.get(0));
 	    	int replace=Integer.parseInt(condition);
 	    	// the condition of sorting

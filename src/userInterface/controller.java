@@ -20,7 +20,7 @@ public class controller implements EventHandler<ActionEvent> {
 	final private view view;
 	boolean flag = true;
 
-	protected controller(model model, view view) throws Exception {
+	public controller(model model, view view) throws Exception {
 		this.model = model;
 		this.view = view;
 
@@ -73,9 +73,17 @@ public class controller implements EventHandler<ActionEvent> {
 				writer.write(System.getProperty("line.separator"));
 				writer.write(view.familyName.getText());
 				writer.write(System.getProperty("line.separator"));
+				writer.write(view.birthday.getText());
+				writer.write(System.getProperty("line.separator"));
 				writer.write(view.age.getText());
 				writer.write(System.getProperty("line.separator"));
-				writer.write(view.address.getText());
+				writer.write(view.street.getText()); 
+				writer.write(System.getProperty("line.separator"));
+				writer.write(view.streetNum.getText());
+				writer.write(System.getProperty("line.separator"));
+				writer.write(view.city.getText());
+				writer.write(System.getProperty("line.separator"));
+				writer.write(view.postzip.getText());
 				writer.write(System.getProperty("line.separator"));
 				writer.write(view.rank.getText());
 				writer.write(System.getProperty("line.separator"));
@@ -92,8 +100,12 @@ public class controller implements EventHandler<ActionEvent> {
 			
 			view.firstName.setText("");
 			view.familyName.setText("");
+			view.birthday.setText("");
 			view.age.setText("");
-			view.address.setText("");
+			view.street.setText("");
+			view.streetNum.setText("");
+			view.city.setText("");
+			view.postzip.setText("");
 			view.rank.setText("");
 			view.payment.setText("");
 		
@@ -112,8 +124,12 @@ public class controller implements EventHandler<ActionEvent> {
 				// view.lblResultName.setText(tmp);
 				view.firstName.setText(tmp);
 				view.familyName.setText(reader.readLine());
+				view.birthday.setText(reader.readLine());
 				view.age.setText(reader.readLine());
-				view.address.setText(reader.readLine());
+				view.street.setText(reader.readLine());
+				view.streetNum.setText(reader.readLine());
+				view.city.setText(reader.readLine());
+				view.postzip.setText(reader.readLine());
 				view.rank.setText(reader.readLine());
 				view.payment.setText(reader.readLine());
 			}
@@ -180,7 +196,7 @@ public class controller implements EventHandler<ActionEvent> {
 			}
 
 			if (fName_src_file != null) {
-				for (int i = 0; i < 4; i++) {
+				for (int i = 0; i < 8; i++) {
 					System.out.println("Report: " + fName_src_file + " " + familyName_src_file);
 					fName_src_file = read_src.readLine();
 				}
@@ -238,8 +254,12 @@ public class controller implements EventHandler<ActionEvent> {
 		
 		view.firstName.setText("");
 		view.familyName.setText("");
+		view.birthday.setText("");
 		view.age.setText("");
-		view.address.setText("");
+		view.street.setText("");
+		view.streetNum.setText("");
+		view.city.setText("");
+		view.postzip.setText("");
 		view.rank.setText("");
 		view.payment.setText("");
 		
@@ -265,8 +285,12 @@ public class controller implements EventHandler<ActionEvent> {
 		delete(name, family);
 		view.firstName.setText("");
 		view.familyName.setText("");
+		view.birthday.setText("");
 		view.age.setText("");
-		view.address.setText("");
+		view.street.setText("");
+		view.streetNum.setText("");
+		view.city.setText("");
+		view.postzip.setText("");
 		view.rank.setText("");
 		view.payment.setText("");
 		} catch (FileNotFoundException e) {

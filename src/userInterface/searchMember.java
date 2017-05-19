@@ -46,6 +46,10 @@ public class searchMember {
     	            writer.write(scanner.nextLine()); writer.write(System.getProperty( "line.separator" ));
     	            writer.write(scanner.nextLine()); writer.write(System.getProperty( "line.separator" ));
     	            writer.write(scanner.nextLine()); writer.write(System.getProperty( "line.separator" ));
+    	            writer.write(scanner.nextLine()); writer.write(System.getProperty( "line.separator" ));
+    	            writer.write(scanner.nextLine()); writer.write(System.getProperty( "line.separator" ));
+    	            writer.write(scanner.nextLine()); writer.write(System.getProperty( "line.separator" ));
+    	            writer.write(scanner.nextLine()); writer.write(System.getProperty( "line.separator" ));
     	        }
     	        
     	       

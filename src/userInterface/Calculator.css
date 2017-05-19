@@ -1,12 +1,42 @@
 /* Allow buttons to grow,
    by setting a large max-size */
 .button {
-  -fx-max-height: 1000px;
-  -fx-max-width: 1000px;
+  -fx-max-height: 110px;
+  -fx-max-width: 110px;
 }
 
 /* Right-align the text-field */
 .text-field {
   -fx-alignment: center-right;
   -fx-opacity: 1.0;
+  -fx-max-height: 110px;
+  -fx-max-width: 110px;
 }
+
+#xxx {
+	-fx-border-color: red;
+	-fx-border-style: solid;
+	-fx-border-width: 1px;
+	
+}
+
+#smallBox {
+	-fx-max-width: 60px;
+	
+}
+
+#searchSection {
+-fx-max-height: 70px;
+  -fx-max-width: 70px;
+	
+}
+#vtable {
+  -fx-max-height: 190px;
+  -fx-max-width: 190px;
+}
+	
+#border {
+  -fx-max-height: 800px;
+  -fx-max-width: 800px;
+}
+	
