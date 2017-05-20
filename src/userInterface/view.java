@@ -26,6 +26,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -54,6 +55,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
@@ -108,6 +110,7 @@ public class view implements ActionListener {
 	protected TextField pass;
 	Button login = new Button("Login");
 	boolean flag = false;
+	DatePicker checkInDatePicker;
 
 	RadioButton one, two, three, four, five;
 	ToggleGroup group;
@@ -126,10 +129,10 @@ public class view implements ActionListener {
 		paymentGridPane = new HBox();
 		paymentGridPane.setAlignment(Pos.CENTER);
 		paymentGridPane.setPrefSize(40, 40);
-		yes = new CheckBox("Yes ");
+		yes = new CheckBox();
 		paymentGridPane.getChildren().add(yes);
-		no = new CheckBox(" No");
-		paymentGridPane.getChildren().add(no);
+		//no = new CheckBox(" No");
+		//paymentGridPane.getChildren().add(no);
 
 		// define radiobox for rank
 		rankHbox = new HBox();
@@ -151,6 +154,22 @@ public class view implements ActionListener {
 		five = new RadioButton(" ");
 		five.setToggleGroup(group);
 		rankHbox.getChildren().add(five);
+		
+		
+		
+		checkInDatePicker = new DatePicker();
+		/*
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+
+        Label checkInlabel = new Label("Check-In Date:");
+        gridPane.add(checkInlabel, 0, 0);
+
+        GridPane.setHalignment(checkInlabel, HPos.LEFT);
+        gridPane.add(checkInDatePicker, 0, 1);
+        vbox.getChildren().add(gridPane);*/
+		
 
 		/*
 		 * yes = new RadioButton("yes "); yes.setToggleGroup(group);
@@ -179,11 +198,14 @@ public class view implements ActionListener {
 
 		personalData.add(new Label("Birthday:"), 0, 4);
 
-		personalData.add(birthday, 1, 4);
+		//personalData.add(birthday, 1, 4);
+		personalData.add(checkInDatePicker, 1, 4);
+		
 
 		personalData.add(new Label("Age:"), 0, 5);
 
 		personalData.add(age, 1, 5);
+		age.setEditable(false);
 
 		personalData.add(new Label("Street:"), 0, 6);
 
@@ -266,18 +288,7 @@ public class view implements ActionListener {
 
 		// centerInfo.add(Vbox, 0, 1);
 
-		btnClean.setOnAction(e -> {
-			firstName.setText("");
-			familyName.setText("");
-			birthday.setText("");
-			age.setText("");
-			street.setText("");
-			streetNum.setText("");
-			postzip.setText("");
-			city.setText("");
-			rank.setText("");
-			payment.setText("");
-		});
+		
 
 		// Data of Members
 		// write info into file
@@ -412,5 +423,25 @@ public class view implements ActionListener {
 		e.getActionCommand();
 
 	}
+	
+	private void initUI() {
+        VBox vbox = new VBox(20);
+        vbox.setStyle("-fx-padding: 10;");
+        Scene scene = new Scene(vbox, 400, 400);
+        stage.setScene(scene);
+
+        checkInDatePicker = new DatePicker();
+
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+
+        Label checkInlabel = new Label("Check-In Date:");
+        gridPane.add(checkInlabel, 0, 0);
+
+        GridPane.setHalignment(checkInlabel, HPos.LEFT);
+        gridPane.add(checkInDatePicker, 0, 1);
+        vbox.getChildren().add(gridPane);
+    }
 
 }

@@ -1,12 +1,12 @@
-package ch.fhnw.richards.lecture07.email_validator;
+package accessPoint;
 
 import userInterface.MVC;
 
-public class EmailValidator_Controller {
-	final private EmailValidator_Model model;
-	final private EmailValidator_View view;
+public class accessController {
+	final private accessModel model;
+	final private accessView view;
 
-	protected EmailValidator_Controller(EmailValidator_Model model, EmailValidator_View view) {
+	protected accessController(accessModel model, accessView view) {
 		this.model = model;
 		this.view = view;
 

@@ -1,4 +1,4 @@
-package ch.fhnw.richards.lecture07.email_validator;
+package accessPoint;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -10,19 +10,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import jdk.nashorn.tools.Shell;
 import userInterface.controller;
 import userInterface.model;
 import userInterface.view;
 
-public class EmailValidator_View {
-    private EmailValidator_Model model;
+public class accessView {
+    private accessModel model;
     private Stage stage;
 
     protected TextField name;
     protected TextField pass;
     Button login = new Button("Login");
 
-    protected EmailValidator_View(Stage stage, EmailValidator_Model model) {
+    protected accessView(Stage stage, accessModel model) {
         this.stage = stage;
         this.model = model;
         
@@ -32,6 +33,7 @@ public class EmailValidator_View {
        // txtEmail = new TextField();
         name = new TextField();
 		pass = new TextField();
+	
         root.add(name, 0, 0);
         root.add(pass, 0, 1);
         root.add(login, 0, 2);
