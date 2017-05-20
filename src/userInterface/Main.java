@@ -16,7 +16,7 @@ public class Main {
 
 	public static void main(String[] args) throws Exception{
 		Map<Integer, List> map=new HashMap<Integer, List>();
-	    BufferedReader reader = new BufferedReader(new FileReader("file.txt"));
+	    BufferedReader reader = new BufferedReader(new FileReader("database/file2.txt"));
 	    
 	    List<String> values = new ArrayList<String>();
 	    String line;

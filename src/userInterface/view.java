@@ -74,6 +74,9 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import login.Validator;
+import tournament.TournamentController;
+import tournament.TournamentModel;
+import tournament.TournamentView;
 
 public class view implements ActionListener {
 	final private model model;
@@ -85,6 +88,7 @@ public class view implements ActionListener {
 	protected Button buttonSortName = new Button("Show Members");
 	protected Button buttonSortAge = new Button("Sort By: Age");
 	protected Button buttonSortRank = new Button("Sort By: Rank");
+	protected Button startTournament = new Button("Start new Tournament");
 	Button aButton = new Button("Add Member");
 	JCheckBox checkBox = new JCheckBox();
 
@@ -239,6 +243,8 @@ public class view implements ActionListener {
 		personalData.add(btnClean, 0, 11);
 		// personalData.setId("xxx");
 
+		personalData.add(startTournament, 1, 13);
+		
 		personalData.add(new Label(), 1, 12);
 		// personalData.add(peClassesGridPane, 1, 13);
 
@@ -350,12 +356,15 @@ public class view implements ActionListener {
 		// basicInfo.getRowConstraints().addAll(rc, rc, rc, rc);
 		// personalData.getRowConstraints().addAll(rc, rc, rc, rc);
 
+		
+		
 		// Border.setCenter(Moon_img);
 		Scene scene = new Scene(Border);
 		// Scene scene = new Scene(table.func());
 		scene.getStylesheets().add(getClass().getResource("Calculator.css").toExternalForm());
 		stage.setScene(scene);
 		stage.setTitle("Table Soccer");
+
 
 	}
 
@@ -443,5 +452,15 @@ public class view implements ActionListener {
         gridPane.add(checkInDatePicker, 0, 1);
         vbox.getChildren().add(gridPane);
     }
+	
+	public void tournamentStart(){
+		TournamentModel tModel = new TournamentModel();
+		TournamentView tView = new TournamentView(new Stage(), tModel);
+		TournamentController tController = new TournamentController(tModel, tView);
+		
+		tView.startTournament();
+		
+		
+	}
 
 }

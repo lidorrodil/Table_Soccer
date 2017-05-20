@@ -53,6 +53,7 @@ public class controller implements EventHandler<ActionEvent> {
 			cleanRankButton();
 			view.yes.setSelected(false);
 		});
+		view.startTournament.setOnAction(e -> view.tournamentStart());
 
 		// view.btnSearch.setOnAction(event -> showUser());
 		view.btnSearch.setOnAction(e -> search());
