@@ -1,23 +1,10 @@
-<<<<<<< HEAD
-avi
-mal
-2006-05-10
-11
-das
+toti
+ty
+2015-05-01
 2
-asd
-11
+sdf
 2
-1
-=======
-na
-hi
-2010-05-12
-7
-cx
+fds
 2
-asd
-1
 5
-0
->>>>>>> origin/userInterface
+1

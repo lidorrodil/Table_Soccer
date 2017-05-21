@@ -6,16 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDate;
-import java.time.Period;
-import java.util.Date;
-
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.plaf.synth.SynthSpinnerUI;
 
-import com.sun.xml.internal.ws.spi.db.DatabindingProvider;
 
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
@@ -57,8 +51,6 @@ public class controller implements EventHandler<ActionEvent> {
 			cleanRankButton();
 			view.yes.setSelected(false);
 		});
-		view.startTournament.setOnAction(e -> view.tournamentStart());
-
 		view.btnTournamet.setOnAction(e -> createTournament());
 		view.btnSearch.setOnAction(e -> search());
 		model.getElements().addListener((ListChangeListener<Person>) c -> {
