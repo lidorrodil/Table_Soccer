@@ -55,7 +55,14 @@ import javafx.scene.layout.Priority;
 
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+<<<<<<< HEAD
 
+=======
+import login.Validator;
+import tournament.TournamentController;
+import tournament.TournamentModel;
+import tournament.TournamentView;
+>>>>>>> origin/userInterface
 
 public class view implements ActionListener {
 	final private model model;
@@ -67,7 +74,11 @@ public class view implements ActionListener {
 	protected Button buttonSortName = new Button("Show Members");
 	protected Button buttonSortAge = new Button("Sort By: Age");
 	protected Button buttonSortRank = new Button("Sort By: Rank");
+<<<<<<< HEAD
 	protected Button btnTournamet = new Button("Tournament");
+=======
+	protected Button startTournament = new Button("Start new Tournament");
+>>>>>>> origin/userInterface
 	Button aButton = new Button("Add Member");
 
 
@@ -209,6 +220,8 @@ public class view implements ActionListener {
 		btnEdit.setId("round-green");
 		btnRemove.setId("round-red");
 
+		personalData.add(startTournament, 1, 13);
+		
 		personalData.add(new Label(), 1, 12);
 
 		GridPane searchInfo = new GridPane();
@@ -269,6 +282,12 @@ public class view implements ActionListener {
 		basicInfo.getColumnConstraints().addAll(cc, cc, cc, cc);
 		personalData.getColumnConstraints().addAll(cc, cc, cc, cc);
 
+<<<<<<< HEAD
+=======
+		
+		
+		// Border.setCenter(Moon_img);
+>>>>>>> origin/userInterface
 		Scene scene = new Scene(Border);
 		
 
@@ -277,6 +296,7 @@ public class view implements ActionListener {
 		scene.getStylesheets().add(getClass().getResource("Design.css").toExternalForm());
 		stage.setScene(scene);
 		stage.setTitle("Table Soccer");
+
 
 	}
 
@@ -316,6 +336,38 @@ public class view implements ActionListener {
 
 	}
 	
+<<<<<<< HEAD
 	
+=======
+	private void initUI() {
+        VBox vbox = new VBox(20);
+        vbox.setStyle("-fx-padding: 10;");
+        Scene scene = new Scene(vbox, 400, 400);
+        stage.setScene(scene);
+
+        checkInDatePicker = new DatePicker();
+
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+
+        Label checkInlabel = new Label("Check-In Date:");
+        gridPane.add(checkInlabel, 0, 0);
+
+        GridPane.setHalignment(checkInlabel, HPos.LEFT);
+        gridPane.add(checkInDatePicker, 0, 1);
+        vbox.getChildren().add(gridPane);
+    }
+	
+	public void tournamentStart(){
+		TournamentModel tModel = new TournamentModel();
+		TournamentView tView = new TournamentView(new Stage(), tModel);
+		TournamentController tController = new TournamentController(tModel, tView);
+		
+		tView.startTournament();
+		
+		
+	}
+>>>>>>> origin/userInterface
 
 }
