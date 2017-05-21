@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 
 public class searchMember {
 
-	public void searchMember2(String value1, String value2) throws Exception {
+	public void searchMemberByName(String value1, String value2) throws Exception {
 
     	try {
     		File file = new File("./database/file.txt");

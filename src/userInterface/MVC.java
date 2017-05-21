@@ -9,10 +9,6 @@ import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import login.Validator;
-import login.Validator_Controller;
-import login.Validator_Model;
-import login.Validator_View;
 
 public class MVC extends Application {
 	//private static final boolean EmailValidator = false;

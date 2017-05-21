@@ -1,5 +1,6 @@
 package accessPoint;
 
+import javafx.scene.paint.Color;
 import userInterface.MVC;
 
 public class accessController {
@@ -10,12 +11,9 @@ public class accessController {
 		this.model = model;
 		this.view = view;
 
-		view.login.setOnAction(e -> {
-			if (view.name.getText().equals("admin") && view.pass.getText().equals("admin")) {
+		view.btn.setOnAction(e -> {
+			if (view.name.getText().equals("admin") && view.pwBox.getText().equals("admin")) {
 				System.out.println("Succeed");
-				
-				// flag = true;
-				// stop();
 				view.stop();
 				try {
 					view.Appstart();
@@ -23,8 +21,11 @@ public class accessController {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-			} else
-				System.out.println("Fail");
+			} else {
+
+				view.actiontarget.setFill(Color.FIREBRICK);
+				view.actiontarget.setText("Sign in failed");
+			}
 		});
 
 	}

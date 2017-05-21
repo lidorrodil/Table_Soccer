@@ -1,0 +1,124 @@
+/* Allow buttons to grow,
+   by setting a large max-size */
+   
+.root {
+     -fx-background-image: url("wood.jpg");
+}
+
+.label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+.button {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+
+/* Right-align the text-field */
+.text-field {
+  -fx-alignment: center-right;
+  -fx-opacity: 1.0;
+  -fx-max-height: 110px;
+  -fx-max-width: 135px;
+}
+
+#xxx {
+	-fx-border-color: red;
+	-fx-border-style: solid;
+	-fx-border-width: 1px;
+	
+}
+
+#smallBox {
+	-fx-max-width: 60px;
+	
+}
+
+#searchSection {
+-fx-max-height: 70px;
+  -fx-max-width: 70px;
+	
+}
+#vtable {
+  -fx-max-height: 190px;
+  -fx-max-width: 190px;
+}
+	
+#border {
+  -fx-max-height: 500px;
+  -fx-max-width: 300px;
+}
+	
+	
+#windows7-default {
+    -fx-background-color: 
+        #3c7fb1,
+        linear-gradient(#fafdfe, #e8f5fc),
+        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);
+    -fx-background-insets: 0,1,2;
+    -fx-background-radius: 3,2,1;
+    -fx-padding: 3 30 3 30;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+}
+
+#round-red {
+    -fx-background-color: linear-gradient(#ff5400, #be1d00);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+}
+
+#round-green {
+    -fx-background-color: #0AFF0A;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+}
+
+#round-blue {
+     -fx-background-color: #33CCFF;
+
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+}
+
+#round-gray {
+    -fx-background-color: #0AFFFF;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+}
+
+#rich-blue {
+    -fx-background-color: 
+        #000000,
+        linear-gradient(#7ebcea, #2f4b8f),
+        linear-gradient(#426ab7, #263e75),
+        linear-gradient(#395cab, #223768);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+}
+
+
+#hbox-custom {
+	-fx-max-height: 5px;
+  	-fx-max-width: 5px;
+	-fx-border-width: 0.5px;
+    -fx-padding: 8;
+}
+
+#cssDefault {
+	-fx-border-color: blue;
+	-fx-border-insets: 5;
+	-fx-border-width: 3;
+	-fx-border-style: dashed;
+}

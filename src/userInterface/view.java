@@ -31,24 +31,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JEditorPane;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.SwingUtilities;
-import javax.swing.WindowConstants;
-import javax.swing.text.html.HTML;
 
-import javafx.application.Application;
+
+
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -58,22 +43,19 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
+
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import login.Validator;
+
 
 public class view implements ActionListener {
 	final private model model;
@@ -85,8 +67,9 @@ public class view implements ActionListener {
 	protected Button buttonSortName = new Button("Show Members");
 	protected Button buttonSortAge = new Button("Sort By: Age");
 	protected Button buttonSortRank = new Button("Sort By: Rank");
+	protected Button btnTournamet = new Button("Tournament");
 	Button aButton = new Button("Add Member");
-	JCheckBox checkBox = new JCheckBox();
+
 
 	protected Button btnSearch = new Button("Search");
 	protected Button btnClean = new Button("Clean Fields");
@@ -124,15 +107,13 @@ public class view implements ActionListener {
 	public view(Stage stage, model model) throws IOException, URISyntaxException {
 		this.stage = stage;
 		this.model = model;
-
+		
 		// define checkbox for payment
 		paymentGridPane = new HBox();
 		paymentGridPane.setAlignment(Pos.CENTER);
 		paymentGridPane.setPrefSize(40, 40);
 		yes = new CheckBox();
 		paymentGridPane.getChildren().add(yes);
-		//no = new CheckBox(" No");
-		//paymentGridPane.getChildren().add(no);
 
 		// define radiobox for rank
 		rankHbox = new HBox();
@@ -154,28 +135,9 @@ public class view implements ActionListener {
 		five = new RadioButton(" ");
 		five.setToggleGroup(group);
 		rankHbox.getChildren().add(five);
-		
-		
-		
+		rankHbox.setId("hbox-custom");
+
 		checkInDatePicker = new DatePicker();
-		/*
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-
-        Label checkInlabel = new Label("Check-In Date:");
-        gridPane.add(checkInlabel, 0, 0);
-
-        GridPane.setHalignment(checkInlabel, HPos.LEFT);
-        gridPane.add(checkInDatePicker, 0, 1);
-        vbox.getChildren().add(gridPane);*/
-		
-
-		/*
-		 * yes = new RadioButton("yes "); yes.setToggleGroup(group);
-		 * paymentHbox.getChildren().add(yes); no = new RadioButton(" no");
-		 * no.setToggleGroup(group); paymentHbox.getChildren().add(no);
-		 */
 
 		// Initialize TableView
 		TableView<Person> tableView = createTableView();
@@ -184,10 +146,6 @@ public class view implements ActionListener {
 
 		GridPane basicInfo = new GridPane();
 		GridPane personalData = new GridPane();
-
-		final ImageView imv = new ImageView();
-		final Image image2 = new Image(Main.class.getResourceAsStream("protips.png"));
-		imv.setImage(image2);
 
 		personalData.add(new Label("First Name:"), 0, 2);
 		personalData.add(firstName, 1, 2);
@@ -223,50 +181,46 @@ public class view implements ActionListener {
 
 		personalData.add(rankHbox, 1, 8);
 
-		// personalData.add(new Label(), 0, 7);
-
 		personalData.add(new Label("Payment:"), 0, 9);
 
-		// personalData.add(payment, 1, 9);
 		personalData.add(paymentGridPane, 1, 9);
 
 		personalData.add(new Label(), 0, 10);
 
-		personalData.add(aButton, 1, 10);
-		GridPane.setHalignment(aButton, HPos.LEFT);
-		personalData.add(btnEdit, 1, 11);
-		GridPane.setHalignment(btnEdit, HPos.LEFT);
-		personalData.add(btnClean, 0, 11);
-		// personalData.setId("xxx");
+		//personalData.add(aButton, 0, 11);
+		//GridPane.setHalignment(aButton, HPos.LEFT);
+	//	personalData.add(btnEdit, 2, 11);
+		//personalData.add(btnTournamet, 3, 11);
+	//	GridPane.setHalignment(btnEdit, HPos.LEFT);
+		//personalData.add(btnClean, 1, 11);
+		aButton.setMinWidth(90);
+		btnEdit.setMinWidth(40);
+		btnClean.setMinWidth(80);
+		btnTournamet.setMinWidth(100);
+		
+		HBox lowerLine = new HBox();
+		lowerLine.getChildren().addAll(aButton,btnEdit,btnClean,btnTournamet);
+		//personalData.add(line, 0, 11);
+		
+		btnTournamet.setId("round-green");
+		btnSearch.setId("rich-blue");
+		btnClean.setId("round-green");
+		aButton.setId("round-green");
+		btnEdit.setId("round-green");
+		btnRemove.setId("round-red");
 
 		personalData.add(new Label(), 1, 12);
-		// personalData.add(peClassesGridPane, 1, 13);
-
-		/*
-		 * ImageView imageView = new ImageView(); imageView.setImage(new
-		 * Image("protips.png")); Border.setRight(imageView);
-		 */
 
 		GridPane searchInfo = new GridPane();
-		searchInfo.add(btnSearch, 0, 0);
-		searchInfo.add(btnRemove, 0, 1);
-		searchInfo.add(searchBoxByName, 1, 0);
-		searchInfo.add(searchBoxByFamilyName, 2, 0);
-		// searchInfo.add(checkBox, 0, 2);
-
-		JRadioButton bird = new JRadioButton("Hi");
-		// checkBox.setText("checkBox");
-		bird.setMnemonic(KeyEvent.VK_C);
-		bird.setActionCommand("10");
-		bird.setSelected(true);
-		// ButtonGroup group = new ButtonGroup();
-		// group.add(bird);
-		// bird.addActionListener(this);
-
-		// searchInfo.setMinSize(200, 250);
-
-		// personalData.setMinWidth(400);
-		// personalData.setMinSize(200, 300);
+		HBox upperSearchLine = new HBox();
+		upperSearchLine.getChildren().addAll(btnSearch,btnRemove);
+		searchInfo.add(upperSearchLine, 0, 0);
+		searchInfo.add(new HBox(new Label()), 0, 1);
+		searchInfo.add(new Label("First Name:"), 0, 2);
+		searchInfo.add(new Label("Family Name:"), 0, 3);
+		searchInfo.add(searchBoxByName, 1, 2);
+		searchInfo.add(searchBoxByFamilyName, 1, 3);
+		
 
 		GridPane centerInfo = new GridPane();
 
@@ -277,40 +231,19 @@ public class view implements ActionListener {
 		space2.setMinWidth(100);
 		personalData.add(space2, 1, 0);
 
-		centerInfo.add(personalData, 0, 0);
-		// centerInfo.add(new HBox(n), 1, 0);
-		// centerInfo.add(new HBox(space2), 1, 1);
-
-		centerInfo.add(searchInfo, 0, 9);
-		centerInfo.setMinSize(200, 300);
-
-		// centerInfo.add(searchInfo, 0,1);
-
-		// centerInfo.add(Vbox, 0, 1);
-
+		centerInfo.add(new HBox(new Label()), 0, 0);
+		centerInfo.add(searchInfo, 0, 1);
+		centerInfo.add(new HBox(new Label()), 0, 2);
+		centerInfo.add(new HBox(new Label()), 0, 3);
+		centerInfo.add(new HBox(new Label()), 0, 4);
+		centerInfo.add(new HBox(new Label()), 0, 5);
+		centerInfo.add(new HBox(new Label()), 0, 6);
+		centerInfo.add(new HBox(new Label()), 0, 7);
+		centerInfo.add(new HBox(new Label()), 0, 8);
+		centerInfo.add(personalData, 0, 9);
+		centerInfo.add(lowerLine, 0, 10);
 		
-
-		// Data of Members
-		// write info into file
-		/*
-		 * aButton.setOnAction(e -> { try (FileWriter writer = new
-		 * FileWriter(new File("file.txt"), true);) {
-		 * writer.write(firstName.getText());
-		 * writer.write(System.getProperty("line.separator"));
-		 * writer.write(familyName.getText());
-		 * writer.write(System.getProperty("line.separator"));
-		 * writer.write(age.getText());
-		 * writer.write(System.getProperty("line.separator"));
-		 * writer.write(address.getText());
-		 * writer.write(System.getProperty("line.separator"));
-		 * writer.write(rank.getText());
-		 * writer.write(System.getProperty("line.separator"));
-		 * writer.write(payment.getText());
-		 * writer.write(System.getProperty("line.separator")); writer.close(); }
-		 * catch (Exception e1) {
-		 * 
-		 * e1.printStackTrace(); } });
-		 */
+		centerInfo.setMinSize(200, 300);
 
 		// Layout root pane
 		VBox Vtable = new VBox();
@@ -323,20 +256,10 @@ public class view implements ActionListener {
 		buttonSortName.setId("vtable");
 		buttonSortAge.setId("vtable");
 		buttonSortRank.setId("vtable");
-
-		// Size constraints
-		// buttonSortName.setMaxWidth(Double.MAX_VALUE); // button can grow
-		// horizontally
-		// buttonSortAge.setMaxWidth(Double.MAX_VALUE); // button can grow
-		// horizontally
-		// buttonSortRank.setMaxWidth(Double.MAX_VALUE); // button can grow
-
-		// root.getChildren().addAll(Vtable, centerInfo);
-		// Border.setTop(root);
-
+		
+		
 		Border.setLeft(Vtable);
 
-		// Border.setBottom(searchInfo);
 		Border.setCenter(centerInfo);
 		Border.setRight(space);
 		Border.setId("border");
@@ -345,15 +268,13 @@ public class view implements ActionListener {
 		cc.setPercentWidth(15);
 		basicInfo.getColumnConstraints().addAll(cc, cc, cc, cc);
 		personalData.getColumnConstraints().addAll(cc, cc, cc, cc);
-		// RowConstraints rc = new RowConstraints();
-		// rc.setPercentHeight(15);
-		// basicInfo.getRowConstraints().addAll(rc, rc, rc, rc);
-		// personalData.getRowConstraints().addAll(rc, rc, rc, rc);
 
-		// Border.setCenter(Moon_img);
 		Scene scene = new Scene(Border);
-		// Scene scene = new Scene(table.func());
-		scene.getStylesheets().add(getClass().getResource("Calculator.css").toExternalForm());
+		
+
+		tableView.getStylesheets().add(getClass().getResource("table.css").toExternalForm());
+
+		scene.getStylesheets().add(getClass().getResource("Design.css").toExternalForm());
 		stage.setScene(scene);
 		stage.setTitle("Table Soccer");
 
@@ -379,36 +300,7 @@ public class view implements ActionListener {
 	}
 
 	public void start() throws IOException {
-
-		// login();
-
 		stage.show();
-		// System.out.println("Step 2");
-
-	}
-
-	public void login() throws IOException {
-		stage.setTitle("Access");
-
-		GridPane root2 = new GridPane();
-		name = new TextField();
-		pass = new TextField();
-		root2.add(name, 0, 0);
-		root2.add(pass, 0, 1);
-		root2.add(login, 0, 2);
-
-		login.setOnAction(e -> {
-			if (name.getText().equals(username) && pass.getText().equals(password)) {
-				System.out.println("Succeed");
-				flag = true;
-				stop();
-			} else
-				System.out.println("Fail");
-		});
-		Scene scene = new Scene(root2);
-		stage.setScene(scene);
-		System.out.println("Step here");
-
 	}
 
 	/**
@@ -424,24 +316,6 @@ public class view implements ActionListener {
 
 	}
 	
-	private void initUI() {
-        VBox vbox = new VBox(20);
-        vbox.setStyle("-fx-padding: 10;");
-        Scene scene = new Scene(vbox, 400, 400);
-        stage.setScene(scene);
-
-        checkInDatePicker = new DatePicker();
-
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-
-        Label checkInlabel = new Label("Check-In Date:");
-        gridPane.add(checkInlabel, 0, 0);
-
-        GridPane.setHalignment(checkInlabel, HPos.LEFT);
-        gridPane.add(checkInDatePicker, 0, 1);
-        vbox.getChildren().add(gridPane);
-    }
+	
 
 }
