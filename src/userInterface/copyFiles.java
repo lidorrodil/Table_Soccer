@@ -41,7 +41,7 @@ public class copyFiles {
 	    while((line = reader.readLine())!=null){
 	    	values = Arrays.asList(line, reader.readLine(),reader.readLine() , (condition=reader.readLine()),
         			reader.readLine(), reader.readLine(), reader.readLine(),reader.readLine(),
-        			reader.readLine(),reader.readLine());
+        			reader.readLine(),reader.readLine(),reader.readLine());
 	    	//System.out.println(values.get(0));
 	    	int replace=Integer.parseInt(condition);
 	    	//int replace=(condition);
@@ -82,6 +82,7 @@ public class copyFiles {
 	        writer.write((String)treeMap.get(val).get(7)); writer.write(System.getProperty( "line.separator" ));
 	        writer.write((String)treeMap.get(val).get(8)); writer.write(System.getProperty( "line.separator" ));
 	        writer.write((String)treeMap.get(val).get(9)); writer.write(System.getProperty( "line.separator" ));
+	        writer.write((String)treeMap.get(val).get(10)); writer.write(System.getProperty( "line.separator" ));
 	    }
 	    reader.close();
 	    //writer.flush();
@@ -104,7 +105,7 @@ public class copyFiles {
 		    	values = Arrays.asList(line, reader.readLine(), reader.readLine(),
 		    			reader.readLine(), reader.readLine(), reader.readLine(),
 		    			reader.readLine(), reader.readLine(),
-		    			(condition = reader.readLine()), reader.readLine());
+		    			(condition = reader.readLine()), reader.readLine(),reader.readLine());
 
 		    	int replace=Integer.parseInt(condition);
 		    	// the condition of sorting
@@ -141,6 +142,7 @@ public class copyFiles {
 	        writer.write((String)treeMap.get(val).get(7)); writer.write(System.getProperty( "line.separator" ));
 	        writer.write((String)treeMap.get(val).get(8)); writer.write(System.getProperty( "line.separator" ));
 	        writer.write((String)treeMap.get(val).get(9)); writer.write(System.getProperty( "line.separator" ));
+	        writer.write((String)treeMap.get(val).get(10)); writer.write(System.getProperty( "line.separator" ));
 	    }
 	    reader.close();
 	    writer.close();

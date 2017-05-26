@@ -6,18 +6,24 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-
+import FileCopy.FileCopy;
+import FileCopy.FileCopyModel;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
+import sun.security.action.OpenFileInputStreamAction;
 import sun.util.resources.LocaleData;
 import tournament.tourController;
 import tournament.tourModel;
@@ -27,6 +33,7 @@ public class controller implements EventHandler<ActionEvent> {
 	final private model model;
 	final private view view;
 	boolean flag = true;
+	String nameOfImg = " ";
 
 	public controller(model model, view view) throws Exception {
 		this.model = model;
@@ -39,18 +46,7 @@ public class controller implements EventHandler<ActionEvent> {
 		view.btnRemove.setOnAction(e -> remove());
 		view.btnEdit.setOnAction(e -> edit());
 		view.aButton.setOnAction(e -> addMember());
-		view.btnClean.setOnAction(e -> {
-			view.firstName.setText("");
-			view.familyName.setText("");
-			view.checkInDatePicker.setValue(null);
-			view.age.setText("");
-			view.street.setText("");
-			view.streetNum.setText("");
-			view.postzip.setText("");
-			view.city.setText("");
-			cleanRankButton();
-			view.yes.setSelected(false);
-		});
+		view.btnClean.setOnAction(e -> clean());
 		view.btnTournamet.setOnAction(e -> createTournament());
 		view.btnSearch.setOnAction(e -> search());
 		model.getElements().addListener((ListChangeListener<Person>) c -> {
@@ -58,7 +54,63 @@ public class controller implements EventHandler<ActionEvent> {
 				view.tableView.scrollTo(c.getFrom());
 			}
 		});
+		
+		view.upload.setOnAction(e -> UploadImg());
 
+	}
+	
+	public void clean(){
+		view.firstName.setText("");
+		view.familyName.setText("");
+		view.checkInDatePicker.setValue(null);
+		view.age.setText("");
+		view.street.setText("");
+		view.streetNum.setText("");
+		view.postzip.setText("");
+		view.city.setText("");
+		cleanRankButton();
+		view.yes.setSelected(false);
+		view.imgView.setVisible(false);
+	}
+
+	public void UploadImg() {
+		FileChooser upfile = new FileChooser();
+		
+		upfile.setTitle("Upload an image");
+		
+		File file = upfile.showOpenDialog(view.stage);
+
+		FileCopyModel copy = new FileCopyModel();
+		copy.FileCopy(file.getPath(), "./database/"+file.getName());
+		
+		String path = "./database/"+file.getName();
+		URL toUrl;
+		try {
+			toUrl = new File(path).toURI().toURL();
+			Image img = new Image(toUrl.toString());
+			view.imgView.setImage(img);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		nameOfImg = file.getName();
+		
+		
+	}
+	
+	public void showImg(String name){
+		String path = "./database/"+name;
+		URL toUrl;
+		try {
+			toUrl = new File(path).toURI().toURL();
+			Image img = new Image(toUrl.toString());
+			view.imgView.setVisible(true);
+			view.imgView.setImage(img);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void addMember() {
@@ -72,8 +124,6 @@ public class controller implements EventHandler<ActionEvent> {
 			writer.write(view.familyName.getText());
 			writer.write(System.getProperty("line.separator"));
 			if (view.checkInDatePicker.getValue() != null)
-				// System.out.println("Birth
-				// :"+view.checkInDatePicker.getValue().toString());
 				writer.write(view.checkInDatePicker.getValue().toString());
 			else
 				writer.write("0"); // if date doesn't insert so we put 0
@@ -91,6 +141,8 @@ public class controller implements EventHandler<ActionEvent> {
 			writer.write(String.valueOf(rankCheck()));
 			writer.write(System.getProperty("line.separator"));
 			writer.write(String.valueOf(paymentCheck()));
+			writer.write(System.getProperty("line.separator"));
+			writer.write(nameOfImg);
 			writer.write(System.getProperty("line.separator"));
 			writer.close();
 
@@ -111,6 +163,7 @@ public class controller implements EventHandler<ActionEvent> {
 		view.postzip.setText("");
 		cleanRankButton();
 		view.yes.setSelected(false);
+		view.imgView.setVisible(false);
 	}
 
 	@Override
@@ -122,23 +175,29 @@ public class controller implements EventHandler<ActionEvent> {
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader("./database/resultSearch.txt"));
 			try {
+//				String date = "";
 				String tmp = reader.readLine();
 				final JPanel panel = new JPanel();
 				if (tmp == null)
-					JOptionPane.showMessageDialog(panel, "This member doesn't exist", "Error",
+					JOptionPane.showMessageDialog(panel, "Could not find member", "Info",
 							JOptionPane.INFORMATION_MESSAGE);
 				else {
 					view.firstName.setText(tmp);
 					view.familyName.setText(reader.readLine());
-					view.checkInDatePicker.setValue(returnDate(reader.readLine()));
+					tmp = reader.readLine();
+					if (!tmp.equals("0"))
+						view.checkInDatePicker.setValue(returnDate(tmp));
 					view.age.setText(reader.readLine());
 					view.street.setText(reader.readLine());
 					view.streetNum.setText(reader.readLine());
 					view.city.setText(reader.readLine());
 					view.postzip.setText(reader.readLine());
 					setRank(reader.readLine());
+					
 					if (reader.readLine().equals("1"))
 						view.yes.setSelected(true);
+					//System.out.println(reader.readLine());
+					showImg(reader.readLine());
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -152,7 +211,8 @@ public class controller implements EventHandler<ActionEvent> {
 	}
 
 	public void search() {
-		try (BufferedReader reader = new BufferedReader(new FileReader("./database/file.txt"));) {
+		try  {
+			clean();
 			searchMember search = new searchMember();
 			search.searchMemberByName(view.searchBoxByName.getText(), view.searchBoxByFamilyName.getText());
 			showUser();
@@ -165,7 +225,9 @@ public class controller implements EventHandler<ActionEvent> {
 
 	}
 
-	public void delete(String fname, String familyName) {
+	public String delete(String fname, String familyName) {
+		String photo_to_rmv = "";
+		boolean flag = true;
 		try {
 			FileWriter write_src = new FileWriter("./database/new_file_after_remove.txt");
 			BufferedReader read_src = new BufferedReader(new FileReader("./database/file.txt"));
@@ -179,21 +241,29 @@ public class controller implements EventHandler<ActionEvent> {
 					&& (!fName_to_remove.equals(fName_src_file) || !familyName_to_remove.equals(familyName_src_file))) {
 				write_src.write(fName_src_file);
 				write_src.write(System.getProperty("line.separator"));
-
-				if (fName_src_file != null) {
-					System.out.println("STEP we do: " + familyName_src_file);
-					write_src.write(familyName_src_file);
-					write_src.write(System.getProperty("line.separator"));
-				}
+				write_src.write(familyName_src_file);
+				write_src.write(System.getProperty("line.separator"));
+					for (int i = 0; i < 9; i++) {
+						fName_src_file = read_src.readLine();
+						write_src.write(fName_src_file);
+						write_src.write(System.getProperty("line.separator"));
+					}
 				fName_src_file = read_src.readLine();
 				familyName_src_file = read_src.readLine();
 			}
 
-			if (fName_src_file != null) {
-				for (int i = 0; i < 8; i++) {
-					fName_src_file = read_src.readLine();
-				}
+
+			// we found the member	
+			if (fName_src_file==null){
+				flag = false;
+				return null;
 			}
+			for (int i = 0; i < 8; i++) {
+				String s =read_src.readLine();
+				System.out.println(s);
+			}
+			photo_to_rmv = read_src.readLine();
+			// we left more members to fill
 			fName_src_file = read_src.readLine();
 			while (fName_src_file != null) {
 				write_src.write(fName_src_file);
@@ -213,7 +283,7 @@ public class controller implements EventHandler<ActionEvent> {
 			write.close();
 			File file = new File("./database/new_file_after_remove.txt");
 			file.deleteOnExit();
-			System.out.println("STEP 5");
+			return photo_to_rmv;
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -222,10 +292,22 @@ public class controller implements EventHandler<ActionEvent> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return photo_to_rmv;
 	}
 
 	public void remove() {
-		delete(view.searchBoxByName.getText().toString(), view.searchBoxByFamilyName.getText().toString());
+		String photo = "";
+		if (!(view.searchBoxByName.getText().toString().equals("")) && (!view.searchBoxByFamilyName.getText().toString().equals("")))
+			photo = delete(view.searchBoxByName.getText().toString(), view.searchBoxByFamilyName.getText().toString());
+		if (photo==null || photo==""){
+			final JPanel panel = new JPanel();
+		    JOptionPane.showMessageDialog(panel, "Could not find member", "Info", JOptionPane.INFORMATION_MESSAGE);
+		}
+		else{	
+		String path = "./database/"+photo;
+		File file = new File(path);
+		file.delete();
 		view.searchBoxByName.setText("");
 		view.searchBoxByFamilyName.setText("");
 		try {
@@ -234,7 +316,7 @@ public class controller implements EventHandler<ActionEvent> {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}}
 
 		view.firstName.setText("");
 		view.familyName.setText("");
@@ -246,8 +328,9 @@ public class controller implements EventHandler<ActionEvent> {
 		view.postzip.setText("");
 		cleanRankButton();
 		view.yes.setSelected(false);
+		view.imgView.setVisible(false);
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
@@ -302,10 +385,12 @@ public class controller implements EventHandler<ActionEvent> {
 
 	public LocalDate returnDate(String date) {
 		final DatePicker datePicker = new DatePicker();
+		System.out.println("Date: "+date);
 		String year = date.substring(0, 4);
 		String month = date.substring(5, 7);
 		String day = date.substring(8, 10);
 		LocalDate memeberDate = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+		System.out.println("mem Date: "+memeberDate);
 		return memeberDate;
 	}
 

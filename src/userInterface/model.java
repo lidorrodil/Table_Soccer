@@ -36,7 +36,7 @@ public class model {
 					elements.add(new Person(line, br.readLine(),br.readLine(),
 							br.readLine(),br.readLine(),br.readLine(),
 							br.readLine(), br.readLine(), br.readLine(),
-							br.readLine()));
+							br.readLine(),br.readLine()));
 				}
 
 			} catch (IOException e) {
@@ -59,7 +59,8 @@ public class model {
 				while ((line) != null) {
 					elements.add(new Person(line, br.readLine(),br.readLine(),
 							br.readLine(), br.readLine(), br.readLine(),
-							br.readLine(),br.readLine(),br.readLine(),br.readLine()));
+							br.readLine(),br.readLine(),br.readLine(),br.readLine(),
+							br.readLine()));
 					line = br.readLine();
 				}
 			} catch (IOException e) {
@@ -85,7 +86,8 @@ public class model {
 				while ((line = br.readLine()) != null) {
 					elements.add(new Person(line, br.readLine(), br.readLine(),
 							br.readLine(), br.readLine(), br.readLine(),
-							br.readLine(), br.readLine(), br.readLine(), br.readLine()));
+							br.readLine(), br.readLine(), br.readLine(),br.readLine(),
+							br.readLine()));
 				}
 			}
 

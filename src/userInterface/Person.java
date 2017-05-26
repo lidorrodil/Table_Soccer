@@ -33,16 +33,17 @@ public class Person {
 	private final SimpleStringProperty postzip = new SimpleStringProperty();
 	private final SimpleStringProperty rank = new SimpleStringProperty();
 	private final SimpleStringProperty payment = new SimpleStringProperty();
+	private final SimpleStringProperty photo = new SimpleStringProperty();
 	//private final SimpleStringProperty asHexadecimal = new SimpleStringProperty();
 	
 	public Person(String name, String familyName,String birthday, String age,
 			String street, String streetNum, String city, String postzip,
-					String rank, String payment) {
+					String rank, String payment, String photo) {
 		//this.value1 = name;
 		//this.value2 = familyName;
 		//values.addAll(name,familyName,age,address,rank,payment);
 		values = Arrays.asList(name,familyName,birthday,age,street,streetNum,
-				city,postzip,rank,payment);
+				city,postzip,rank,payment,photo);
 		updateRepresentations();
 	}
 	
@@ -61,6 +62,7 @@ public class Person {
 		postzip.setValue(values.get(7).toString());
 		rank.setValue(values.get(8).toString());
 		payment.setValue(values.get(9).toString());
+		photo.setValue(values.get(10).toString());
 	}
 
 	//--- Getters and Setters ---

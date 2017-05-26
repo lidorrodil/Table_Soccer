@@ -6,8 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.Console;
@@ -47,6 +45,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -54,6 +54,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import tournament.tourController;
 import tournament.tourModel;
@@ -62,7 +63,7 @@ import tournament.tourView;
 
 public class view implements ActionListener {
 	final private model model;
-	final private Stage stage;
+	final Stage stage;
 
 	// Define the fields in the GUI
 	protected TextField txtCalc;
@@ -73,7 +74,8 @@ public class view implements ActionListener {
 	protected Button btnTournamet = new Button("Tournament");
 
 	Button aButton = new Button("Add Member");
-
+	ImageView imgView;
+	
 
 	protected Button btnSearch = new Button("Search");
 	protected Button btnClean = new Button("Clean Fields");
@@ -107,6 +109,7 @@ public class view implements ActionListener {
 
 	protected Button btnEdit = new Button("Edit");
 	protected Button btnRemove = new Button("Remove");
+	protected Button upload = new Button("Upload Image");
 
 	public view(Stage stage, model model) throws IOException, URISyntaxException {
 		this.stage = stage;
@@ -189,7 +192,9 @@ public class view implements ActionListener {
 
 		personalData.add(paymentGridPane, 1, 9);
 
-		personalData.add(new Label(), 0, 10);
+		personalData.add(new Label("Image: "), 0, 10);
+		
+		personalData.add(upload, 1, 10);
 
 		aButton.setMinWidth(90);
 		btnEdit.setMinWidth(40);
@@ -227,19 +232,31 @@ public class view implements ActionListener {
 
 		Label space2 = new Label("");
 		space2.setMinWidth(100);
-		personalData.add(space2, 1, 0);
-
+		personalData.add(space2, 1, 0);	
 		centerInfo.add(new HBox(new Label()), 0, 0);
 		centerInfo.add(searchInfo, 0, 1);
-		centerInfo.add(new HBox(new Label()), 0, 2);
-		centerInfo.add(new HBox(new Label()), 0, 3);
+		
+		//Image img2 = new Image("C:\\Users\\lidorett\\git\\Table_Soccer\\20.jpg");
+		//FileChooser upfile = new FileChooser();
+		//upfile.showOpenDialog(null);
+		
+		imgView = new ImageView();
+		//imgView.setImage(img2);
+		
+		centerInfo.add(imgView, 0, 3);
+		
+		imgView.setFitHeight(80);
+		imgView.setFitWidth(80);
+		
+		//centerInfo.add(new HBox(new Label()), 0, 2);
+		//centerInfo.add(new HBox(new Label()), 0, 3);
+		//centerInfo.add(new HBox(new Label()), 0, 4);
+		//centerInfo.add(new HBox(new Label()), 0, 3);
+		//centerInfo.add(new HBox(new Label()), 0, 4);
+		//centerInfo.add(new HBox(new Label()), 0, 3);
 		centerInfo.add(new HBox(new Label()), 0, 4);
-		centerInfo.add(new HBox(new Label()), 0, 5);
-		centerInfo.add(new HBox(new Label()), 0, 6);
-		centerInfo.add(new HBox(new Label()), 0, 7);
-		centerInfo.add(new HBox(new Label()), 0, 8);
-		centerInfo.add(personalData, 0, 9);
-		centerInfo.add(lowerLine, 0, 10);
+		centerInfo.add(personalData, 0, 5);
+		centerInfo.add(lowerLine, 0, 6);
 		
 		centerInfo.setMinSize(200, 300);
 
