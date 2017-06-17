@@ -25,11 +25,7 @@ public class tourView {
 		//scene.getStylesheets().add(getClass().getResource("Design.css").toExternalForm());
 		stage.setScene(scene);
 		stage.setTitle("Tournament");
-		
-		
-		
-		
-		
+	
 		
 	}
 
