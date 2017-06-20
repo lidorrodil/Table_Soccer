@@ -10,23 +10,25 @@ import javafx.collections.ObservableList;
 
 /**
  * Has all functions concerning the list of all teams.
- *
+ * TODO: Create 4 lists for the Preliminaries
  */
 
 public class TeamList {
 
-	private ObservableList<Team> teamlist;
-	public ObservableList<Team> dummyTeamlist;
+	private static ObservableList<Team> teamlist;
 
 	public TeamList() {
 		teamlist = FXCollections.observableArrayList();
-		// dummyTeamlist = FXCollections.observableArrayList(new Team("team1",
-		// "player1", "player2"),new Team("team2", "player1", "player2"),
-		// new Team("team3", "player1", "player2"),new Team("team4", "player1",
-		// "player2"),new Team("team5", "player1", "player2"));
 	}
 
-	public boolean addTeam(String teamName, String player1, String player2) {
+	/**
+	 * Adds a team to the list with all the teams.
+	 * @param teamName Must be greater than 3 chars.
+	 * @param player1 Must be greater than 3 chars.
+	 * @param player2 Must be greater than 3 chars.
+	 * @return Whether adding was successful or failed (=false).
+	 */
+	public static boolean addTeam(String teamName, String player1, String player2) {
 		try {
 			// checkIfNameValid(teamName);
 			checkIfNameValid(player1);
@@ -40,7 +42,12 @@ public class TeamList {
 		}
 	}
 
-	public boolean removeTeam(String teamName) {
+	/**
+	 * Removes selected team from the List of all teams.
+	 * @param teamName Must exist in teamList.
+	 * @return Whether removing was successful or failed (=false).
+	 */
+	public static boolean removeTeam(String teamName) {
 		try {
 			if (teamlist.stream().anyMatch(p -> p.getTeamName().equals(teamName))) {
 				teamlist.remove(teamlist.stream().filter(p -> p.getTeamName().equals(teamName)).findFirst().get());
@@ -55,7 +62,12 @@ public class TeamList {
 		return true;
 	}
 
-	public boolean checkIfNameValid(String name) {
+	/**
+	 * Checks if name is longer than 3 chars and not null.
+	 * @param name Should be longer than 3 chars and not null.
+	 * @return Whether or not name is valid.
+	 */
+	public static boolean checkIfNameValid(String name) {
 		int minNameLength = 3;
 		if (name == null) {
 			throw new IllegalArgumentException(name + " is missing.");
@@ -67,11 +79,18 @@ public class TeamList {
 		return true;
 	}
 
+	/**
+	 * Shuffles all teams to make 4 Preliminary Tables.
+	 */
 	public void shuffleTeams() {
 		Collections.shuffle(teamlist);
 	}
 
-	public ObservableList<Team> getTeamlist() {
+	/**
+	 * Makes teamList accessible outside the class.
+	 * @return the teamList of all teams.
+	 */
+	public static ObservableList<Team> getTeamlist() {
 		return teamlist;
 	}
 

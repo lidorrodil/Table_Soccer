@@ -1,8 +1,13 @@
 package tournament;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -19,8 +24,16 @@ import javafx.util.Callback;
 public class tourView {
 	private tourModel model;
 	private Stage stage;
+	
+	protected Button showAllTeamsButton = new Button("Show all Teams");
+	protected Button addTeamButton = new Button("Add Team");
+	protected Button removeTeamButton = new Button("Delete Team");
+	protected Button startTournamentButton = new Button("Start Tournament");
+	protected Button finishTournamentButton = new Button("Stop Tournament");
+	protected Button rulesButton = new Button("Rules");
+	
+	List<Button> buttonList = new ArrayList();
 
-	PreliminaryTable table;
 
 	public tourView(Stage stage, tourModel model) {
 		this.stage = stage;
@@ -30,6 +43,8 @@ public class tourView {
 
 	public void start() {
 		Scene scene = new Scene(new Group());
+		
+		addButtonsToButtonList();
 
 		// scene.getStylesheets().add(getClass().getResource("Design.css").toExternalForm());
 		stage.setScene(scene);
@@ -38,34 +53,32 @@ public class tourView {
 		// Make basic skeleton of view
 		VBox vBox1 = new VBox();
 		VBox vBox2 = new VBox();
-		VBox vBox3 = new VBox();
-		VBox vBox4 = new VBox();
-		VBox vBox5 = new VBox();
 		HBox hBox1 = new HBox();
 		HBox hBox2 = new HBox();
 		HBox hBox3 = new HBox();
+		GridPane gridPane = new GridPane();
 		vBox1.getChildren().addAll(hBox1, hBox2);
-		hBox1.getChildren().addAll(vBox2, vBox3, vBox4, vBox5);
+		hBox1.getChildren().addAll(vBox2, gridPane);
 		
-		hBox2.getChildren().add(new Button("Button1"));
-		hBox2.getChildren().add(new Button("Button2"));
-		hBox2.getChildren().add(new Button("Button3"));
-		hBox2.getChildren().add(new Button("Button4"));
-		
-		vBox3.getChildren().add(new Button("Button5"));
-		vBox3.getChildren().add(new Button("Button6"));
-		vBox3.getChildren().add(new Button("Button7"));
-		vBox3.getChildren().add(new Button("Button8"));
-		
-		vBox4.getChildren().add(new Button("Button9"));
-		vBox4.getChildren().add(new Button("Button10"));
-		vBox4.getChildren().add(new Button("Button11"));
-		vBox4.getChildren().add(new Button("Button12"));
-		
-		vBox5.getChildren().add(new Button("Button13"));
-		vBox5.getChildren().add(new Button("Button14"));
-		vBox5.getChildren().add(new Button("Button15"));
-		vBox5.getChildren().add(new Button("Button16"));
+		hBox2.setPadding(new Insets(10));
+		hBox2.setSpacing(10);
+		hBox2.getChildren().add(showAllTeamsButton);
+		hBox2.getChildren().add(addTeamButton);
+		hBox2.getChildren().add(removeTeamButton);
+		hBox2.getChildren().add(startTournamentButton);
+		hBox2.getChildren().add(finishTournamentButton);
+		hBox2.getChildren().add(rulesButton);
+
+		gridPane.setHgap(50);
+		gridPane.setVgap(50);
+
+		gridPane.add(new Button("Button5"), 0, 0);
+		gridPane.add(new Button("Button5"), 0, 3);
+		gridPane.add(new Button("Button5"), 0, 7);
+		gridPane.add(new Button("Button5"), 0, 9);
+		gridPane.add(new Button("Button6"), 1, 1);
+		gridPane.add(new Button("Button6"), 1, 8);
+		gridPane.add(new Button("Button7"), 2, 5);		
 		
 
 		// Create tables for preliminaries
@@ -100,28 +113,28 @@ public class tourView {
 
 		// Some Testing
 		// TODO: Delete this stuff before deploying
-		TeamList liste2 = new TeamList();
-		liste2.addTeam("gsdfgs", "player1", "player2");
-		liste2.addTeam("sdfjjk", "player1", "player2");
-		liste2.addTeam("tttttttt", "player1", "player2");
-		PreliminaryGame g2 = new PreliminaryGame(liste2.getTeamlist().get(0), liste2.getTeamlist().get(1));
+		TeamList liste1 = new TeamList();
+		liste1.addTeam("gsdfgs", "player1", "player2");
+		liste1.addTeam("sdfjjk", "player1", "player2");
+		liste1.addTeam("tttttttt", "player1", "player2");
+		PreliminaryGame g2 = new PreliminaryGame(liste1.getTeamlist().get(0), liste1.getTeamlist().get(1));
 		g2.setResult(3, 3);
-		table1.setItems(liste2.getTeamlist());
+		table1.setItems(liste1.getTeamlist());
 
-		TeamList liste = new TeamList();
-		liste.addTeam("team1", "player1", "player2");
-		liste.addTeam("team2", "player1", "player2");
-		liste.addTeam("team31", "player1", "player2");
-		liste.addTeam("team41", "player1", "player2");
-		liste.addTeam("team51", "player1", "player2");
-		PreliminaryGame g = new PreliminaryGame(liste.getTeamlist().get(0), liste.getTeamlist().get(1));
+		TeamList liste2 = new TeamList();
+		liste2.addTeam("team1", "player1", "player2");
+		liste2.addTeam("team2", "player1", "player2");
+		liste2.addTeam("team31", "player1", "player2");
+		liste2.addTeam("team41", "player1", "player2");
+		liste2.addTeam("team51", "player1", "player2");
+		PreliminaryGame g = new PreliminaryGame(liste2.getTeamlist().get(0), liste2.getTeamlist().get(1));
 		g.setResult(6, 2);
-		table2.setItems(liste.getTeamlist());
+		table2.setItems(liste2.getTeamlist());
 
 		
 		
 		// Create table headers
-		createTables(table1, table2, table3, table4);
+		createPreliminaryTables(table1, table2, table3, table4);
 
 		// insert tables into (leftmost) vbox2
 		vBox2.setSpacing(10);
@@ -143,13 +156,58 @@ public class tourView {
 	}
 
 	/**
+	 * Addss buttons to buttonlist and formats them.
+	 */
+	private void addButtonsToButtonList() {
+		buttonList.add(showAllTeamsButton);
+		buttonList.add(addTeamButton);
+		buttonList.add(removeTeamButton);
+		buttonList.add(startTournamentButton);
+		buttonList.add(finishTournamentButton);
+		buttonList.add(rulesButton);
+		buttonList.stream().forEach(c->c.setPrefWidth(150));
+	}
+	
+	/**
+	 * Creates the Table for Quartelfinals, Semifinals, Final.
+	 * @param game 
+	 * @return A table containing 2 teams only.
+	 */
+	public TableView<Team> createKOTable(KOGame game){
+		TableView<Team> table = new TableView<>();
+		TableColumn<Team, String> teamNameCol = new TableColumn<Team, String>("Team Name");
+		teamNameCol.setMinWidth(200);
+		teamNameCol.setPrefWidth(200);
+		teamNameCol.setCellValueFactory(c -> c.getValue().getPropertyTeamName());
+		table.getColumns().add(teamNameCol);
+		
+		ObservableList<TableColumn<Team, Integer>> list = FXCollections.observableArrayList();
+		for(int i = 0; i< game.getBestOfSets(); i++){
+			int number = i+1;
+			TableColumn<Team, Integer> setCol = new TableColumn<Team, Integer>(Integer.toString(number));
+			setCol.setMaxWidth(50);
+			setCol.setPrefWidth(50);
+			setCol.setCellValueFactory(c -> c.getValue().getPropertyWins().asObject());
+		}
+		
+		TableColumn<Team, Integer> setsPlayedCol = new TableColumn<Team, Integer>("Sets");
+		setsPlayedCol.setMaxWidth(50);
+		setsPlayedCol.setPrefWidth(50);
+		setsPlayedCol.setCellValueFactory(c -> c.getValue().getPropertyGamesPlayed().asObject());
+		table.getColumns().addAll(list);
+		
+		return table;
+		
+	}
+
+	/**
 	 * Creates all tables for the preliminary groups.
 	 * @param table1 Must contain a list of Teams.
 	 * @param table2 Must contain a list of Teams.
 	 * @param table3 Must contain a list of Teams.
 	 * @param table4 Must contain a list of Teams.
 	 */
-	public void createTables(TableView<Team> table1, TableView<Team> table2, TableView<Team> table3,
+	public void createPreliminaryTables(TableView<Team> table1, TableView<Team> table2, TableView<Team> table3,
 			TableView<Team> table4) {
 		// TODO: Add rank to Teams
 		// TODO: Refactor, that only 1 table is created to have less redundancy

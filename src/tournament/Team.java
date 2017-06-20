@@ -37,6 +37,9 @@ public class Team {
 		updateRepresentations();
 	}
 	
+	/**
+	 * Updates all the values of the team to the values in array values.
+	 */
 	private void updateRepresentations(){
 		draws.setValue(Integer.parseInt(values.get(0).toString()));
 		gamesPlayed.setValue(Integer.parseInt(values.get(1).toString()));
@@ -52,12 +55,16 @@ public class Team {
 
 	}
 	
+	/**
+	 * @return the team name.
+	 */
+	@Override
 	public String toString(){
 		return teamName.get();
 	}
 	
 	/**
-	 * Directly updates Total Points as well
+	 * Directly updates Total Points as well.
 	 */
 	public void increaseWins() {
 		wins.set(wins.get()+1);
@@ -66,7 +73,7 @@ public class Team {
 	}
 
 	/**
-	 * Directly updates Total Points as well
+	 * Directly updates Total Points as well.
 	 */
 	public void increaseDraws() {
 		draws.set(draws.get()+1);
@@ -75,7 +82,7 @@ public class Team {
 	}
 
 	/**
-	 * Directly updates Total Points as well
+	 * Directly updates Total Points as well.
 	 */
 	public void increaseLosts() {
 		losts.set(losts.get()+1);

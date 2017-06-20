@@ -1,7 +1,7 @@
 package tournament;
 
 /**
- * Defines sets within a game
+ * Defines sets within a game.
  *
  */
 
@@ -16,11 +16,20 @@ public class Set {
 		this.team2 = team2;
 	}
 
+	/**
+	 * Simulates a finished set. Enter the result of the set.
+	 * @param ptsTeam1 Goals Scored by Team 1
+	 * @param ptsTeam2 Goals Scored by Team 2
+	 */
 	public void setResult(int ptsTeam1, int ptsTeam2) {
 		result[0] = ptsTeam1;
 		result[1] = ptsTeam2;
+		setWinner();
 	}
 
+	/**
+	 * Determines the winner of the set.
+	 */
 	public void setWinner() {
 		if (result[0] > result[1]) {
 			winnerTeam = team1;

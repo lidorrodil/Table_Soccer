@@ -13,7 +13,7 @@ public class PreliminaryGame {
 		this.team2 = team2;
 	}
 	
-	/*
+	/**
 	 * Updates the Teams' stats
 	 */
 	public void setResult(int goalsTeam1, int goalsTeam2){
