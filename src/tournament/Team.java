@@ -1,127 +1,214 @@
 package tournament;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * Defines a team and its' properties
  *
  */
 
 public class Team {
-	private String teamName, player1, player2;
-	private int gamesPlayed, wins, draws, losts, goalsScored, goalsConceded, goalsDifference, points;
+	private final SimpleIntegerProperty draws = new SimpleIntegerProperty();
+	private final SimpleIntegerProperty gamesPlayed = new SimpleIntegerProperty();
+	private final SimpleIntegerProperty goalsConceded = new SimpleIntegerProperty();
+	private final SimpleIntegerProperty goalsDifference = new SimpleIntegerProperty();
+	private final SimpleIntegerProperty goalsScored = new SimpleIntegerProperty();
+	private final SimpleIntegerProperty losts = new SimpleIntegerProperty();
+	private final SimpleStringProperty player1 = new SimpleStringProperty();
+	private final SimpleStringProperty player2 = new SimpleStringProperty();
+	private final SimpleIntegerProperty points = new SimpleIntegerProperty();
+	private final SimpleStringProperty teamName = new SimpleStringProperty();
+	private final SimpleIntegerProperty wins = new SimpleIntegerProperty();
+
+	List<Object> values = new ArrayList<Object>();
 
 	private final int PTS_FOR_WIN = 2;
 	private final int PTS_FOR_DRAW = 1;
 	private final int PTS_FOR_LOST = 0;
 
 	public Team(String teamName, String player1, String player2) {
-		this.teamName = teamName;
-		this.player1 = player1;
-		this.player2 = player2;
-		this.gamesPlayed = this.wins = this.draws = this.losts = this.goalsScored = this.goalsConceded = 0;
-		setPoints();
-		setGoalDifference();
+		values = Arrays.asList(0,0,0,0,0,0,player1,player2,0,teamName,0);
+		updateRepresentations();
 	}
 	
-	
-	
-	private void setPoints() {
-		points =  wins * PTS_FOR_WIN + draws * PTS_FOR_DRAW + losts * PTS_FOR_LOST;
-	}
+	private void updateRepresentations(){
+		draws.setValue(Integer.parseInt(values.get(0).toString()));
+		gamesPlayed.setValue(Integer.parseInt(values.get(1).toString()));
+		goalsConceded.setValue(Integer.parseInt(values.get(2).toString()));
+		goalsDifference.setValue(Integer.parseInt(values.get(3).toString()));
+		goalsScored.setValue(Integer.parseInt(values.get(4).toString()));
+		losts.setValue(Integer.parseInt(values.get(5).toString()));
+		player1.setValue(values.get(6).toString());
+		player2.setValue(values.get(7).toString());
+		points.setValue(Integer.parseInt(values.get(8).toString()));
+		teamName.setValue(values.get(9).toString());
+		wins.setValue(Integer.parseInt(values.get(10).toString()));
 
-	private void setGoalDifference() {
-		goalsDifference = goalsScored - goalsConceded;
-	}
-	
-	
-
-	public String getPlayer1() {
-		return player1;
-	}
-
-	public String getPlayer2() {
-		return player2;
 	}
 	
-	public String getTeamName() {
-		return teamName;
+	public String toString(){
+		return teamName.get();
 	}
-
-	public int getGamesPlayed() {
-		return gamesPlayed;
-	}
-
-	public int getWins() {
-		return wins;
-	}
-
-	public int getDraws() {
-		return draws;
-	}
-
-	public int getLosts() {
-		return losts;
-	}
-
-	public int getGoalsScored() {
-		return goalsScored;
-	}
-
-	public int getGoalsConceded() {
-		return goalsConceded;
-	}
-
-	public int getGoalsDifference() {
-		return goalsDifference;
-	}
-
-	public int getPoints() {
-		return points;
-	}
-
-	public void increaseGamesPlayed() {
-		this.gamesPlayed++;
-	}
-
-	/*
+	
+	/**
 	 * Directly updates Total Points as well
 	 */
 	public void increaseWins() {
-		this.wins++;
-		this.setPoints();
+		wins.set(wins.get()+1);
+		updatePoints();
+		updateGamesPlayed();
 	}
-	
-	/*
+
+	/**
 	 * Directly updates Total Points as well
 	 */
 	public void increaseDraws() {
-		this.draws++;
-		this.setPoints();
+		draws.set(draws.get()+1);
+		updatePoints();
+		updateGamesPlayed();
 	}
 
-	/*
+	/**
 	 * Directly updates Total Points as well
 	 */
 	public void increaseLosts() {
-		this.losts++;
-		this.setPoints();
+		losts.set(losts.get()+1);
+		updatePoints();
+		updateGamesPlayed();
+	}
+
+	/**
+	 * Directly updates Goal Difference as well
+	 * @param scored Represents the amount of goals, the team has scored.
+	 */
+	public void addGoalsScored(int scored) {
+		goalsScored.set(goalsScored.get() + scored);
+		updateGoalDifference();
+	}
+
+	/**
+	 * Directly updates Goal Difference as well
+	 * @param conceded How many goals the team let in.
+	 */
+	public void addGoalsConceded(int conceded) {
+		goalsConceded.set(Math.abs(goalsConceded.get() + conceded));
+		updateGoalDifference();
+	}	
+
+	private void updateGamesPlayed() {
+		gamesPlayed.set(draws.get()+wins.get()+losts.get());
+	}
+
+	private void updatePoints() {
+		points.set(wins.get() * PTS_FOR_WIN + draws.get() * PTS_FOR_DRAW + losts.get() * PTS_FOR_LOST);
+	}
+
+	private void updateGoalDifference() {
+		goalsDifference.set(goalsScored.get() - goalsConceded.get());
+		System.out.println("Scored"+ goalsScored.get());
+		System.out.println("let in" + goalsConceded.get());
+		System.out.println("diff "+ goalsDifference.get());
 	}
 	
-	/*
-	 * Directly updates Goal Difference as well
-	 */
-	public void addGoalsScored(int goalsScored) {
-		this.goalsScored += goalsScored;
-		this.setGoalDifference();
-	}
 
 	/*
-	 * Directly updates Goal Difference as well
-	 */
-	public void addGoalsConceded(int goalsConceded) {
-		this.goalsConceded += goalsConceded;
-		this.setGoalDifference();
+	 * Just Getters and Setters below this point.
+	 */	
+	public List<Object> getValues() {
+		return values;
 	}
 
+	public SimpleIntegerProperty getPropertyDraws() {
+		return draws;
+	}
+
+	public SimpleIntegerProperty getPropertyGamesPlayed() {
+		return gamesPlayed;
+	}
+
+	public SimpleIntegerProperty getPropertyGoalsConceded() {
+		return goalsConceded;
+	}
+
+	public SimpleIntegerProperty getPropertyGoalsDifference() {
+		return goalsDifference;
+	}
+
+	public SimpleIntegerProperty getPropertyGoalsScored() {
+		return goalsScored;
+	}
+
+	public SimpleIntegerProperty getPropertyLosts() {
+		return losts;
+	}
+
+	public SimpleStringProperty getPropertyPlayer1() {
+		return player1;
+	}
+
+	public SimpleStringProperty getPropertyPlayer2() {
+		return player2;
+	}
+
+	public SimpleIntegerProperty getPropertyPoints() {
+		return points;
+	}
+
+	public SimpleStringProperty getPropertyTeamName() {
+		return teamName;
+	}
+
+	public SimpleIntegerProperty getPropertyWins() {
+		return wins;
+	}
 	
+	public int getDraws() {
+		return draws.get();
+	}
 
+	public int getGamesPlayed() {
+		return gamesPlayed.get();
+	}
+
+	public int getGoalsConceded() {
+		return goalsConceded.get();
+	}
+
+	public int getGoalsDifference() {
+		return goalsDifference.get();
+	}
+
+	public int getGoalsScored() {
+		return goalsScored.get();
+	}
+
+	public int getLosts() {
+		return losts.get();
+	}
+
+	public String getPlayer1() {
+		return player1.get();
+	}
+
+	public String getPlayer2() {
+		return player2.get();
+	}
+
+	public int getPoints() {
+		return points.get();
+	}
+
+	public String getTeamName() {
+		return teamName.get();
+	}
+
+	public int getWins() {
+		return wins.get();
+	}
 }

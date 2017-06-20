@@ -8,7 +8,7 @@ public class PreliminaryGame {
 
 	private Team team1, team2;
 	
-	public PreliminaryGame(){
+	public PreliminaryGame(Team team1, Team team2){
 		this.team1 = team1;
 		this.team2 = team2;
 	}
@@ -32,11 +32,9 @@ public class PreliminaryGame {
 		
 		team1.addGoalsScored(goalsTeam1);
 		team1.addGoalsConceded(goalsTeam2);
-		team1.increaseGamesPlayed();
 		
 		team2.addGoalsScored(goalsTeam2);
 		team2.addGoalsConceded(goalsTeam1);
-		team2.increaseGamesPlayed();
 		
 	}
 	
