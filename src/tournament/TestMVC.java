@@ -9,7 +9,7 @@ import userInterface.view;
 public class TestMVC extends Application{
 
 	// private static final boolean EmailValidator = false;
-	private tourModel model;
+	private Tournament model;
 	private tourView view;
 	private tourController controller;
 
@@ -27,7 +27,7 @@ public class TestMVC extends Application{
 		// Validator vf = new Validator();
 		// vf.start(primaryStage);
 
-		model = new tourModel();
+		model = new Tournament();
 		view = new tourView(primaryStage, model);
 		controller = new tourController(model, view);
 

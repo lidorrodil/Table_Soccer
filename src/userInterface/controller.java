@@ -25,6 +25,7 @@ import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
 import sun.security.action.OpenFileInputStreamAction;
 import sun.util.resources.LocaleData;
+import tournament.Tournament;
 import tournament.tourController;
 import tournament.tourModel;
 import tournament.tourView;
@@ -409,7 +410,7 @@ public class controller implements EventHandler<ActionEvent> {
 
 	public void createTournament() {
 
-		tourModel model = new tourModel();
+		Tournament model = new Tournament();
 		tourView view = new tourView(new Stage(), model);
 		try {
 			tourController controller = new tourController(model, view);

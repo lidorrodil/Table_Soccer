@@ -16,9 +16,26 @@ import javafx.collections.ObservableList;
 public class TeamList {
 
 	private static ObservableList<Team> teamlist;
+	private static int teamListSize;
 
 	public TeamList() {
 		teamlist = FXCollections.observableArrayList();
+		teamListSize = 0;
+		
+		/*
+		 * Creates some dummy data to test with
+		 * TODO: Delete this!
+		 */
+		TeamList.addTeam("team1", "player1", "player2");
+		TeamList.addTeam("team2", "player1", "player2");
+		TeamList.addTeam("team31", "player1", "player2");
+		TeamList.addTeam("team41", "player1", "player2");
+		TeamList.addTeam("team51", "player1", "player2");
+		TeamList.addTeam("gsdfgs", "player1", "player2");
+		TeamList.addTeam("sdfjjk", "player1", "player2");
+		TeamList.addTeam("tttttttt", "player1", "player2");
+		TeamList.addTeam("llllllllll", "player1", "player2");
+		TeamList.addTeam("kkkkk", "player1", "player2");
 	}
 
 	/**
@@ -34,6 +51,7 @@ public class TeamList {
 			checkIfNameValid(player1);
 			checkIfNameValid(player2);
 			teamlist.add(new Team(teamName, player1, player2));
+			teamListSize++;
 			return true;
 		} catch (IllegalArgumentException e) {
 			System.err.println("Error: " + e.getMessage());
@@ -51,6 +69,7 @@ public class TeamList {
 		try {
 			if (teamlist.stream().anyMatch(p -> p.getTeamName().equals(teamName))) {
 				teamlist.remove(teamlist.stream().filter(p -> p.getTeamName().equals(teamName)).findFirst().get());
+				teamListSize--;
 			} else {
 				throw new IllegalArgumentException(teamName + " is no team!");
 			}
@@ -82,7 +101,7 @@ public class TeamList {
 	/**
 	 * Shuffles all teams to make 4 Preliminary Tables.
 	 */
-	public void shuffleTeams() {
+	public static void shuffleTeams() {
 		Collections.shuffle(teamlist);
 	}
 
@@ -92,6 +111,14 @@ public class TeamList {
 	 */
 	public static ObservableList<Team> getTeamlist() {
 		return teamlist;
+	}
+	
+	/**
+	 * 
+	 * @return The number of teams in the list.
+	 */
+	public static int getTeamListSize(){
+		return teamListSize;
 	}
 
 }

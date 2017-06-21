@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -25,6 +26,12 @@ public class Team {
 	private final SimpleIntegerProperty points = new SimpleIntegerProperty();
 	private final SimpleStringProperty teamName = new SimpleStringProperty();
 	private final SimpleIntegerProperty wins = new SimpleIntegerProperty();
+	
+	private final SimpleIntegerProperty set1 = new SimpleIntegerProperty();
+	private final SimpleIntegerProperty set2 = new SimpleIntegerProperty();
+	private final SimpleIntegerProperty set3 = new SimpleIntegerProperty();
+	private final SimpleIntegerProperty set4 = new SimpleIntegerProperty();
+	private final SimpleIntegerProperty set5 = new SimpleIntegerProperty();
 
 	List<Object> values = new ArrayList<Object>();
 
@@ -52,6 +59,11 @@ public class Team {
 		points.setValue(Integer.parseInt(values.get(8).toString()));
 		teamName.setValue(values.get(9).toString());
 		wins.setValue(Integer.parseInt(values.get(10).toString()));
+		set1.set(0);
+		set2.set(0);
+		set3.set(0);
+		set4.set(0);
+		set5.set(0);
 
 	}
 	
@@ -218,4 +230,25 @@ public class Team {
 	public int getWins() {
 		return wins.get();
 	}
+
+	public SimpleIntegerProperty getSet1() {
+		return set1;
+	}
+
+	public SimpleIntegerProperty getSet2() {
+		return set2;
+	}
+
+	public SimpleIntegerProperty getSet3() {
+		return set3;
+	}
+
+	public SimpleIntegerProperty getSet4() {
+		return set4;
+	}
+
+	public SimpleIntegerProperty getSet5() {
+		return set5;
+	}
+	
 }

@@ -56,6 +56,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import tournament.Tournament;
 import tournament.tourController;
 import tournament.tourModel;
 import tournament.tourView;
@@ -335,7 +336,7 @@ public class view implements ActionListener {
 
 	
 	public void tournamentStart() throws Exception{
-		tourModel tModel = new tourModel();
+		Tournament tModel = new Tournament();
 		tourView tView = new tourView(new Stage(), tModel);
 		tourController tController = new tourController(tModel, tView);
 		

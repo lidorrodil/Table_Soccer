@@ -12,15 +12,17 @@ import userInterface.model;
 import userInterface.view;
 
 public class tourController {
-	final private tourModel model;
+	final private Tournament model;
 	final private tourView view;
 	
 	private TeamList teamlist = new TeamList();
 	
-	public tourController(tourModel model, tourView view) throws Exception {
+	ShowPreliminaryGamesView view0 = new ShowPreliminaryGamesView();
+	
+	public tourController(Tournament model, tourView view) throws Exception {
 		this.model = model;
 		this.view = view;
-		
+				
 		view.addTeamButton.setOnAction(c-> {
 			try {
 				addTeam();
@@ -47,10 +49,21 @@ public class tourController {
 				e.printStackTrace();
 			}
 		});
-				
+		
+		view.preliminaryGameButton.setDisable(true);
+		view.startTournamentButton.setOnAction(c->startTournament());
+		view.preliminaryGameButton.setOnAction(c->showPreliminaryGamesView2());
 			
 	}
 	
+	public void showPreliminaryGamesView() {
+		view0.start();
+	}
+	
+	public void showPreliminaryGamesView2(){
+		view0.start2();
+	}
+
 	/**
 	 * Lets you add a team.
 	 * @throws Exception
@@ -91,5 +104,27 @@ public class tourController {
 	 */
 	public void setTeamlist(TeamList teamlist) {
 		this.teamlist = teamlist;
+	}
+	
+	/**
+	 * Initialises tournament, puts teams in groups and displays them.
+	 */
+	public void startTournament(){
+		model.startTournament();
+		view.getTable1().setItems(model.getGroup1());
+		view.getTable2().setItems(model.getGroup2());
+		view.getTable3().setItems(model.getGroup3());
+		view.getTable4().setItems(model.getGroup4());
+		view.startTournamentButton.setDisable(true);
+		view.preliminaryGameButton.setDisable(false);
+		
+		int posOfAdd = view.hBox2.getChildren().indexOf(view.addTeamButton);
+		view.hBox2.getChildren().remove(posOfAdd);
+		view.hBox2.getChildren().add(posOfAdd, view.preliminaryGameButton);
+		int posOfRemove = view.hBox2.getChildren().indexOf(view.removeTeamButton);
+		view.hBox2.getChildren().remove(posOfRemove);
+		view.hBox2.getChildren().add(posOfRemove, view.startKOButton);
+		
+		showPreliminaryGamesView();
 	}
 }

@@ -35,7 +35,10 @@ public class PreliminaryGame {
 		
 		team2.addGoalsScored(goalsTeam2);
 		team2.addGoalsConceded(goalsTeam1);
-		
+	}
+	
+	public String toString(){
+		return team1.toString() + " vs. " + team2.toString();
 	}
 	
 	

@@ -12,14 +12,14 @@ import javafx.stage.Stage;
 
 public class AddMemberView {
 	
-	Stage stage;
+	protected Stage stage;
 	
-	Button addButton;
-	Button cancelButton;
+	protected Button addButton;
+	protected Button cancelButton;
 	
-	TextField textfieldTeamName;
-	TextField textfieldPlayer1Name;
-	TextField textfieldPlayer2Name;
+	protected TextField textfieldTeamName;
+	protected TextField textfieldPlayer1Name;
+	protected TextField textfieldPlayer2Name;
 	
 	
 	/**
