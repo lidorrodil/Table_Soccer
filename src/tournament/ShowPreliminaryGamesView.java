@@ -342,11 +342,11 @@ public class ShowPreliminaryGamesView {
 	public void createGamesLists() {
 		// Fill gamesList1
 		gamesList1 = FXCollections.observableArrayList();
-		int numberOfTeams1 = Tournament.getGroup1().size();
+		int numberOfTeams1 = TourModel.getGroup1().size();
 		for (int i = 0; i < numberOfTeams1 - 1; i++) {
 			for (int j = i + 1; j < numberOfTeams1; j++) {
-				Team team1 = Tournament.getGroup1().get(i);
-				Team team2 = Tournament.getGroup1().get(j);
+				Team team1 = TourModel.getGroup1().get(i);
+				Team team2 = TourModel.getGroup1().get(j);
 				PreliminaryGame game = new PreliminaryGame(team1, team2);
 				gamesList1.add(game);
 			}
@@ -354,11 +354,11 @@ public class ShowPreliminaryGamesView {
 
 		// Fill gamesList2
 		gamesList2 = FXCollections.observableArrayList();
-		int numberOfTeams2 = Tournament.getGroup2().size();
+		int numberOfTeams2 = TourModel.getGroup2().size();
 		for (int i = 0; i < numberOfTeams2 - 1; i++) {
 			for (int j = i + 1; j < numberOfTeams2; j++) {
-				Team team1 = Tournament.getGroup2().get(i);
-				Team team2 = Tournament.getGroup2().get(j);
+				Team team1 = TourModel.getGroup2().get(i);
+				Team team2 = TourModel.getGroup2().get(j);
 				PreliminaryGame game = new PreliminaryGame(team1, team2);
 				gamesList2.add(game);
 			}
@@ -366,11 +366,11 @@ public class ShowPreliminaryGamesView {
 
 		// Fill gamesList3
 		gamesList3 = FXCollections.observableArrayList();
-		int numberOfTeams3 = Tournament.getGroup3().size();
+		int numberOfTeams3 = TourModel.getGroup3().size();
 		for (int i = 0; i < numberOfTeams3 - 1; i++) {
 			for (int j = i + 1; j < numberOfTeams3; j++) {
-				Team team1 = Tournament.getGroup3().get(i);
-				Team team2 = Tournament.getGroup3().get(j);
+				Team team1 = TourModel.getGroup3().get(i);
+				Team team2 = TourModel.getGroup3().get(j);
 				PreliminaryGame game = new PreliminaryGame(team1, team2);
 				gamesList3.add(game);
 			}
@@ -378,11 +378,11 @@ public class ShowPreliminaryGamesView {
 
 		// Fill gamesList4
 		gamesList4 = FXCollections.observableArrayList();
-		int numberOfTeams4 = Tournament.getGroup4().size();
+		int numberOfTeams4 = TourModel.getGroup4().size();
 		for (int i = 0; i < numberOfTeams4 - 1; i++) {
 			for (int j = i + 1; j < numberOfTeams4; j++) {
-				Team team1 = Tournament.getGroup4().get(i);
-				Team team2 = Tournament.getGroup4().get(j);
+				Team team1 = TourModel.getGroup4().get(i);
+				Team team2 = TourModel.getGroup4().get(j);
 				PreliminaryGame game = new PreliminaryGame(team1, team2);
 				gamesList4.add(game);
 			}

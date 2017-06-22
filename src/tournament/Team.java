@@ -64,7 +64,24 @@ public class Team {
 		set3.set(0);
 		set4.set(0);
 		set5.set(0);
-
+	}
+	
+	/**
+	 * Compares points, goal Difference, and goals scored (in this order) -> more is better.
+	 * @param other
+	 * @return The better team.
+	 */
+	public int compare(Team other){
+		if(this.getPoints()!= other.getPoints()){
+			return other.getPoints()-this.getPoints();
+		} 
+		else if(this.getGoalsDifference() != other.getGoalsDifference()){
+			return other.getGoalsDifference() - this.getGoalsDifference();
+		}
+		else if(this.getGoalsScored() != other.getGoalsScored()){
+			return other.getGoalsScored() -  this.getGoalsScored();
+		}
+		return 0;
 	}
 	
 	/**

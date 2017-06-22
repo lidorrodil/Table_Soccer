@@ -25,8 +25,8 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import jdk.nashorn.internal.ir.LiteralNode.PrimitiveLiteralNode;
 
-public class tourView {
-	private Tournament model;
+public class TourView {
+	private TourModel model;
 	private Stage stage;
 
 	// Basic UI Elements
@@ -81,7 +81,7 @@ public class tourView {
 	List<Button> buttonList = new ArrayList();
 	List<TableView<Team>> tableKOList = new ArrayList();
 
-	public tourView(Stage stage, Tournament model) {
+	public TourView(Stage stage, TourModel model) {
 		this.stage = stage;
 		this.model = model;
 

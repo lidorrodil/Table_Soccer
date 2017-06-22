@@ -11,15 +11,15 @@ import javafx.stage.Stage;
 import userInterface.model;
 import userInterface.view;
 
-public class tourController {
-	final private Tournament model;
-	final private tourView view;
+public class TourController {
+	final private TourModel model;
+	final private TourView view;
 	
 	private TeamList teamlist = new TeamList();
 	
 	ShowPreliminaryGamesView view0 = new ShowPreliminaryGamesView();
 	
-	public tourController(Tournament model, tourView view) throws Exception {
+	public TourController(TourModel model, TourView view) throws Exception {
 		this.model = model;
 		this.view = view;
 				

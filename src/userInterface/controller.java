@@ -25,10 +25,10 @@ import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
 import sun.security.action.OpenFileInputStreamAction;
 import sun.util.resources.LocaleData;
-import tournament.Tournament;
-import tournament.tourController;
-import tournament.tourModel;
-import tournament.tourView;
+import tournament.TourModel;
+import tournament.TourController;
+import tournament.TourModel;
+import tournament.TourView;
 
 public class controller implements EventHandler<ActionEvent> {
 	final private model model;
@@ -410,10 +410,10 @@ public class controller implements EventHandler<ActionEvent> {
 
 	public void createTournament() {
 
-		Tournament model = new Tournament();
-		tourView view = new tourView(new Stage(), model);
+		TourModel model = new TourModel();
+		TourView view = new TourView(new Stage(), model);
 		try {
-			tourController controller = new tourController(model, view);
+			TourController controller = new TourController(model, view);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
