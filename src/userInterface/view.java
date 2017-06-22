@@ -203,6 +203,8 @@ public class view implements ActionListener {
 		
 		HBox lowerLine = new HBox();
 		lowerLine.getChildren().addAll(aButton,btnEdit,btnClean,btnTournamet);
+		lowerLine.setPadding(new Insets(7));
+		lowerLine.setSpacing(5);
 		//personalData.add(line, 0, 11);
 		
 		btnTournamet.setId("round-green");
@@ -217,6 +219,8 @@ public class view implements ActionListener {
 		GridPane searchInfo = new GridPane();
 		HBox upperSearchLine = new HBox();
 		upperSearchLine.getChildren().addAll(btnSearch,btnRemove);
+		upperSearchLine.setPadding(new Insets(5));
+		upperSearchLine.setSpacing(5);
 		searchInfo.add(upperSearchLine, 0, 0);
 		searchInfo.add(new HBox(new Label()), 0, 1);
 		searchInfo.add(new Label("First Name:"), 0, 2);
@@ -290,6 +294,7 @@ public class view implements ActionListener {
 		tableView.getStylesheets().add(getClass().getResource("table.css").toExternalForm());
 
 		scene.getStylesheets().add(getClass().getResource("Design.css").toExternalForm());
+		stage.setHeight(600);
 		stage.setScene(scene);
 		stage.setTitle("Table Soccer");
 
