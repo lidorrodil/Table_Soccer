@@ -157,6 +157,8 @@ public class TourModel {
 			teamListIndex++;
 		}
 		teamListIndex = 0;
+		
+		
 	}
 
 	/**

@@ -14,6 +14,7 @@ import userInterface.model;
 import userInterface.view;
 
 public class TourController {
+	
 	final private TourModel model;
 	final private TourView view;
 
