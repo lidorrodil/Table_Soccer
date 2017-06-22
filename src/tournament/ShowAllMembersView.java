@@ -12,6 +12,12 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Opens a window showing all registered teams.
+ * @author joelf
+ *
+ */
+
 public class ShowAllMembersView {
 	
 	Stage stage;
@@ -25,9 +31,9 @@ public class ShowAllMembersView {
 		stage = new Stage();
 		stage.setTitle("Teams");
 		
-		VBox vBox = new VBox();
-		vBox.setPadding(new Insets(10));
-		vBox.setSpacing(10);
+		VBox root = new VBox();
+		root.setPadding(new Insets(10));
+		root.setSpacing(10);
 		
 		Dimension resolution = Toolkit.getDefaultToolkit().getScreenSize();
 		double tableMaxHeight = resolution.getHeight();
@@ -36,13 +42,17 @@ public class ShowAllMembersView {
 		createTable();
 		table.setMaxHeight(tableMaxHeight);
 		table.setPrefHeight(500);
-		
+		table.getStylesheets().add(getClass().getResource("table.css").toExternalForm());
 		cancelButton = new Button("Cancel");
 		cancelButton.setMaxWidth(Integer.MAX_VALUE);
 		cancelButton.setOnAction(c->stop());
 		
-		vBox.getChildren().addAll(table, cancelButton);
-		Scene scene = new Scene(vBox);
+		root.getChildren().addAll(table, cancelButton);
+		Scene scene = new Scene(root);
+		root.setStyle(
+				"-fx-background-color: radial-gradient(focus-angle 45deg, focus-distance 50%, center 25% 25%, radius 60%, reflect, gray, darkgray 30%, black)");
+		scene.getStylesheets().add(getClass().getResource("TourView.css").toExternalForm());
+
 		stage.setScene(scene);
 		stage.show();
 	}

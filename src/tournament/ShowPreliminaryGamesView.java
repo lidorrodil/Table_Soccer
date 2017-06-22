@@ -12,6 +12,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+/**
+ * Enables you to add results to the preliminary games.
+ * @author joelf
+ *
+ */
+
 public class ShowPreliminaryGamesView {
 
 	protected Stage stage;
@@ -40,7 +46,7 @@ public class ShowPreliminaryGamesView {
 	protected TextField result41 = new TextField();
 	protected TextField result42 = new TextField();
 
-	protected GridPane gridPane;
+	protected GridPane root;
 
 	private String pairing1;
 	private String pairing2;
@@ -64,10 +70,10 @@ public class ShowPreliminaryGamesView {
 	private boolean allGamesFinished = false;
 
 	public void start() {
-		gridPane = new GridPane();
-		gridPane.setPadding(new Insets(10));
-		gridPane.setHgap(10);
-		gridPane.setVgap(10);
+		root = new GridPane();
+		root.setPadding(new Insets(10));
+		root.setHgap(10);
+		root.setVgap(10);
 
 		createGamesLists();
 		setInitialPairings();
@@ -80,7 +86,11 @@ public class ShowPreliminaryGamesView {
 		nextGameButton3.setOnAction(c -> setPairing3());
 		nextGameButton4.setOnAction(c -> setPairing4());
 
-		Scene scene = new Scene(gridPane);
+		Scene scene = new Scene(root);
+		root.setStyle(
+				"-fx-background-color: radial-gradient(focus-angle 45deg, focus-distance 50%, center 25% 25%, radius 60%, reflect, gray, darkgray 30%, black)");
+		scene.getStylesheets().add(getClass().getResource("TourView.css").toExternalForm());
+
 		stage = new Stage();
 		stage.setScene(scene);
 		stage.setTitle("Add Game");
@@ -313,27 +323,27 @@ public class ShowPreliminaryGamesView {
 		nextGameButton3.setPrefWidth(100);
 		nextGameButton4.setPrefWidth(100);
 
-		gridPane.add(labelMatch, 0, 0, 2, 1);
-		gridPane.add(labelTeamName1, 0, 1, 1, 1);
-		gridPane.add(labelTeamName2, 0, 2, 1, 1);
-		gridPane.add(labelTeamName3, 0, 3, 1, 1);
-		gridPane.add(labelTeamName4, 0, 4, 1, 1);
-		gridPane.add(finishButton, 0, 5, 4, 1);
+		root.add(labelMatch, 0, 0, 2, 1);
+		root.add(labelTeamName1, 0, 1, 1, 1);
+		root.add(labelTeamName2, 0, 2, 1, 1);
+		root.add(labelTeamName3, 0, 3, 1, 1);
+		root.add(labelTeamName4, 0, 4, 1, 1);
+		root.add(finishButton, 0, 5, 4, 1);
 
-		gridPane.add(result11, 2, 1, 1, 1);
-		gridPane.add(result12, 3, 1, 1, 1);
-		gridPane.add(result21, 2, 2, 1, 1);
-		gridPane.add(result22, 3, 2, 1, 1);
-		gridPane.add(result31, 2, 3, 1, 1);
-		gridPane.add(result32, 3, 3, 1, 1);
-		gridPane.add(result41, 2, 4, 1, 1);
-		gridPane.add(result42, 3, 4, 1, 1);
+		root.add(result11, 2, 1, 1, 1);
+		root.add(result12, 3, 1, 1, 1);
+		root.add(result21, 2, 2, 1, 1);
+		root.add(result22, 3, 2, 1, 1);
+		root.add(result31, 2, 3, 1, 1);
+		root.add(result32, 3, 3, 1, 1);
+		root.add(result41, 2, 4, 1, 1);
+		root.add(result42, 3, 4, 1, 1);
 
-		gridPane.add(nextGameButton1, 4, 1, 1, 1);
-		gridPane.add(nextGameButton2, 4, 2, 1, 1);
-		gridPane.add(nextGameButton3, 4, 3, 1, 1);
-		gridPane.add(nextGameButton4, 4, 4, 1, 1);
-		gridPane.add(cancelButton, 4, 5, 1, 1);
+		root.add(nextGameButton1, 4, 1, 1, 1);
+		root.add(nextGameButton2, 4, 2, 1, 1);
+		root.add(nextGameButton3, 4, 3, 1, 1);
+		root.add(nextGameButton4, 4, 4, 1, 1);
+		root.add(cancelButton, 4, 5, 1, 1);
 	}
 
 	/**

@@ -13,6 +13,12 @@ import javafx.stage.Stage;
 import userInterface.model;
 import userInterface.view;
 
+/**
+ * This is the base class of the tournament. From here, all actions are coordinated.
+ * @author joelf
+ *
+ */
+
 public class TourController {
 	
 	final private TourModel model;

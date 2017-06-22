@@ -25,12 +25,19 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import jdk.nashorn.internal.ir.LiteralNode.PrimitiveLiteralNode;
 
+/**
+ * Displays the basic window of the tournament.
+ * 
+ * @author joelf
+ *
+ */
+
 public class TourView {
 	private TourModel model;
 	private Stage stage;
 
 	// Basic UI Elements
-	protected VBox vBox1;
+	protected VBox root;
 	protected VBox vBox2;
 	protected HBox hBox1;
 	protected HBox hBox2;
@@ -52,13 +59,13 @@ public class TourView {
 	protected Label KOLabel5 = new Label("Semi Final 1");
 	protected Label KOLabel6 = new Label("Semi Final 2");
 	protected Label KOLabel7 = new Label("Final");
-	protected Label labelQFPlaceholder1 = new Label("The Quarter Finals are not set yet");
-	protected Label labelQFPlaceholder2 = new Label("The Quarter Finals are not set yet");
-	protected Label labelQFPlaceholder3 = new Label("The Quarter Finals are not set yet");
-	protected Label labelQFPlaceholder4 = new Label("The Quarter Finals are not set yet");
-	protected Label labelSFPlaceholder1 = new Label("The Semi Finals are not set yet");
-	protected Label labelSFPlaceholder2 = new Label("The Semi Finals are not set yet");
-	protected Label labelFPlaceholder = new Label("The Final is not set yet");
+	protected Text labelQFPlaceholder1 = new Text("The Quarter Finals are not set yet");
+	protected Text labelQFPlaceholder2 = new Text("The Quarter Finals are not set yet");
+	protected Text labelQFPlaceholder3 = new Text("The Quarter Finals are not set yet");
+	protected Text labelQFPlaceholder4 = new Text("The Quarter Finals are not set yet");
+	protected Text labelSFPlaceholder1 = new Text("The Semi Finals are not set yet");
+	protected Text labelSFPlaceholder2 = new Text("The Semi Finals are not set yet");
+	protected Text labelFPlaceholder = new Text("The Final is not set yet");
 	protected Button QFButton1 = new Button("Add Result");
 	protected Button QFButton2 = new Button("Add Result");
 	protected Button QFButton3 = new Button("Add Result");
@@ -85,11 +92,11 @@ public class TourView {
 	protected TableView<Team> table2;
 	protected TableView<Team> table3;
 	protected TableView<Team> table4;
-	protected Text prelHeader = new Text("Preliminary Rounds");
-	protected Label labelPrelPlaceholder1 = new Label("The Preliminary groups are not set yet");
-	protected Label labelPrelPlaceholder2 = new Label("The Preliminary groups are not set yet");
-	protected Label labelPrelPlaceholder3 = new Label("The Preliminary groups are not set yet");
-	protected Label labelPrelPlaceholder4 = new Label("The Preliminary groups are not set yet");
+	protected Label prelHeader = new Label("Preliminary Rounds");
+	protected Text labelPrelPlaceholder1 = new Text("The Preliminary groups are not set yet");
+	protected Text labelPrelPlaceholder2 = new Text("The Preliminary groups are not set yet");
+	protected Text labelPrelPlaceholder3 = new Text("The Preliminary groups are not set yet");
+	protected Text labelPrelPlaceholder4 = new Text("The Preliminary groups are not set yet");
 	List<Button> buttonList = new ArrayList();
 
 	public TourView(Stage stage, TourModel model) {
@@ -105,21 +112,20 @@ public class TourView {
 		addButtonsToButtonList();
 		fillTableKOList();
 
-		// scene.getStylesheets().add(getClass().getResource("Design.css").toExternalForm());
 		stage.setScene(scene);
 		stage.setTitle("Tournament");
 
 		// Make basic skeleton of view
-		vBox1 = new VBox();
+		root = new VBox();
 		vBox2 = new VBox();
 		hBox1 = new HBox();
 		hBox2 = new HBox();
 		hBox3 = new HBox();
 		gridPane = new GridPane();
-		vBox1.getChildren().addAll(hBox1, hBox2);
+		root.getChildren().addAll(hBox1, hBox2);
 		hBox1.getChildren().addAll(vBox2, gridPane);
 
-		hBox2.setPadding(new Insets(0,3,3,3));
+		hBox2.setPadding(new Insets(0, 3, 3, 10));
 		hBox2.setSpacing(10);
 		hBox2.getChildren().add(showAllTeamsButton);
 		hBox2.getChildren().add(addTeamButton);
@@ -127,13 +133,84 @@ public class TourView {
 		hBox2.getChildren().add(startTournamentButton);
 		hBox2.getChildren().add(rulesButton);
 
-		// gridPane.setHgap(5);
-		// gridPane.setVgap(3);
 		gridPane.setPadding(new Insets(3));
 
+		createKOView();
+
+		createPreliminaryView();
+
+		// Create table headers
+		createPreliminaryTables(table1, table2, table3, table4);
+
+		// insert tables into (leftmost) vbox2
+		vBox2.setSpacing(10);
+		vBox2.setPadding(new Insets(10, 10, 10, 10)); // (new Insets(top, right,
+														// bottom, left))
+		vBox2.getChildren().addAll(table1, table2, table3, table4);
+
+		((Group) scene.getRoot()).getChildren().addAll(root);
+		scene.getStylesheets().add(getClass().getResource("TourView.css").toExternalForm());
+		root.setStyle(
+				"-fx-background-color: radial-gradient(focus-angle 45deg, focus-distance 50%, center 25% 25%, radius 60%, reflect, gray, darkgray 30%, black)");
+		root.setPrefSize(1920, 1080);
+		stage.setScene(scene);
+		stage.show();
+	}
+
+	/**
+	 * Creates the left part of the TourView
+	 */
+	private void createPreliminaryView() {
+		// Create tables for preliminaries
+		// prelHeader.setPadding(new Insets(5));
+		vBox2.getChildren().add(prelHeader);
+		table1 = new TableView<Team>();
+		table2 = new TableView<Team>();
+		table3 = new TableView<Team>();
+		table4 = new TableView<Team>();
+
+		table1.getStylesheets().add(getClass().getResource("table.css").toExternalForm());
+		table2.getStylesheets().add(getClass().getResource("table.css").toExternalForm());
+		table3.getStylesheets().add(getClass().getResource("table.css").toExternalForm());
+		table4.getStylesheets().add(getClass().getResource("table.css").toExternalForm());
+
+		table1.setFixedCellSize(25);
+		table1.prefHeightProperty()
+				.bind(table1.fixedCellSizeProperty().multiply(Bindings.size(table1.getItems()).add(9)));
+		table1.minHeightProperty().bind(table1.prefHeightProperty());
+		table1.maxHeightProperty().bind(table1.prefHeightProperty());
+		table1.setPlaceholder(labelPrelPlaceholder1);
+
+		table2.setFixedCellSize(25);
+		table2.prefHeightProperty()
+				.bind(table2.fixedCellSizeProperty().multiply(Bindings.size(table2.getItems()).add(9)));
+		table2.minHeightProperty().bind(table2.prefHeightProperty());
+		table2.maxHeightProperty().bind(table2.prefHeightProperty());
+		table2.setPlaceholder(labelPrelPlaceholder2);
+
+		table3.setFixedCellSize(25);
+		table3.prefHeightProperty()
+				.bind(table3.fixedCellSizeProperty().multiply(Bindings.size(table3.getItems()).add(9)));
+		table3.minHeightProperty().bind(table3.prefHeightProperty());
+		table3.maxHeightProperty().bind(table3.prefHeightProperty());
+		table3.setPlaceholder(labelPrelPlaceholder3);
+
+		table4.setFixedCellSize(25);
+		table4.prefHeightProperty()
+				.bind(table4.fixedCellSizeProperty().multiply(Bindings.size(table4.getItems()).add(9)));
+		table4.minHeightProperty().bind(table4.prefHeightProperty());
+		table4.maxHeightProperty().bind(table4.prefHeightProperty());
+		table4.setPlaceholder(labelPrelPlaceholder4);
+	}
+
+	/**
+	 * Creates the right part of the TourView
+	 */
+	private void createKOView() {
 		// KO Phase
 		tableKOList.forEach(c -> c.setMaxSize(310, 115));
 		tableKOList.forEach(c -> c.setFixedCellSize(20));
+		tableKOList.forEach(c -> c.getStylesheets().add(getClass().getResource("table.css").toExternalForm()));
 
 		QFButton1.setPrefWidth(310);
 		QFButton2.setPrefWidth(310);
@@ -207,60 +284,6 @@ public class TourView {
 		gridPane.add(borderPane5, 1, 1);
 		gridPane.add(borderPane6, 1, 3);
 		gridPane.add(borderPane7, 2, 2);
-
-		// Create tables for preliminaries
-		// prelHeader.setPadding(new Insets(5));
-		vBox2.getChildren().add(prelHeader);
-		table1 = new TableView<Team>();
-		table2 = new TableView<Team>();
-		table3 = new TableView<Team>();
-		table4 = new TableView<Team>();
-
-		table1.setFixedCellSize(25);
-		table1.prefHeightProperty()
-				.bind(table1.fixedCellSizeProperty().multiply(Bindings.size(table1.getItems()).add(9)));
-		table1.minHeightProperty().bind(table1.prefHeightProperty());
-		table1.maxHeightProperty().bind(table1.prefHeightProperty());
-		table1.setPlaceholder(labelPrelPlaceholder1);
-
-		table2.setFixedCellSize(25);
-		table2.prefHeightProperty()
-				.bind(table2.fixedCellSizeProperty().multiply(Bindings.size(table2.getItems()).add(9)));
-		table2.minHeightProperty().bind(table2.prefHeightProperty());
-		table2.maxHeightProperty().bind(table2.prefHeightProperty());
-		table2.setPlaceholder(labelPrelPlaceholder2);
-		
-		table3.setFixedCellSize(25);
-		table3.prefHeightProperty()
-				.bind(table3.fixedCellSizeProperty().multiply(Bindings.size(table3.getItems()).add(9)));
-		table3.minHeightProperty().bind(table3.prefHeightProperty());
-		table3.maxHeightProperty().bind(table3.prefHeightProperty());
-		table3.setPlaceholder(labelPrelPlaceholder3);
-
-		table4.setFixedCellSize(25);
-		table4.prefHeightProperty()
-				.bind(table4.fixedCellSizeProperty().multiply(Bindings.size(table4.getItems()).add(9)));
-		table4.minHeightProperty().bind(table4.prefHeightProperty());
-		table4.maxHeightProperty().bind(table4.prefHeightProperty());
-		table4.setPlaceholder(labelPrelPlaceholder4);
-
-		// Create table headers
-		createPreliminaryTables(table1, table2, table3, table4);
-
-		// insert tables into (leftmost) vbox2
-		vBox2.setSpacing(10);
-		vBox2.setPadding(new Insets(10, 10, 10, 3)); // (new Insets(top, right,
-														// bottom, left))
-		vBox2.getChildren().addAll(table1, table2, table3, table4);
-
-		// final VBox vbox = new VBox();
-		// vbox.setSpacing(5);
-		// vbox.setPadding(new Insets(10, 0, 0, 10));
-		// vbox.getChildren().addAll(table1,table2);
-
-		((Group) scene.getRoot()).getChildren().addAll(vBox1);
-		stage.setScene(scene);
-		stage.show();
 	}
 
 	/**
@@ -465,53 +488,53 @@ public class TourView {
 		gamesCol4.getColumns().add(lostCol4);
 		table4.getColumns().add(gamesCol4);
 
-		TableColumn<Team, Integer> goalScoredCol1 = new TableColumn<Team, Integer>("Scored");
+		TableColumn<Team, Integer> goalScoredCol1 = new TableColumn<Team, Integer>("F");
 		goalScoredCol1.setMaxWidth(50);
 		goalScoredCol1.setPrefWidth(50);
 		goalScoredCol1.setCellValueFactory(c -> c.getValue().getPropertyGoalsScored().asObject());
-		TableColumn<Team, Integer> goalScoredCol2 = new TableColumn<Team, Integer>("Scored");
+		TableColumn<Team, Integer> goalScoredCol2 = new TableColumn<Team, Integer>("F");
 		goalScoredCol2.setMaxWidth(50);
 		goalScoredCol2.setPrefWidth(50);
 		goalScoredCol2.setCellValueFactory(c -> c.getValue().getPropertyGoalsScored().asObject());
-		TableColumn<Team, Integer> goalScoredCol3 = new TableColumn<Team, Integer>("Scored");
+		TableColumn<Team, Integer> goalScoredCol3 = new TableColumn<Team, Integer>("F");
 		goalScoredCol3.setMaxWidth(50);
 		goalScoredCol3.setPrefWidth(50);
 		goalScoredCol3.setCellValueFactory(c -> c.getValue().getPropertyGoalsScored().asObject());
-		TableColumn<Team, Integer> goalScoredCol4 = new TableColumn<Team, Integer>("Scored");
+		TableColumn<Team, Integer> goalScoredCol4 = new TableColumn<Team, Integer>("F");
 		goalScoredCol4.setMaxWidth(50);
 		goalScoredCol4.setPrefWidth(50);
 		goalScoredCol4.setCellValueFactory(c -> c.getValue().getPropertyGoalsScored().asObject());
 
-		TableColumn<Team, Integer> goalConcededCol1 = new TableColumn<Team, Integer>("Conc");
+		TableColumn<Team, Integer> goalConcededCol1 = new TableColumn<Team, Integer>("A");
 		goalConcededCol1.setMaxWidth(50);
 		goalConcededCol1.setPrefWidth(50);
 		goalConcededCol1.setCellValueFactory(c -> c.getValue().getPropertyGoalsConceded().asObject());
-		TableColumn<Team, Integer> goalConcededCol2 = new TableColumn<Team, Integer>("Conc");
+		TableColumn<Team, Integer> goalConcededCol2 = new TableColumn<Team, Integer>("A");
 		goalConcededCol2.setMaxWidth(50);
 		goalConcededCol2.setPrefWidth(50);
 		goalConcededCol2.setCellValueFactory(c -> c.getValue().getPropertyGoalsConceded().asObject());
-		TableColumn<Team, Integer> goalConcededCol3 = new TableColumn<Team, Integer>("Conc");
+		TableColumn<Team, Integer> goalConcededCol3 = new TableColumn<Team, Integer>("A");
 		goalConcededCol3.setMaxWidth(50);
 		goalConcededCol3.setPrefWidth(50);
 		goalConcededCol3.setCellValueFactory(c -> c.getValue().getPropertyGoalsConceded().asObject());
-		TableColumn<Team, Integer> goalConcededCol4 = new TableColumn<Team, Integer>("Conc");
+		TableColumn<Team, Integer> goalConcededCol4 = new TableColumn<Team, Integer>("A");
 		goalConcededCol4.setMaxWidth(50);
 		goalConcededCol4.setPrefWidth(50);
 		goalConcededCol4.setCellValueFactory(c -> c.getValue().getPropertyGoalsConceded().asObject());
 
-		TableColumn<Team, Integer> goalDifferenceCol1 = new TableColumn<Team, Integer>("Diff");
+		TableColumn<Team, Integer> goalDifferenceCol1 = new TableColumn<Team, Integer>("GD");
 		goalDifferenceCol1.setMaxWidth(50);
 		goalDifferenceCol1.setPrefWidth(50);
 		goalDifferenceCol1.setCellValueFactory(c -> c.getValue().getPropertyGoalsDifference().asObject());
-		TableColumn<Team, Integer> goalDifferenceCol2 = new TableColumn<Team, Integer>("Diff");
+		TableColumn<Team, Integer> goalDifferenceCol2 = new TableColumn<Team, Integer>("GD");
 		goalDifferenceCol2.setMaxWidth(50);
 		goalDifferenceCol2.setPrefWidth(50);
 		goalDifferenceCol2.setCellValueFactory(c -> c.getValue().getPropertyGoalsDifference().asObject());
-		TableColumn<Team, Integer> goalDifferenceCol3 = new TableColumn<Team, Integer>("Diff");
+		TableColumn<Team, Integer> goalDifferenceCol3 = new TableColumn<Team, Integer>("GD");
 		goalDifferenceCol3.setMaxWidth(50);
 		goalDifferenceCol3.setPrefWidth(50);
 		goalDifferenceCol3.setCellValueFactory(c -> c.getValue().getPropertyGoalsDifference().asObject());
-		TableColumn<Team, Integer> goalDifferenceCol4 = new TableColumn<Team, Integer>("Diff");
+		TableColumn<Team, Integer> goalDifferenceCol4 = new TableColumn<Team, Integer>("GD");
 		goalDifferenceCol4.setMaxWidth(50);
 		goalDifferenceCol4.setPrefWidth(50);
 		goalDifferenceCol4.setCellValueFactory(c -> c.getValue().getPropertyGoalsDifference().asObject());

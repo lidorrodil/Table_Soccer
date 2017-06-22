@@ -11,12 +11,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+/**
+ * Handles all Inputs for the KO-Phase games.
+ * @author joelf
+ *
+ */
+
 public class AddKOResultView {
 	TourView mainView;
 
 	protected Stage stage;
 
-	protected GridPane gridpane;
+	protected GridPane root;
 
 	protected Button addButton = new Button("Set Result");
 
@@ -40,10 +46,10 @@ public class AddKOResultView {
 		stage = new Stage();
 		stage.setTitle("Add Result");
 
-		gridpane = new GridPane();
-		gridpane.setHgap(5);
-		gridpane.setVgap(5);
-		gridpane.setPadding(new Insets(5));
+		root = new GridPane();
+		root.setHgap(5);
+		root.setVgap(5);
+		root.setPadding(new Insets(5));
 		
 		gameIdentifier = new Label(getTitle(game));
 
@@ -57,16 +63,20 @@ public class AddKOResultView {
 
 		stage.sizeToScene();
 
-		gridpane.add(gameIdentifier, 0, 0, 2, 1);
-		gridpane.add(labelTeam1, 1, 1, 2, 1);
-		gridpane.add(labelTeam2, 1, 2, 2, 1);
-		gridpane.add(textTeam1, 3, 1, 1, 1);
-		gridpane.add(textTeam2, 3, 2, 1, 1);
-		gridpane.add(addButton, 1, 3, 3, 1);
+		root.add(gameIdentifier, 0, 0, 2, 1);
+		root.add(labelTeam1, 1, 1, 2, 1);
+		root.add(labelTeam2, 1, 2, 2, 1);
+		root.add(textTeam1, 3, 1, 1, 1);
+		root.add(textTeam2, 3, 2, 1, 1);
+		root.add(addButton, 1, 3, 3, 1);
 
 		addButton.setOnAction(c -> addButtonPressed(game, mainView));
 
-		Scene scene = new Scene(gridpane);
+		Scene scene = new Scene(root);
+		root.setStyle(
+				"-fx-background-color: radial-gradient(focus-angle 45deg, focus-distance 50%, center 25% 25%, radius 60%, reflect, gray, darkgray 30%, black)");
+		scene.getStylesheets().add(getClass().getResource("TourView.css").toExternalForm());
+
 		stage.setHeight(300);
 		stage.setWidth(180);
 		stage.setScene(scene);

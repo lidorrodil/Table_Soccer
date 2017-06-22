@@ -8,21 +8,27 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * Small Window that shows the basic rules of the tournament.
+ * @author joelf
+ *
+ */
+
 public class RulesView {
 	protected Stage stage;
 	protected Button cancelButton = new Button("Close");
 	protected Text message1;
 	protected Text message2;
-	protected VBox vbox;
+	protected VBox root;
 
 	public void start(){
 		stage = new Stage();
 		stage.setTitle("The Rules");
 		
-		vbox = new VBox();
+		root = new VBox();
 		
-		vbox.setPadding(new Insets(10));
-		vbox.setSpacing(10);
+		root.setPadding(new Insets(10));
+		root.setSpacing(10);
 		
 		String line1 = "1. At maximum, 28 Teams can participate. \n";
 		String line2 = "2. All Preliminary Games end with 7 Goals Scored. A 6:6 counts as a draw. \n";
@@ -53,10 +59,14 @@ public class RulesView {
 		
 		cancelButton.setOnAction(c->stop());
 		
-		vbox.getChildren().add(message1);
-		vbox.getChildren().add(message2);
-		vbox.getChildren().add(cancelButton);
-		Scene scene = new Scene(vbox);
+		root.getChildren().add(message1);
+		root.getChildren().add(message2);
+		root.getChildren().add(cancelButton);
+		Scene scene = new Scene(root);
+		root.setStyle(
+				"-fx-background-color: radial-gradient(focus-angle 45deg, focus-distance 50%, center 25% 25%, radius 60%, reflect, gray, darkgray 30%, black)");
+		scene.getStylesheets().add(getClass().getResource("TourView.css").toExternalForm());
+
 		stage.setScene(scene);
 		stage.show();
 	}

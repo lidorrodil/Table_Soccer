@@ -6,6 +6,12 @@ import userInterface.controller;
 import userInterface.model;
 import userInterface.view;
 
+/**
+ * This class is used for testing only.
+ * It starts the tournament without having to launch the membership view.
+ * @author Joel Fischer
+ *
+ */
 public class TestMVC extends Application{
 
 	// private static final boolean EmailValidator = false;
