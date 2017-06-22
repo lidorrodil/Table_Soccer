@@ -21,7 +21,7 @@ public class TourController {
 	private TeamList teamlist = new TeamList();
 
 	ShowPreliminaryGamesView view0 = new ShowPreliminaryGamesView();
-
+//
 	public TourController(TourModel model, TourView view) throws Exception {
 		this.model = model;
 		this.view = view;
