@@ -2,6 +2,8 @@ package tournament;
 
 /**
  * Use this class for all the games that are not in the KO phase.
+ * @author joelf
+ * 
  */
 
 public class PreliminaryGame {

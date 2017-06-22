@@ -4,6 +4,12 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 
+/**
+ * Contains all properties and functions for a game in the KO phase.
+ * @author joelf
+ *
+ */
+
 public class KOGame {
 
 	private ObservableList<Team> teams;

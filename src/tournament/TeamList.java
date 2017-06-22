@@ -9,8 +9,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * Has all functions concerning the list of all teams.
- * TODO: Create 4 lists for the Preliminaries
+ * Has all functions concerning the list of all teams. 
+ * @author Joel Fischer
+ *
  */
 
 public class TeamList {
@@ -21,28 +22,32 @@ public class TeamList {
 	public TeamList() {
 		teamlist = FXCollections.observableArrayList();
 		teamListSize = 0;
-		
+
 		/*
 		 * Creates some dummy data to test with
-		 * TODO: Delete this!
+		 *
+		 * TeamList.addTeam("team1", "player1", "player2");
+		 * TeamList.addTeam("team2", "player1", "player2");
+		 * TeamList.addTeam("team31", "player1", "player2");
+		 * TeamList.addTeam("team41", "player1", "player2");
+		 * TeamList.addTeam("team51", "player1", "player2");
+		 * TeamList.addTeam("gsdfgs", "player1", "player2");
+		 * TeamList.addTeam("sdfjjk", "player1", "player2");
+		 * TeamList.addTeam("tttttttt", "player1", "player2");
+		 * TeamList.addTeam("llllllllll", "player1", "player2");
+		 * TeamList.addTeam("kkkkk", "player1", "player2");
 		 */
-		TeamList.addTeam("team1", "player1", "player2");
-		TeamList.addTeam("team2", "player1", "player2");
-		TeamList.addTeam("team31", "player1", "player2");
-		TeamList.addTeam("team41", "player1", "player2");
-		TeamList.addTeam("team51", "player1", "player2");
-		TeamList.addTeam("gsdfgs", "player1", "player2");
-		TeamList.addTeam("sdfjjk", "player1", "player2");
-		TeamList.addTeam("tttttttt", "player1", "player2");
-//		TeamList.addTeam("llllllllll", "player1", "player2");
-//		TeamList.addTeam("kkkkk", "player1", "player2");
 	}
 
 	/**
 	 * Adds a team to the list with all the teams.
-	 * @param teamName Must be greater than 3 chars.
-	 * @param player1 Must be greater than 3 chars.
-	 * @param player2 Must be greater than 3 chars.
+	 * 
+	 * @param teamName
+	 *            Must be greater than 3 chars.
+	 * @param player1
+	 *            Must be greater than 3 chars.
+	 * @param player2
+	 *            Must be greater than 3 chars.
 	 * @return Whether adding was successful or failed (=false).
 	 */
 	public static boolean addTeam(String teamName, String player1, String player2) {
@@ -62,7 +67,9 @@ public class TeamList {
 
 	/**
 	 * Removes selected team from the List of all teams.
-	 * @param teamName Must exist in teamList.
+	 * 
+	 * @param teamName
+	 *            Must exist in teamList.
 	 * @return Whether removing was successful or failed (=false).
 	 */
 	public static boolean removeTeam(String teamName) {
@@ -83,7 +90,9 @@ public class TeamList {
 
 	/**
 	 * Checks if name is longer than 3 chars and not null.
-	 * @param name Should be longer than 3 chars and not null.
+	 * 
+	 * @param name
+	 *            Should be longer than 3 chars and not null.
 	 * @return Whether or not name is valid.
 	 */
 	public static boolean checkIfNameValid(String name) {
@@ -107,17 +116,18 @@ public class TeamList {
 
 	/**
 	 * Makes teamList accessible outside the class.
+	 * 
 	 * @return the teamList of all teams.
 	 */
 	public static ObservableList<Team> getTeamlist() {
 		return teamlist;
 	}
-	
+
 	/**
 	 * 
 	 * @return The number of teams in the list.
 	 */
-	public static int getTeamListSize(){
+	public static int getTeamListSize() {
 		return teamListSize;
 	}
 

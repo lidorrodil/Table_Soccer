@@ -12,6 +12,12 @@ import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * Includes all general operations.
+ * @author joelf
+ *
+ */
+
 public class TourModel {
 	
 	private static ObservableList<Team> group1;
@@ -51,7 +57,7 @@ public class TourModel {
 		
 		Team SFClone1 = semiFinal1.getWinnerTeam().clone();
 		Team SFClone2 = semiFinal2.getWinnerTeam().clone();
-		
+
 		finalGroup.add(SFClone1);
 		finalGroup.add(SFClone2);
 		

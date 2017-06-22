@@ -11,7 +11,7 @@ import javafx.beans.property.StringProperty;
 
 /**
  * Defines a team and its' properties
- *
+ * @author Joel Fischer
  */
 public class Team {
 	private final SimpleIntegerProperty draws = new SimpleIntegerProperty();

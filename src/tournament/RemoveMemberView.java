@@ -11,6 +11,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Handles everything concerning removing a member from the tournament.
+ * @author joelf
+ *
+ */
+
 public class RemoveMemberView {
 	
 	Stage stage;
@@ -27,7 +33,7 @@ public class RemoveMemberView {
 	public void start() throws IOException {
 		stage = new Stage();
 		stage.setTitle("Remove Team");
-		VBox vBox = new VBox();
+		VBox root = new VBox();
 		HBox hBox1 = new HBox();
 		
 		dropdown = new ComboBox<>(TeamList.getTeamlist());
@@ -35,8 +41,8 @@ public class RemoveMemberView {
 		dropdown.setMaxWidth(210);
 		
 		hBox1.setSpacing(10);
-		vBox.setPadding(new Insets(10));
-		vBox.setSpacing(10);
+		root.setPadding(new Insets(10));
+		root.setSpacing(10);
 		
 
 		removeButton = new Button("Remove Team");
@@ -48,8 +54,12 @@ public class RemoveMemberView {
 		cancelButton.setPrefWidth(100);
 		
 		hBox1.getChildren().addAll(removeButton,cancelButton);
-		vBox.getChildren().addAll(dropdown, hBox1);
-		Scene scene = new Scene(vBox);
+		root.getChildren().addAll(dropdown, hBox1);
+		Scene scene = new Scene(root);
+		root.setStyle(
+				"-fx-background-color: radial-gradient(focus-angle 45deg, focus-distance 50%, center 25% 25%, radius 60%, reflect, gray, darkgray 30%, black)");
+		scene.getStylesheets().add(getClass().getResource("TourView.css").toExternalForm());
+
 		stage.setScene(scene);
 		stage.show();
 	}
