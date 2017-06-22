@@ -338,8 +338,7 @@ public class view implements ActionListener {
 
 		TourModel tModel = new TourModel();
 		TourView tView = new TourView(new Stage(), tModel);
-		TourController tController = new TourController(tModel, tView);
-		
+		TourController tController = new TourController(tModel, tView);	
 		tView.start();
 		
 		
