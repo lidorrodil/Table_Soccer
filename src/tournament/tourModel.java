@@ -13,7 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class TourModel {
-
+	
 	private static ObservableList<Team> group1;
 	private static ObservableList<Team> group2;
 	private static ObservableList<Team> group3;
@@ -25,7 +25,15 @@ public class TourModel {
 	private static ObservableList<Team> QFGroup4;
 	private static ObservableList<Team> SFGroup1;
 	private static ObservableList<Team> SFGroup2;
-	private static ObservableList<Team> FinalGroup;
+	private static ObservableList<Team> finalGroup;
+	
+	protected KOGame quarterFinal1;
+	protected KOGame quarterFinal2;
+	protected KOGame quarterFinal3;
+	protected KOGame quarterFinal4;
+	protected KOGame semiFinal1;
+	protected KOGame semiFinal2;
+	protected KOGame finale;
 
 
 	private int teamListIndex = 0;
@@ -33,7 +41,44 @@ public class TourModel {
 	private final int PRELIMINARY_GROUP_NUMBER = 4;
 
 	public TourModel() {
-
+	}
+	
+	/**
+	 * Determines the pairings for the Finale.
+	 */
+	public void setFinalPairing(){
+		finalGroup =FXCollections.observableArrayList();
+		
+		Team SFClone1 = semiFinal1.getWinnerTeam().clone();
+		Team SFClone2 = semiFinal2.getWinnerTeam().clone();
+		
+		finalGroup.add(SFClone1);
+		finalGroup.add(SFClone2);
+		
+		finale = new KOGame(finalGroup, "finale");
+	}
+	
+	
+	
+	/**
+	 * Determines the pairings for the Semi Finals.
+	 */
+	public void setSemiFinalPairings(){
+		SFGroup1 =FXCollections.observableArrayList();
+		SFGroup2 =FXCollections.observableArrayList();
+		
+		Team QFClone1 = quarterFinal1.getWinnerTeam().clone();
+		Team QFClone2 = quarterFinal2.getWinnerTeam().clone();
+		Team QFClone3 = quarterFinal3.getWinnerTeam().clone();
+		Team QFClone4 = quarterFinal4.getWinnerTeam().clone();
+		
+		SFGroup1.add(QFClone1);
+		SFGroup1.add(QFClone2);
+		SFGroup2.add(QFClone3);
+		SFGroup2.add(QFClone4);
+		
+		semiFinal1 = new KOGame(SFGroup1, "semiFinal1");
+		semiFinal2 = new KOGame(SFGroup2, "semiFinal2");
 	}
 	
 	/**
@@ -45,7 +90,7 @@ public class TourModel {
 	 * Make sure group 1-4 are initialised!
 	 * 
 	 */
-	public void getQuarterFinalPairings(){
+	public void setQuarterFinalPairings(){
 		// Get Rankings of the groups
 		group1.sort((c1,c2) -> c1.compare(c2));
 		group2.sort((c1,c2)-> c1.compare(c2));
@@ -66,6 +111,11 @@ public class TourModel {
 		QFGroup3.add(group4.get(1));
 		QFGroup4.add(group4.get(0));
 		QFGroup4.add(group3.get(1));
+		
+		quarterFinal1 = new KOGame(QFGroup1, "quarterFinal1");
+		quarterFinal2 = new KOGame(QFGroup2, "quarterFinal2");
+		quarterFinal3 = new KOGame(QFGroup3, "quarterFinal3");
+		quarterFinal4 = new KOGame(QFGroup4, "quarterFinal4");
 	}
 
 	/**
@@ -80,36 +130,29 @@ public class TourModel {
 	/**
 	 * Puts the needed amount of needed teams into the specified group.
 	 */
-	private void putTeamsInGroups() {
-		// TODO: Delete Logs
-		System.out.println("grousize = " + this.preliminaryGroupSize);
-		
+	private void putTeamsInGroups() {		
 		while(true){
 			if(teamListIndex > TeamList.getTeamListSize()-1){
 				break;
 			}
-			System.out.println(TeamList.getTeamlist().get(teamListIndex).toString());
 			group1.add(TeamList.getTeamlist().get(teamListIndex));
 			teamListIndex++;
 			
 			if(teamListIndex > TeamList.getTeamListSize()-1){
 				break;
 			}
-			System.out.println(TeamList.getTeamlist().get(teamListIndex).toString());
 			group2.add(TeamList.getTeamlist().get(teamListIndex));
 			teamListIndex++;
 			
 			if(teamListIndex > TeamList.getTeamListSize()-1){
 				break;
 			}
-			System.out.println(TeamList.getTeamlist().get(teamListIndex).toString());
 			group3.add(TeamList.getTeamlist().get(teamListIndex));
 			teamListIndex++;
 			
 			if(teamListIndex > TeamList.getTeamListSize()-1){
 				break;
 			}
-			System.out.println(TeamList.getTeamlist().get(teamListIndex).toString());
 			group4.add(TeamList.getTeamlist().get(teamListIndex));
 			teamListIndex++;
 		}
@@ -128,7 +171,6 @@ public class TourModel {
 
 		// Randomises which Team lands in which Group
 		TeamList.shuffleTeams();
-		TeamList.getTeamlist().stream().forEach(System.out::println);
 
 		calcPreliminaryGroupSize();
 
@@ -151,6 +193,62 @@ public class TourModel {
 
 	public static ObservableList<Team> getGroup4() {
 		return group4;
+	}
+	
+	public static ObservableList<Team> getQFGroup1() {
+		return QFGroup1;
+	}
+
+	public static ObservableList<Team> getQFGroup2() {
+		return QFGroup2;
+	}
+
+	public static ObservableList<Team> getQFGroup3() {
+		return QFGroup3;
+	}
+
+	public static ObservableList<Team> getQFGroup4() {
+		return QFGroup4;
+	}
+
+	public static ObservableList<Team> getSFGroup1() {
+		return SFGroup1;
+	}
+
+	public static ObservableList<Team> getSFGroup2() {
+		return SFGroup2;
+	}
+
+	public ObservableList<Team> getFinalGroup() {
+		return finalGroup;
+	}
+
+	public KOGame getQuarterFinal1() {
+		return quarterFinal1;
+	}
+
+	public KOGame getQuarterFinal2() {
+		return quarterFinal2;
+	}
+
+	public KOGame getQuarterFinal3() {
+		return quarterFinal3;
+	}
+
+	public KOGame getQuarterFinal4() {
+		return quarterFinal4;
+	}
+
+	public KOGame getSemiFinal1() {
+		return semiFinal1;
+	}
+
+	public KOGame getSemiFinal2() {
+		return semiFinal2;
+	}
+
+	public KOGame getFinal() {
+		return finale;
 	}
 
 }

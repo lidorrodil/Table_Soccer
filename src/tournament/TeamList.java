@@ -34,8 +34,8 @@ public class TeamList {
 		TeamList.addTeam("gsdfgs", "player1", "player2");
 		TeamList.addTeam("sdfjjk", "player1", "player2");
 		TeamList.addTeam("tttttttt", "player1", "player2");
-		TeamList.addTeam("llllllllll", "player1", "player2");
-		TeamList.addTeam("kkkkk", "player1", "player2");
+//		TeamList.addTeam("llllllllll", "player1", "player2");
+//		TeamList.addTeam("kkkkk", "player1", "player2");
 	}
 
 	/**

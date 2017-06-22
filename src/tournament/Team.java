@@ -13,7 +13,6 @@ import javafx.beans.property.StringProperty;
  * Defines a team and its' properties
  *
  */
-
 public class Team {
 	private final SimpleIntegerProperty draws = new SimpleIntegerProperty();
 	private final SimpleIntegerProperty gamesPlayed = new SimpleIntegerProperty();
@@ -42,6 +41,16 @@ public class Team {
 	public Team(String teamName, String player1, String player2) {
 		values = Arrays.asList(0,0,0,0,0,0,player1,player2,0,teamName,0);
 		updateRepresentations();
+	}
+	
+	public Team clone(){
+		Team clone = new Team(this.getTeamName(),this.getPlayer1(), this.getPlayer2());
+		clone.getPropertySet1().set(0);
+		clone.getPropertySet2().set(0);
+		clone.getPropertySet3().set(0);
+		clone.getPropertySet4().set(0);
+		clone.getPropertySet5().set(0);
+		return clone;
 	}
 	
 	/**
@@ -248,23 +257,23 @@ public class Team {
 		return wins.get();
 	}
 
-	public SimpleIntegerProperty getSet1() {
+	public SimpleIntegerProperty getPropertySet1() {
 		return set1;
 	}
 
-	public SimpleIntegerProperty getSet2() {
+	public SimpleIntegerProperty getPropertySet2() {
 		return set2;
 	}
 
-	public SimpleIntegerProperty getSet3() {
+	public SimpleIntegerProperty getPropertySet3() {
 		return set3;
 	}
 
-	public SimpleIntegerProperty getSet4() {
+	public SimpleIntegerProperty getPropertySet4() {
 		return set4;
 	}
 
-	public SimpleIntegerProperty getSet5() {
+	public SimpleIntegerProperty getPropertySet5() {
 		return set5;
 	}
 	

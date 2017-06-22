@@ -52,23 +52,33 @@ public class TourView {
 	protected Label KOLabel5 = new Label("Semi Final 1");
 	protected Label KOLabel6 = new Label("Semi Final 2");
 	protected Label KOLabel7 = new Label("Final");
-	protected Button KOButton1 = new Button("Add Set Result");
-	protected Button KOButton2 = new Button("Add Set Result");
-	protected Button KOButton3 = new Button("Add Set Result");
-	protected Button KOButton4 = new Button("Add Set Result");
-	protected Button KOButton5 = new Button("Add Set Result");
-	protected Button KOButton6 = new Button("Add Set Result");
-	protected Button KOButton7 = new Button("Add Set Result");
+	protected Label labelQFPlaceholder1 = new Label("The Quarter Finals are not set yet");
+	protected Label labelQFPlaceholder2 = new Label("The Quarter Finals are not set yet");
+	protected Label labelQFPlaceholder3 = new Label("The Quarter Finals are not set yet");
+	protected Label labelQFPlaceholder4 = new Label("The Quarter Finals are not set yet");
+	protected Label labelSFPlaceholder1 = new Label("The Semi Finals are not set yet");
+	protected Label labelSFPlaceholder2 = new Label("The Semi Finals are not set yet");
+	protected Label labelFPlaceholder = new Label("The Final is not set yet");
+	protected Button QFButton1 = new Button("Add Result");
+	protected Button QFButton2 = new Button("Add Result");
+	protected Button QFButton3 = new Button("Add Result");
+	protected Button QFButton4 = new Button("Add Result");
+	protected Button SFButton1 = new Button("Add Result");
+	protected Button SFButton2 = new Button("Add Result");
+	protected Button finalsButton = new Button("Add Result");
+	List<TableView<Team>> tableKOList = new ArrayList();
 
 	// UI Elements for Lower Part
 	protected Button showAllTeamsButton = new Button("Show all Teams");
 	protected Button addTeamButton = new Button("Add Team");
 	protected Button removeTeamButton = new Button("Delete Team");
 	protected Button startTournamentButton = new Button("Start Tournament");
-	protected Button finishTournamentButton = new Button("Stop Tournament");
 	protected Button rulesButton = new Button("Rules");
 	protected Button preliminaryGameButton = new Button("View Games");
-	protected Button startKOButton = new Button("Start K.O. Phase");
+	protected Button startQFButton = new Button("Start Quarter Finals");
+	protected Button startSFButton = new Button("Start Semi Finals");
+	protected Button startFButton = new Button("Start Final");
+	protected Button endFinalButton = new Button("Show Winner Team");
 
 	// UI Elements for Preliminary Phase
 	protected TableView<Team> table1;
@@ -76,10 +86,11 @@ public class TourView {
 	protected TableView<Team> table3;
 	protected TableView<Team> table4;
 	protected Text prelHeader = new Text("Preliminary Rounds");
-
-	// Non-UI Elements
+	protected Label labelPrelPlaceholder1 = new Label("The Preliminary groups are not set yet");
+	protected Label labelPrelPlaceholder2 = new Label("The Preliminary groups are not set yet");
+	protected Label labelPrelPlaceholder3 = new Label("The Preliminary groups are not set yet");
+	protected Label labelPrelPlaceholder4 = new Label("The Preliminary groups are not set yet");
 	List<Button> buttonList = new ArrayList();
-	List<TableView<Team>> tableKOList = new ArrayList();
 
 	public TourView(Stage stage, TourModel model) {
 		this.stage = stage;
@@ -89,11 +100,12 @@ public class TourView {
 
 	public void start() {
 		Scene scene = new Scene(new Group());
+		stage.setMaximized(true);
 
 		addButtonsToButtonList();
 		fillTableKOList();
 
-		//scene.getStylesheets().add(getClass().getResource("Design.css").toExternalForm());
+		// scene.getStylesheets().add(getClass().getResource("Design.css").toExternalForm());
 		stage.setScene(scene);
 		stage.setTitle("Tournament");
 
@@ -107,31 +119,29 @@ public class TourView {
 		vBox1.getChildren().addAll(hBox1, hBox2);
 		hBox1.getChildren().addAll(vBox2, gridPane);
 
-		hBox2.setPadding(new Insets(10));
+		hBox2.setPadding(new Insets(0,3,3,3));
 		hBox2.setSpacing(10);
 		hBox2.getChildren().add(showAllTeamsButton);
 		hBox2.getChildren().add(addTeamButton);
 		hBox2.getChildren().add(removeTeamButton);
 		hBox2.getChildren().add(startTournamentButton);
-		hBox2.getChildren().add(finishTournamentButton);
 		hBox2.getChildren().add(rulesButton);
 
-		gridPane.setHgap(10);
-		gridPane.setVgap(3);
-		gridPane.setPadding(new Insets(10));
+		// gridPane.setHgap(5);
+		// gridPane.setVgap(3);
+		gridPane.setPadding(new Insets(3));
 
 		// KO Phase
-		fillTableKOList();
-		tableKOList.forEach(c -> c.setMaxSize(300, 100));
-		tableKOList.forEach(c -> c.setFixedCellSize(25));
+		tableKOList.forEach(c -> c.setMaxSize(310, 115));
+		tableKOList.forEach(c -> c.setFixedCellSize(20));
 
-		KOButton1.setPrefWidth(300);
-		KOButton2.setPrefWidth(300);
-		KOButton3.setPrefWidth(300);
-		KOButton4.setPrefWidth(300);
-		KOButton5.setPrefWidth(300);
-		KOButton6.setPrefWidth(300);
-		KOButton7.setPrefWidth(300);
+		QFButton1.setPrefWidth(310);
+		QFButton2.setPrefWidth(310);
+		QFButton3.setPrefWidth(310);
+		QFButton4.setPrefWidth(310);
+		SFButton1.setPrefWidth(310);
+		SFButton2.setPrefWidth(310);
+		finalsButton.setPrefWidth(310);
 
 		borderPane1.setMargin(tableKOList.get(1), new Insets(5));
 		borderPane2.setMargin(tableKOList.get(2), new Insets(5));
@@ -140,13 +150,13 @@ public class TourView {
 		borderPane5.setMargin(tableKOList.get(5), new Insets(5));
 		borderPane6.setMargin(tableKOList.get(6), new Insets(5));
 		borderPane7.setMargin(tableKOList.get(7), new Insets(5));
-		borderPane1.setMargin(KOButton1, new Insets(5));
-		borderPane2.setMargin(KOButton2, new Insets(5));
-		borderPane3.setMargin(KOButton3, new Insets(5));
-		borderPane4.setMargin(KOButton4, new Insets(5));
-		borderPane5.setMargin(KOButton5, new Insets(5));
-		borderPane6.setMargin(KOButton6, new Insets(5));
-		borderPane7.setMargin(KOButton7, new Insets(5));
+		borderPane1.setMargin(QFButton1, new Insets(5));
+		borderPane2.setMargin(QFButton2, new Insets(5));
+		borderPane3.setMargin(QFButton3, new Insets(5));
+		borderPane4.setMargin(QFButton4, new Insets(5));
+		borderPane5.setMargin(SFButton1, new Insets(5));
+		borderPane6.setMargin(SFButton2, new Insets(5));
+		borderPane7.setMargin(finalsButton, new Insets(5));
 		borderPane1.setMargin(KOLabel1, new Insets(5));
 		borderPane2.setMargin(KOLabel2, new Insets(5));
 		borderPane3.setMargin(KOLabel3, new Insets(5));
@@ -175,13 +185,20 @@ public class TourView {
 		borderPane5.setCenter(tableKOList.get(4));
 		borderPane6.setCenter(tableKOList.get(5));
 		borderPane7.setCenter(tableKOList.get(6));
-		borderPane1.setBottom(KOButton1);
-		borderPane2.setBottom(KOButton2);
-		borderPane3.setBottom(KOButton3);
-		borderPane4.setBottom(KOButton4);
-		borderPane5.setBottom(KOButton5);
-		borderPane6.setBottom(KOButton6);
-		borderPane7.setBottom(KOButton7);
+		borderPane1.setBottom(QFButton1);
+		borderPane2.setBottom(QFButton2);
+		borderPane3.setBottom(QFButton3);
+		borderPane4.setBottom(QFButton4);
+		borderPane5.setBottom(SFButton1);
+		borderPane6.setBottom(SFButton2);
+		borderPane7.setBottom(finalsButton);
+		QFButton1.setDisable(true);
+		QFButton2.setDisable(true);
+		QFButton3.setDisable(true);
+		QFButton4.setDisable(true);
+		SFButton1.setDisable(true);
+		SFButton2.setDisable(true);
+		finalsButton.setDisable(true);
 
 		gridPane.add(borderPane1, 0, 0);
 		gridPane.add(borderPane2, 0, 1);
@@ -192,7 +209,7 @@ public class TourView {
 		gridPane.add(borderPane7, 2, 2);
 
 		// Create tables for preliminaries
-//		prelHeader.setPadding(new Insets(5));
+		// prelHeader.setPadding(new Insets(5));
 		vBox2.getChildren().add(prelHeader);
 		table1 = new TableView<Team>();
 		table2 = new TableView<Team>();
@@ -201,34 +218,38 @@ public class TourView {
 
 		table1.setFixedCellSize(25);
 		table1.prefHeightProperty()
-				.bind(table1.fixedCellSizeProperty().multiply(Bindings.size(table1.getItems()).add(8)));
+				.bind(table1.fixedCellSizeProperty().multiply(Bindings.size(table1.getItems()).add(9)));
 		table1.minHeightProperty().bind(table1.prefHeightProperty());
 		table1.maxHeightProperty().bind(table1.prefHeightProperty());
+		table1.setPlaceholder(labelPrelPlaceholder1);
 
 		table2.setFixedCellSize(25);
 		table2.prefHeightProperty()
-				.bind(table2.fixedCellSizeProperty().multiply(Bindings.size(table2.getItems()).add(8)));
+				.bind(table2.fixedCellSizeProperty().multiply(Bindings.size(table2.getItems()).add(9)));
 		table2.minHeightProperty().bind(table2.prefHeightProperty());
 		table2.maxHeightProperty().bind(table2.prefHeightProperty());
-
+		table2.setPlaceholder(labelPrelPlaceholder2);
+		
 		table3.setFixedCellSize(25);
 		table3.prefHeightProperty()
-				.bind(table3.fixedCellSizeProperty().multiply(Bindings.size(table3.getItems()).add(8)));
+				.bind(table3.fixedCellSizeProperty().multiply(Bindings.size(table3.getItems()).add(9)));
 		table3.minHeightProperty().bind(table3.prefHeightProperty());
 		table3.maxHeightProperty().bind(table3.prefHeightProperty());
+		table3.setPlaceholder(labelPrelPlaceholder3);
 
 		table4.setFixedCellSize(25);
 		table4.prefHeightProperty()
-				.bind(table4.fixedCellSizeProperty().multiply(Bindings.size(table4.getItems()).add(8)));
+				.bind(table4.fixedCellSizeProperty().multiply(Bindings.size(table4.getItems()).add(9)));
 		table4.minHeightProperty().bind(table4.prefHeightProperty());
 		table4.maxHeightProperty().bind(table4.prefHeightProperty());
+		table4.setPlaceholder(labelPrelPlaceholder4);
 
 		// Create table headers
 		createPreliminaryTables(table1, table2, table3, table4);
 
 		// insert tables into (leftmost) vbox2
 		vBox2.setSpacing(10);
-		vBox2.setPadding(new Insets(10, 10, 10, 10)); // (new Insets(top, right,
+		vBox2.setPadding(new Insets(10, 10, 10, 3)); // (new Insets(top, right,
 														// bottom, left))
 		vBox2.getChildren().addAll(table1, table2, table3, table4);
 
@@ -238,7 +259,6 @@ public class TourView {
 		// vbox.getChildren().addAll(table1,table2);
 
 		((Group) scene.getRoot()).getChildren().addAll(vBox1);
-
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -258,23 +278,23 @@ public class TourView {
 			TableColumn<Team, Integer> setCol1 = new TableColumn<Team, Integer>("1");
 			setCol1.setMaxWidth(setWidth);
 			setCol1.setPrefWidth(setWidth);
-			setCol1.setCellValueFactory(c -> c.getValue().getSet1().asObject());
+			setCol1.setCellValueFactory(c -> c.getValue().getPropertySet1().asObject());
 			TableColumn<Team, Integer> setCol2 = new TableColumn<Team, Integer>("2");
 			setCol2.setMaxWidth(setWidth);
 			setCol2.setPrefWidth(setWidth);
-			setCol2.setCellValueFactory(c -> c.getValue().getSet2().asObject());
+			setCol2.setCellValueFactory(c -> c.getValue().getPropertySet2().asObject());
 			TableColumn<Team, Integer> setCol3 = new TableColumn<Team, Integer>("3");
 			setCol3.setMaxWidth(setWidth);
 			setCol3.setPrefWidth(setWidth);
-			setCol3.setCellValueFactory(c -> c.getValue().getSet3().asObject());
+			setCol3.setCellValueFactory(c -> c.getValue().getPropertySet3().asObject());
 			TableColumn<Team, Integer> setCol4 = new TableColumn<Team, Integer>("4");
 			setCol4.setMaxWidth(setWidth);
 			setCol4.setPrefWidth(setWidth);
-			setCol4.setCellValueFactory(c -> c.getValue().getSet4().asObject());
+			setCol4.setCellValueFactory(c -> c.getValue().getPropertySet4().asObject());
 			TableColumn<Team, Integer> setCol5 = new TableColumn<Team, Integer>("5");
 			setCol5.setMaxWidth(setWidth);
 			setCol5.setPrefWidth(setWidth);
-			setCol5.setCellValueFactory(c -> c.getValue().getSet5().asObject());
+			setCol5.setCellValueFactory(c -> c.getValue().getPropertySet5().asObject());
 			TableColumn<Team, Integer> sets = new TableColumn<Team, Integer>("Sets");
 			sets.getColumns().add(setCol1);
 			sets.getColumns().add(setCol2);
@@ -283,6 +303,13 @@ public class TourView {
 			sets.getColumns().add(setCol5);
 			tableKOList.get(i).getColumns().add(sets);
 		}
+		tableKOList.get(0).setPlaceholder(labelQFPlaceholder1);
+		tableKOList.get(1).setPlaceholder(labelQFPlaceholder2);
+		tableKOList.get(2).setPlaceholder(labelQFPlaceholder3);
+		tableKOList.get(3).setPlaceholder(labelQFPlaceholder4);
+		tableKOList.get(4).setPlaceholder(labelSFPlaceholder1);
+		tableKOList.get(5).setPlaceholder(labelSFPlaceholder2);
+		tableKOList.get(6).setPlaceholder(labelFPlaceholder);
 
 	}
 
@@ -294,10 +321,12 @@ public class TourView {
 		buttonList.add(addTeamButton);
 		buttonList.add(removeTeamButton);
 		buttonList.add(startTournamentButton);
-		buttonList.add(finishTournamentButton);
 		buttonList.add(rulesButton);
 		buttonList.add(preliminaryGameButton);
-		buttonList.add(startKOButton);
+		buttonList.add(startQFButton);
+		buttonList.add(startSFButton);
+		buttonList.add(startFButton);
+		buttonList.add(endFinalButton);
 		buttonList.stream().forEach(c -> c.setPrefWidth(150));
 	}
 

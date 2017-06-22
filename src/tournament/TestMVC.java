@@ -27,8 +27,8 @@ public class TestMVC extends Application{
 		// Validator vf = new Validator();
 		// vf.start(primaryStage);
 
-		model = new TourModel();
 		view = new TourView(primaryStage, model);
+		model = new TourModel();
 		controller = new TourController(model, view);
 
 		view.start();

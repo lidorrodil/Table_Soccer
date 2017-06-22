@@ -409,7 +409,7 @@ public class controller implements EventHandler<ActionEvent> {
 	}
 
 	public void createTournament() {
-
+		
 		TourModel model = new TourModel();
 		TourView view = new TourView(new Stage(), model);
 		try {
