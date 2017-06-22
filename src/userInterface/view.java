@@ -52,13 +52,13 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import tournament.tourController;
-import tournament.tourModel;
-import tournament.tourView;
+import tournament.TourModel;
+import tournament.TourController;
+import tournament.TourModel;
+import tournament.TourView;
 
 
 public class view implements ActionListener {
@@ -335,9 +335,10 @@ public class view implements ActionListener {
 
 	
 	public void tournamentStart() throws Exception{
-		tourModel tModel = new tourModel();
-		tourView tView = new tourView(new Stage(), tModel);
-		tourController tController = new tourController(tModel, tView);
+
+		TourModel tModel = new TourModel();
+		TourView tView = new TourView(new Stage(), tModel);
+		TourController tController = new TourController(tModel, tView);
 		
 		tView.start();
 		
