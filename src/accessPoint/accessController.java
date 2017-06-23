@@ -50,7 +50,7 @@ public class accessController {
 	// Should be true
 	private boolean makeWritable = true;
 	// Should be false -> Set true if you want to reset password.
-	private boolean makeUnWritable = true;
+	private boolean makeUnWritable = false;
 
 	protected accessController(accessModel model, accessView view) {
 		this.model = model;
