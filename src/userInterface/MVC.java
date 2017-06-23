@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 public class MVC extends Application {
 	//private static final boolean EmailValidator = false;
-	private model model;
+	private Model model;
 	private view view;
 	private controller controller;
 
@@ -30,7 +30,7 @@ public class MVC extends Application {
 		//Validator vf = new Validator();
 		//vf.start(primaryStage);
 		
-		model = new model();
+		model = new Model();
 		view = new view(primaryStage, model);
 		controller = new controller(model, view);
 	

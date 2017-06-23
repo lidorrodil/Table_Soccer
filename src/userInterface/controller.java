@@ -2,13 +2,20 @@ package userInterface;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.util.Optional;
+import java.util.Scanner;
+
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -17,27 +24,35 @@ import FileCopy.FileCopyModel;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.converter.LocalDateStringConverter;
 import sun.security.action.OpenFileInputStreamAction;
 import sun.util.resources.LocaleData;
-import tournament.tourController;
-import tournament.tourModel;
-import tournament.tourView;
+import tournament.TourModel;
+import tournament.TourController;
+import tournament.TourModel;
+import tournament.TourView;
 
 public class controller implements EventHandler<ActionEvent> {
-	final private model model;
+	final private Model model;
 	final private view view;
 	boolean flag = true;
 	String nameOfImg = " ";
+	
 
-	public controller(model model, view view) throws Exception {
+	public controller(Model model, view view) throws Exception {
 		this.model = model;
 		this.view = view;
+		
+		addMember();
 
 		// Event handler for the button
 		view.buttonSortName.setOnAction(event -> model.nameSort());
@@ -56,6 +71,34 @@ public class controller implements EventHandler<ActionEvent> {
 		});
 		
 		view.upload.setOnAction(e -> UploadImg());
+		
+		view.stage.setOnCloseRequest(new EventHandler<WindowEvent>(){
+			@Override
+			public void handle(WindowEvent event){
+				event.consume();
+				
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Close Confirmation");
+				alert.setHeaderText("Are all games played? Only click \"OK\", if yes.");
+				alert.initOwner(view.stage);
+				
+				Optional<ButtonType> result = alert.showAndWait();
+				if(result.get() == ButtonType.OK){
+					try {
+						CryptoUtils.encrypt(model.key, model.decryptedFile, model.encryptedFile);
+						// Delete all clear text
+						PrintWriter writer = new PrintWriter(model.decryptedFile);
+						writer.write("");
+						writer.close();
+			
+					} catch (CryptoException | FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					view.stop();
+				}
+			}
+		});
 
 	}
 	
@@ -409,10 +452,11 @@ public class controller implements EventHandler<ActionEvent> {
 
 	public void createTournament() {
 
-		tourModel model = new tourModel();
-		tourView view = new tourView(new Stage(), model);
+		
+		TourModel model = new TourModel();
+		TourView view = new TourView(new Stage(), model);
 		try {
-			tourController controller = new tourController(model, view);
+			TourController controller = new TourController(model, view);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
