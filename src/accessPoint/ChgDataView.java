@@ -1,10 +1,5 @@
 package accessPoint;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
-import javax.swing.plaf.synth.SynthRootPaneUI;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,53 +13,63 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import jdk.nashorn.tools.Shell;
 import userInterface.controller;
 import userInterface.model;
 import userInterface.view;
 
-public class accessView {
+public class ChgDataView {
 	private accessModel model;
 	private Stage stage;
 
-	protected TextField name;
-	Button btn = new Button("Sign in");
-	Button btnChangeUserData = new Button("Change user data");
-	PasswordField pwBox;
-	final Label actiontarget;
+	protected TextField oldNameText;	
+	protected TextField newNameText;
+	Button btnOK = new Button("OK");
+	Button btnCancel = new Button("Cancel");
+	PasswordField oldPasswordBox;
+	PasswordField newPasswordBox;
+	final Text actiontarget;
 
-	protected accessView(Stage stage, accessModel model) {
-		this.stage = stage;
-		this.model = model;
+	protected ChgDataView() {
+		stage = new Stage();
 
 		GridPane root = new GridPane();
-		name = new TextField();
-		pwBox = new PasswordField();
+		oldNameText = new TextField();
+		oldPasswordBox = new PasswordField();
+		newNameText = new TextField();
+		newPasswordBox = new PasswordField();
 
-		actiontarget = new Label();
+		actiontarget = new Text();
 		root.add(actiontarget, 1, 6);
 
 		HBox hbBtn = new HBox(10);
 
-		Text scenetitle = new Text("Welcome");
-		scenetitle.setId("welcome-text");
+		Text scenetitle = new Text("Change data");
+		scenetitle.setId("userdata-text");
 		actiontarget.setId("actiontarget");
 
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		// stage.setTitle("Email Validator");
 		root.add(scenetitle, 0, 0, 2, 1);
 
-		Label userName = new Label("User Name:");
-		root.add(userName, 0, 1);
-		root.add(name, 1, 1);
+		Label oldUserName = new Label("Old User Name:");
+		root.add(oldUserName, 0, 1);
+		root.add(oldNameText, 1, 1);
 
-		Label pw = new Label("Password:");
-		root.add(pw, 0, 2);
-		root.add(pwBox, 1, 2);
+		Label oldPassword = new Label("Old Password:");
+		root.add(oldPassword, 0, 2);
+		root.add(oldPasswordBox, 1, 2);
+		
+		Label newUserName = new Label("New User Name:");
+		root.add(newUserName, 0, 3);
+		root.add(newNameText, 1, 3);
+
+		Label newPassword = new Label("New Password:");
+		root.add(newPassword, 0, 4);
+		root.add(newPasswordBox, 1, 4);
 
 		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-		hbBtn.getChildren().addAll(btnChangeUserData, btn);
-		root.add(hbBtn, 1, 4);
+		hbBtn.getChildren().addAll(btnCancel, btnOK);
+		root.add(hbBtn, 1, 5);
 
 		Scene scene = new Scene(root, 340, 275);
 		stage.setTitle("Welcome");
@@ -98,12 +103,4 @@ public class accessView {
 		return stage;
 	}
 
-	public void Appstart() throws Exception {
-
-		model model = new model();
-		view view = new view(new Stage(), model);
-		controller controller = new controller(model, view);
-
-		view.start();
-	}
 }
