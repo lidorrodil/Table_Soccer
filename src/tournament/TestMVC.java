@@ -3,7 +3,7 @@ package tournament;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import userInterface.controller;
-import userInterface.model;
+import userInterface.Model;
 import userInterface.view;
 
 /**

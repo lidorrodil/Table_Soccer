@@ -14,7 +14,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import userInterface.controller;
-import userInterface.model;
+import userInterface.Model;
 import userInterface.view;
 
 public class ChgDataView {
@@ -27,6 +27,8 @@ public class ChgDataView {
 	Button btnCancel = new Button("Cancel");
 	PasswordField oldPasswordBox;
 	PasswordField newPasswordBox;
+	PasswordField oldDatabasePasswordBox;
+	PasswordField newDatabasePasswordBox;
 	final Text actiontarget;
 
 	protected ChgDataView() {
@@ -37,9 +39,11 @@ public class ChgDataView {
 		oldPasswordBox = new PasswordField();
 		newNameText = new TextField();
 		newPasswordBox = new PasswordField();
+		newDatabasePasswordBox = new PasswordField();
+		oldDatabasePasswordBox = new PasswordField();
 
 		actiontarget = new Text();
-		root.add(actiontarget, 1, 6);
+		root.add(actiontarget, 1, 7);
 
 		HBox hbBtn = new HBox(10);
 
@@ -59,19 +63,29 @@ public class ChgDataView {
 		root.add(oldPassword, 0, 2);
 		root.add(oldPasswordBox, 1, 2);
 		
+		Label oldDatabase = new Label("Old Database Key");
+		root.add(oldDatabase, 0, 3);
+		root.add(oldDatabasePasswordBox, 1, 3);
+		
 		Label newUserName = new Label("New User Name:");
-		root.add(newUserName, 0, 3);
-		root.add(newNameText, 1, 3);
+		root.add(newUserName, 0, 4);
+		root.add(newNameText, 1, 4);
 
 		Label newPassword = new Label("New Password:");
-		root.add(newPassword, 0, 4);
-		root.add(newPasswordBox, 1, 4);
+		root.add(newPassword, 0, 5);
+		root.add(newPasswordBox, 1, 5);
+		
+		Label newDatabasePassword = new Label("New Database Key:");
+		root.add(newDatabasePassword, 0, 6);
+		root.add(newDatabasePasswordBox, 1, 6);
+		
 
 		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
 		hbBtn.getChildren().addAll(btnCancel, btnOK);
-		root.add(hbBtn, 1, 5);
+		root.add(hbBtn, 1, 7);
+		
 
-		Scene scene = new Scene(root, 340, 275);
+		Scene scene = new Scene(root, 340, 340);
 		stage.setTitle("Welcome");
 
 		root.setAlignment(Pos.CENTER);

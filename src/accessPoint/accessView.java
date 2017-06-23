@@ -20,7 +20,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import jdk.nashorn.tools.Shell;
 import userInterface.controller;
-import userInterface.model;
+import userInterface.Model;
 import userInterface.view;
 
 public class accessView {
@@ -31,6 +31,7 @@ public class accessView {
 	Button btn = new Button("Sign in");
 	Button btnChangeUserData = new Button("Change user data");
 	PasswordField pwBox;
+	PasswordField DBpwBox;
 	final Label actiontarget;
 
 	protected accessView(Stage stage, accessModel model) {
@@ -40,6 +41,7 @@ public class accessView {
 		GridPane root = new GridPane();
 		name = new TextField();
 		pwBox = new PasswordField();
+		DBpwBox = new PasswordField();
 
 		actiontarget = new Label();
 		root.add(actiontarget, 1, 6);
@@ -61,12 +63,16 @@ public class accessView {
 		Label pw = new Label("Password:");
 		root.add(pw, 0, 2);
 		root.add(pwBox, 1, 2);
+		
+		Label DBPassword = new Label("DB Password:");
+		root.add(DBPassword, 0, 3);
+		root.add(DBpwBox, 1, 3);
 
 		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
 		hbBtn.getChildren().addAll(btnChangeUserData, btn);
 		root.add(hbBtn, 1, 4);
 
-		Scene scene = new Scene(root, 340, 275);
+		Scene scene = new Scene(root, 340, 340);
 		stage.setTitle("Welcome");
 
 		root.setAlignment(Pos.CENTER);
@@ -100,7 +106,7 @@ public class accessView {
 
 	public void Appstart() throws Exception {
 
-		model model = new model();
+		Model model = new Model();
 		view view = new view(new Stage(), model);
 		controller controller = new controller(model, view);
 

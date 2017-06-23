@@ -5,6 +5,7 @@ package userInterface;
  */
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -20,11 +21,23 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
-public class model {
+public class Model {
 	private final ObservableList<Person> elements = FXCollections.observableArrayList();
 	// private final ObservableList<SuperNumber> elements = FXCollections.obser
 	boolean flag = true;
 
+	// Must be 16 chars long
+	public static String key = "";
+	public static File encryptedFile = new File("./database/fileEnc.txt");
+	public static File decryptedFile = new File("./database/file.txt");
+	public static File encryptedresultsearch = new File("./database/resultSearchEnc.txt");
+	public static File decryptedresultsearch = new File("./database/resultSearch.txt");
+	public static File encryptedsortAge = new File("./database/sortAgeEnc.txt");
+	public static File decryptedsortAge = new File("./database/sortAge.txt");
+	public static File encryptedsortRank = new File("./database/sortRankEnc.txt");
+	public static File decryptedsortRank = new File("./database/sortRank.txt");
+
+	
 	public void nameSort() {
 		elements.clear();
 
@@ -33,10 +46,8 @@ public class model {
 			try {
 				String line;
 				while ((line = br.readLine()) != null) {
-					elements.add(new Person(line, br.readLine(),br.readLine(),
-							br.readLine(),br.readLine(),br.readLine(),
-							br.readLine(), br.readLine(), br.readLine(),
-							br.readLine(),br.readLine()));
+					elements.add(new Person(line, br.readLine(), br.readLine(), br.readLine(), br.readLine(),
+							br.readLine(), br.readLine(), br.readLine(), br.readLine(), br.readLine(), br.readLine()));
 				}
 
 			} catch (IOException e) {
@@ -57,10 +68,8 @@ public class model {
 			String line = br.readLine();
 			try {
 				while ((line) != null) {
-					elements.add(new Person(line, br.readLine(),br.readLine(),
-							br.readLine(), br.readLine(), br.readLine(),
-							br.readLine(),br.readLine(),br.readLine(),br.readLine(),
-							br.readLine()));
+					elements.add(new Person(line, br.readLine(), br.readLine(), br.readLine(), br.readLine(),
+							br.readLine(), br.readLine(), br.readLine(), br.readLine(), br.readLine(), br.readLine()));
 					line = br.readLine();
 				}
 			} catch (IOException e) {
@@ -84,10 +93,8 @@ public class model {
 			try {
 				String line;
 				while ((line = br.readLine()) != null) {
-					elements.add(new Person(line, br.readLine(), br.readLine(),
-							br.readLine(), br.readLine(), br.readLine(),
-							br.readLine(), br.readLine(), br.readLine(),br.readLine(),
-							br.readLine()));
+					elements.add(new Person(line, br.readLine(), br.readLine(), br.readLine(), br.readLine(),
+							br.readLine(), br.readLine(), br.readLine(), br.readLine(), br.readLine(), br.readLine()));
 				}
 			}
 
@@ -102,16 +109,15 @@ public class model {
 	}
 
 	public void remove() {
-		
 
 	}
 
 	public void edit() {
 
 	}
-	
-	public void search(){
-		
+
+	public void search() {
+
 	}
 
 	public String name() {
@@ -132,4 +138,5 @@ public class model {
 	public ObservableList<Person> getElements() {
 		return elements;
 	}
+
 }

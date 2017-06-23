@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import userInterface.model;
+import userInterface.Model;
 import userInterface.view;
 
 /**

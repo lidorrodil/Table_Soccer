@@ -29,9 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
-
-
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -60,9 +57,8 @@ import tournament.TourController;
 import tournament.TourModel;
 import tournament.TourView;
 
-
 public class view implements ActionListener {
-	final private model model;
+	final private Model model;
 	final Stage stage;
 
 	// Define the fields in the GUI
@@ -75,7 +71,6 @@ public class view implements ActionListener {
 
 	Button aButton = new Button("Add Member");
 	ImageView imgView;
-	
 
 	protected Button btnSearch = new Button("Search");
 	protected Button btnClean = new Button("Clean Fields");
@@ -111,10 +106,12 @@ public class view implements ActionListener {
 	protected Button btnRemove = new Button("Remove");
 	protected Button upload = new Button("Upload Image");
 
-	public view(Stage stage, model model) throws IOException, URISyntaxException {
+	
+
+	public view(Stage stage, Model model) throws IOException, URISyntaxException {
 		this.stage = stage;
 		this.model = model;
-		
+
 		// define checkbox for payment
 		paymentGridPane = new HBox();
 		paymentGridPane.setAlignment(Pos.CENTER);
@@ -163,9 +160,8 @@ public class view implements ActionListener {
 
 		personalData.add(new Label("Birthday:"), 0, 4);
 
-		//personalData.add(birthday, 1, 4);
+		// personalData.add(birthday, 1, 4);
 		personalData.add(checkInDatePicker, 1, 4);
-		
 
 		personalData.add(new Label("Age:"), 0, 5);
 
@@ -193,32 +189,32 @@ public class view implements ActionListener {
 		personalData.add(paymentGridPane, 1, 9);
 
 		personalData.add(new Label("Image: "), 0, 10);
-		
+
 		personalData.add(upload, 1, 10);
 
 		aButton.setMinWidth(90);
 		btnEdit.setMinWidth(40);
 		btnClean.setMinWidth(80);
 		btnTournamet.setMinWidth(100);
-		
+
 		HBox lowerLine = new HBox();
-		lowerLine.getChildren().addAll(aButton,btnEdit,btnClean,btnTournamet);
+		lowerLine.getChildren().addAll(aButton, btnEdit, btnClean, btnTournamet);
 		lowerLine.setPadding(new Insets(7));
 		lowerLine.setSpacing(5);
-		//personalData.add(line, 0, 11);
-		
+		// personalData.add(line, 0, 11);
+
 		btnTournamet.setId("round-green");
 		btnSearch.setId("rich-blue");
 		btnClean.setId("round-green");
 		aButton.setId("round-green");
 		btnEdit.setId("round-green");
 		btnRemove.setId("round-red");
-		
+
 		personalData.add(new Label(), 1, 12);
 
 		GridPane searchInfo = new GridPane();
 		HBox upperSearchLine = new HBox();
-		upperSearchLine.getChildren().addAll(btnSearch,btnRemove);
+		upperSearchLine.getChildren().addAll(btnSearch, btnRemove);
 		upperSearchLine.setPadding(new Insets(5));
 		upperSearchLine.setSpacing(5);
 		searchInfo.add(upperSearchLine, 0, 0);
@@ -227,7 +223,6 @@ public class view implements ActionListener {
 		searchInfo.add(new Label("Family Name:"), 0, 3);
 		searchInfo.add(searchBoxByName, 1, 2);
 		searchInfo.add(searchBoxByFamilyName, 1, 3);
-		
 
 		GridPane centerInfo = new GridPane();
 
@@ -236,32 +231,33 @@ public class view implements ActionListener {
 
 		Label space2 = new Label("");
 		space2.setMinWidth(100);
-		personalData.add(space2, 1, 0);	
+		personalData.add(space2, 1, 0);
 		centerInfo.add(new HBox(new Label()), 0, 0);
 		centerInfo.add(searchInfo, 0, 1);
-		
-		//Image img2 = new Image("C:\\Users\\lidorett\\git\\Table_Soccer\\20.jpg");
-		//FileChooser upfile = new FileChooser();
-		//upfile.showOpenDialog(null);
-		
+
+		// Image img2 = new
+		// Image("C:\\Users\\lidorett\\git\\Table_Soccer\\20.jpg");
+		// FileChooser upfile = new FileChooser();
+		// upfile.showOpenDialog(null);
+
 		imgView = new ImageView();
-		//imgView.setImage(img2);
-		
+		// imgView.setImage(img2);
+
 		centerInfo.add(imgView, 0, 3);
-		
+
 		imgView.setFitHeight(80);
 		imgView.setFitWidth(80);
-		
-		//centerInfo.add(new HBox(new Label()), 0, 2);
-		//centerInfo.add(new HBox(new Label()), 0, 3);
-		//centerInfo.add(new HBox(new Label()), 0, 4);
-		//centerInfo.add(new HBox(new Label()), 0, 3);
-		//centerInfo.add(new HBox(new Label()), 0, 4);
-		//centerInfo.add(new HBox(new Label()), 0, 3);
+
+		// centerInfo.add(new HBox(new Label()), 0, 2);
+		// centerInfo.add(new HBox(new Label()), 0, 3);
+		// centerInfo.add(new HBox(new Label()), 0, 4);
+		// centerInfo.add(new HBox(new Label()), 0, 3);
+		// centerInfo.add(new HBox(new Label()), 0, 4);
+		// centerInfo.add(new HBox(new Label()), 0, 3);
 		centerInfo.add(new HBox(new Label()), 0, 4);
 		centerInfo.add(personalData, 0, 5);
 		centerInfo.add(lowerLine, 0, 6);
-		
+
 		centerInfo.setMinSize(200, 300);
 
 		// Layout root pane
@@ -275,8 +271,7 @@ public class view implements ActionListener {
 		buttonSortName.setId("vtable");
 		buttonSortAge.setId("vtable");
 		buttonSortRank.setId("vtable");
-		
-		
+
 		Border.setLeft(Vtable);
 
 		Border.setCenter(centerInfo);
@@ -289,7 +284,6 @@ public class view implements ActionListener {
 		personalData.getColumnConstraints().addAll(cc, cc, cc, cc);
 
 		Scene scene = new Scene(Border);
-		
 
 		tableView.getStylesheets().add(getClass().getResource("table.css").toExternalForm());
 
@@ -297,7 +291,6 @@ public class view implements ActionListener {
 		stage.setHeight(600);
 		stage.setScene(scene);
 		stage.setTitle("Table Soccer");
-
 
 	}
 
@@ -321,6 +314,13 @@ public class view implements ActionListener {
 	}
 
 	public void start() throws IOException {
+
+		try {
+			CryptoUtils.decrypt(Model.key, Model.encryptedFile, Model.decryptedFile);
+		} catch (CryptoException e) {
+			e.printStackTrace();
+		}
+
 		stage.show();
 	}
 
@@ -337,18 +337,13 @@ public class view implements ActionListener {
 		e.getActionCommand();
 
 	}
-	
 
-	
-	public void tournamentStart() throws Exception{
+	public void tournamentStart() throws Exception {
 
 		TourModel tModel = new TourModel();
 		TourView tView = new TourView(new Stage(), tModel);
-		TourController tController = new TourController(tModel, tView);	
+		TourController tController = new TourController(tModel, tView);
 		tView.start();
-		
-		
 	}
-
 
 }
