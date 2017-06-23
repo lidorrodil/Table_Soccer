@@ -36,7 +36,7 @@ public class AddMemberView {
 	 * @throws IOException
 	 *             blabla.
 	 */
-	public void start() throws IOException {
+	public void start(TourView view) throws IOException {
 		stage = new Stage();
 		stage.setTitle("Add Member");
 
@@ -52,7 +52,7 @@ public class AddMemberView {
 		addButton = new Button("Add Team");
 		cancelButton = new Button("Cancel");
 
-		addButton.setOnAction(e -> addButtonClicked());
+		addButton.setOnAction(e -> addButtonClicked(view));
 		addButton.setPrefWidth(100);
 		cancelButton.setOnAction(e -> cancelButtonClicked());
 		cancelButton.setPrefWidth(100);
@@ -98,7 +98,7 @@ public class AddMemberView {
 	/**
 	 * Adds the Specified Team.
 	 */
-	public void addButtonClicked() {
+	public void addButtonClicked(TourView view) {
 		String t = textfieldTeamName.getText();
 		String p1 = textfieldPlayer1Name.getText();
 		String p2 = textfieldPlayer2Name.getText();
@@ -106,5 +106,13 @@ public class AddMemberView {
 		textfieldPlayer1Name.clear();
 		textfieldPlayer2Name.clear();
 		textfieldTeamName.clear();
+		if(TeamList.getTeamlist().size()>7){
+			view.startTournamentButton.setDisable(false);
+		}
+		if (TeamList.getTeamlist().size() > 27){
+			addButton.setDisable(true);
+			view.addTeamButton.setDisable(true);
+			this.stop();
+		}
 	}
 }

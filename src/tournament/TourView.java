@@ -132,6 +132,9 @@ public class TourView {
 		hBox2.getChildren().add(removeTeamButton);
 		hBox2.getChildren().add(startTournamentButton);
 		hBox2.getChildren().add(rulesButton);
+		
+		// Disable the start tournamentbutton until there are at least 8 teams.
+		startTournamentButton.setDisable(true);
 
 		gridPane.setPadding(new Insets(3));
 

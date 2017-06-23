@@ -25,18 +25,18 @@ public class TeamList {
 
 		/*
 		 * Creates some dummy data to test with
-		 *
-		 * TeamList.addTeam("team1", "player1", "player2");
-		 * TeamList.addTeam("team2", "player1", "player2");
-		 * TeamList.addTeam("team31", "player1", "player2");
-		 * TeamList.addTeam("team41", "player1", "player2");
-		 * TeamList.addTeam("team51", "player1", "player2");
-		 * TeamList.addTeam("gsdfgs", "player1", "player2");
-		 * TeamList.addTeam("sdfjjk", "player1", "player2");
-		 * TeamList.addTeam("tttttttt", "player1", "player2");
-		 * TeamList.addTeam("llllllllll", "player1", "player2");
-		 * TeamList.addTeam("kkkkk", "player1", "player2");
 		 */
+		 TeamList.addTeam("team1", "player1", "player2");
+		 TeamList.addTeam("team2", "player1", "player2");
+		 TeamList.addTeam("team31", "player1", "player2");
+		 TeamList.addTeam("team41", "player1", "player2");
+		 TeamList.addTeam("team51", "player1", "player2");
+		 TeamList.addTeam("gsdfgs", "player1", "player2");
+		 TeamList.addTeam("sdfjjk", "player1", "player2");
+		 TeamList.addTeam("tttttttt", "player1", "player2");
+		 TeamList.addTeam("llllllllll", "player1", "player2");
+		 TeamList.addTeam("kkkkk", "player1", "player2");
+		 
 	}
 
 	/**

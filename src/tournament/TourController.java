@@ -246,7 +246,8 @@ public class TourController {
 	 */
 	public void addTeam() throws Exception {
 		AddMemberView view1 = new AddMemberView();
-		view1.start();
+		view1.start(view);
+		
 	}
 
 	/**
@@ -256,7 +257,7 @@ public class TourController {
 	 */
 	public void removeTeam() throws Exception {
 		RemoveMemberView view2 = new RemoveMemberView();
-		view2.start();
+		view2.start(view);
 	}
 
 	/**

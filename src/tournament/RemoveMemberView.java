@@ -30,7 +30,7 @@ public class RemoveMemberView {
 	 * Starts the remove members window.
 	 * @throws IOException
 	 */
-	public void start() throws IOException {
+	public void start(TourView view) throws IOException {
 		stage = new Stage();
 		stage.setTitle("Remove Team");
 		VBox root = new VBox();
@@ -48,7 +48,7 @@ public class RemoveMemberView {
 		removeButton = new Button("Remove Team");
 		cancelButton = new Button("Cancel");
 
-		removeButton.setOnAction(e -> removeButtonClicked());
+		removeButton.setOnAction(e -> removeButtonClicked(view));
 		removeButton.setPrefWidth(100);
 		cancelButton.setOnAction(e -> cancelButtonClicked());
 		cancelButton.setPrefWidth(100);
@@ -83,12 +83,16 @@ public class RemoveMemberView {
 	/**
 	 * Removes chosen team.
 	 */
-	public void removeButtonClicked() {
+	public void removeButtonClicked(TourView view) {
 		Team t = (Team) dropdown.getSelectionModel().getSelectedItem();
-		System.out.println("test before remove team");
 		TeamList.removeTeam(t.toString());
-		System.out.println("test after remove team");
 		dropdown.setValue(null);
+		if(TeamList.getTeamlist().size() < 28){
+			view.addTeamButton.setDisable(false);
+		}
+		if(TeamList.getTeamlist().size() <8){
+			view.startTournamentButton.setDisable(true);
+		}
 	}
 	
 	

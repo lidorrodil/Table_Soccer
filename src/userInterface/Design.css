@@ -2,7 +2,7 @@
    by setting a large max-size */
    
 .root {
-     -fx-background-image: url("wood.jpg");
+     -fx-background-image: url("background.jpg");
 }
 
 .label {

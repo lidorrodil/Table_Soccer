@@ -1,16 +1,23 @@
 package tournament;
 
+import java.util.Optional;
+
 import com.sun.deploy.uitoolkit.impl.fx.ui.FXConsole;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * Enables you to add results to the preliminary games.
@@ -24,7 +31,6 @@ public class ShowPreliminaryGamesView {
 	protected Scene scene;
 	
 	protected Button finishButton = new Button("Finish Preliminaries");
-	protected Button cancelButton = new Button("Cancel Game");
 	protected Button nextGameButton1 = new Button("Next Game");
 	protected Button nextGameButton2 = new Button("Next Game");
 	protected Button nextGameButton3 = new Button("Next Game");
@@ -79,8 +85,6 @@ public class ShowPreliminaryGamesView {
 		setInitialPairings();
 		createGUI(); // Do this after initial Pairing.
 
-		cancelButton.setOnAction(c -> stop());
-
 		nextGameButton1.setOnAction(c -> setPairing1());
 		nextGameButton2.setOnAction(c -> setPairing2());
 		nextGameButton3.setOnAction(c -> setPairing3());
@@ -92,6 +96,22 @@ public class ShowPreliminaryGamesView {
 		scene.getStylesheets().add(getClass().getResource("TourView.css").toExternalForm());
 
 		stage = new Stage();
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>(){
+			@Override
+			public void handle(WindowEvent event){
+				event.consume();
+				
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Close Confirmation");
+				alert.setHeaderText("Are all games played? Only click \"OK\", if yes.");
+				alert.initOwner(stage);
+				
+				Optional<ButtonType> result = alert.showAndWait();
+				if(result.get() == ButtonType.OK){
+					stop();
+				}
+			}
+		});
 		stage.setScene(scene);
 		stage.setTitle("Add Game");
 		stage.show();
@@ -315,9 +335,8 @@ public class ShowPreliminaryGamesView {
 		result42.setPromptText(0 + "");
 
 		// Format Buttons
-		finishButton.setPrefWidth(320);
+		finishButton.setPrefWidth(430);
 		finishButton.setDisable(true);
-		cancelButton.setPrefWidth(100);
 		nextGameButton1.setPrefWidth(100);
 		nextGameButton2.setPrefWidth(100);
 		nextGameButton3.setPrefWidth(100);
@@ -328,7 +347,7 @@ public class ShowPreliminaryGamesView {
 		root.add(labelTeamName2, 0, 2, 1, 1);
 		root.add(labelTeamName3, 0, 3, 1, 1);
 		root.add(labelTeamName4, 0, 4, 1, 1);
-		root.add(finishButton, 0, 5, 4, 1);
+		root.add(finishButton, 0, 5, 5, 1);
 
 		root.add(result11, 2, 1, 1, 1);
 		root.add(result12, 3, 1, 1, 1);
@@ -343,7 +362,6 @@ public class ShowPreliminaryGamesView {
 		root.add(nextGameButton2, 4, 2, 1, 1);
 		root.add(nextGameButton3, 4, 3, 1, 1);
 		root.add(nextGameButton4, 4, 4, 1, 1);
-		root.add(cancelButton, 4, 5, 1, 1);
 	}
 
 	/**

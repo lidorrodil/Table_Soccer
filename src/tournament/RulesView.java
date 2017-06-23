@@ -31,12 +31,12 @@ public class RulesView {
 		root.setSpacing(10);
 		
 		String line1 = "1. At maximum, 28 Teams can participate. \n";
-		String line2 = "2. All Preliminary Games end with 7 Goals Scored. A 6:6 counts as a draw. \n";
-		String line3 = "3. The first and the second team of each group advance to the quarter finals. \n";
-		String line4 = "4. In the knockout phase, whichever teams scores 7 times first, wins the set. \n";
-		String line5 = "5. Whichever team wins 3 sets first, wins the round. \n";
-		String line6 = "6. Have Fun!";
-		String line7 = "";
+		String line2 = "2. At least, 8 teams must participate. \n";
+		String line3 = "3. All Preliminary Games end with 7 Goals Scored. A 6:6 counts as a draw. \n";
+		String line4 = "4. The first and the second team of each group advance to the quarter finals. \n";
+		String line5 = "5. In the knockout phase, whichever teams scores 7 times first, wins the set. \n";
+		String line6 = "6. Whichever team wins 3 sets first, wins the round. \n";
+		String line7 = "7. Have Fun!";
 		String line8 = "";
 		String line9 = "";
 		String line10 = "";
@@ -48,7 +48,7 @@ public class RulesView {
 		
 		message1 = new Text("The Rules are as follows:");
 		message1.setStrokeWidth(2);
-		message2 = new Text(line1+line2+line3+line4+line5+line6);
+		message2 = new Text(line1+line2+line3+line4+line5+line6+line7);
 		
 		message1.prefWidth(500);
 		message1.maxWidth(500);
