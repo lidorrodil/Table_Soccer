@@ -224,6 +224,8 @@ public class accessController {
 	private void firstLaunchPasswordSetter() {
 		PASSWORD_FILE.setWritable(makeWritable);
 		USERNAME_FILE.setWritable(makeWritable);
+		USERNAME_SALT_FILE.setWritable(makeWritable);
+		PASSWORD_SALT_FILE.setWritable(makeWritable);
 		
 		BufferedReader br = null;
 		try {
@@ -275,6 +277,8 @@ public class accessController {
 		}
 		PASSWORD_FILE.setWritable(makeUnWritable);
 		USERNAME_FILE.setWritable(makeUnWritable);
+		USERNAME_SALT_FILE.setWritable(makeUnWritable);
+		PASSWORD_SALT_FILE.setWritable(makeUnWritable);
 	}
 	
 	/**

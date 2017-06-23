@@ -329,6 +329,7 @@ public class view implements ActionListener {
 	 */
 	public void stop() {
 		stage.hide();
+		System.out.println("Stage Hidden");
 	}
 
 	@Override
