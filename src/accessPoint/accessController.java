@@ -317,7 +317,7 @@ public class accessController {
 					passwordDBSaltWriter.close();
 
 					hashedDBPassword = encryptor.getEncryptedPassword(standardDBPassword, saltDBPassword);
-					FileOutputStream passwordDBWriter = new FileOutputStream(PASSWORD_FILE);
+					FileOutputStream passwordDBWriter = new FileOutputStream(DB_FILE);
 					passwordDBWriter.write(hashedDBPassword);
 					passwordDBWriter.close();
 					System.out.println("Standard database password generated successfully.");
